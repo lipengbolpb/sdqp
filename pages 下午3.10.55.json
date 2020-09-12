@@ -1,0 +1,369 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页
+	    {
+	    	"path": "pages/index/index", // 首页
+			"style": {
+				"navigationStyle": "custom"
+			}
+	    },
+		{
+			"path": "pages/mall/mall", 
+			"style": {
+				"navigationStyle": "default",
+				"navigationBarTitleText": "商城"
+			}
+		},
+		{
+			"path": "pages/score/score", 
+			"style": {
+				"navigationBarTitleText": "积分好礼"
+			}
+		},
+		{
+			"path": "pages/personal/personal", 
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/goodsDetail/goodsDetail", 
+			"style": {
+				"navigationStyle": "default",
+				"navigationBarTitleText": "商品详情"
+			}
+		},
+		{
+			"path": "pages/buy/buyOrder",
+			"style": {
+				"navigationStyle": "default",
+				"navigationBarTitleText": "订单结算"
+			}
+		},
+		{
+			"path": "pages/address/addressList",
+			"style": {
+				"navigationStyle": "default",
+				"navigationBarTitleText": "地址管理"
+			}
+		},
+		{
+			"path": "pages/address/addressAdd", 
+			"style": {
+				"navigationStyle": "default",
+				"navigationBarTitleText": "新增地址"
+			}
+		},
+		{
+			"path": "pages/scoreList/scoreList",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/sign/sign",
+			"style": {
+				"navigationStyle": "custom"
+			}  
+		},
+		{
+			"path": "pages/order/order",
+			"style": {
+				"navigationStyle": "default",
+				"navigationBarTitleText": "订单管理"
+			}
+		},
+		{
+			"path": "pages/order/orderDetail",
+			"style": {
+				"navigationStyle": "default",
+				"navigationBarTitleText": "订单详情"   
+			}
+		},
+		{
+		   "path" : "pages/logistics/logistics",
+		   "style" : {
+			"navigationStyle": "default",
+			"navigationBarTitleText": "提交物流信息"
+		   }
+		},
+		{
+		   "path" : "pages/afterSale/afterSale",
+		   "style" : {
+			"navigationStyle": "default",
+			"navigationBarTitleText": "申请售后"
+		   }
+		},
+		{
+			"path": "pages/buy/paySuccess", // 支付完成
+			"style": {
+				"navigationStyle": "default",
+				"navigationBarTitleText": "支付完成"
+			}
+		},
+		{
+			"path": "pages/getOpenid/getOpenid", 
+			"style": {
+				"navigationStyle": "default",
+				"navigationBarTitleText": "获取openid"
+			}
+		},
+		{
+			"path": "pages/userInfo/infoTask",
+			"style": {
+				"navigationStyle": "default",
+				"navigationBarTitleText": "完善信息"
+			}
+		},
+		{
+			"path": "pages/userInfo/giveTel",
+			"style": {
+				"navigationStyle": "default",
+				"navigationBarTitleText": "授权手机号"
+			}
+		},
+		{
+			"path": "pages/userInfo/writeInfo",
+			"style": {
+				"navigationStyle": "default",
+				"navigationBarTitleText": "完善用户信息"
+			}
+		},
+		{
+			"path": "pages/webview/attention",
+			"style": {}
+		},
+		{
+			"path": "pages/saoDianDe/activityEntrance/test", // 扫码入口 测试页面
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},	
+		{
+			"path": "pages/saoDianDe/verification/verification", // 扫点得 大奖核销
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		
+		{
+			"path": "pages/saoDianDe/common/getCash", // 通用版本 获得红包
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},	
+		{
+			"path": "pages/saoDianDe/prizeList/prizeList", // 扫点得 大奖列表 
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},	
+		
+		{
+			"path": "pages/saoDianDe/exchangeGoods/exchangeGoods", // 扫点得 换购商品
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},	
+		{ 
+			"path": "pages/saoDianDe/webView/webView", // 扫码入口 测试页面
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},	
+		{
+			"path": "pages/saoDianDe/activityEntrance/activityEntrance", //活动页面
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/saoDianDe/winningRecord/winningRecord", // 扫点得 中奖纪录
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/saoDianDe/blackList/blackList", // 扫点得 黑名单
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/saoDianDe/strCode/strCode", // 输入串码 
+			"style": {
+				"navigationBarTitleText": "序列码抽奖",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/saoDianDe/common/submitUserInformation", // 通用版 领取大奖
+			"style": {
+				"navigationBarTitleText": "填写信息",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/saoDianDe/LaoShan/getCash", // 崂山版本 领取红包
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/saoDianDe/LaoShan/yindaoGuanzhu", // 崂山版本 引导关注
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},	
+		{
+			"path": "pages/saoDianDe/LaoShan/abnormal", // 崂山版本 异常显示页面
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},	
+		{
+			"path": "pages/saoDianDe/common/getCashSuc", // 通用版本 红包领取成功
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{    
+			"path": "pages/saoDianDe/common/codeScanned", // 通用版本 二维码已被扫
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/saoDianDe/common/abnormal", // 通用版本 异常显示页面
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},	
+		{
+			"path": "pages/saoDianDe/common/yindaoGuanzhu", // 通用版本 引导关注
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/saoDianDe/JinMai/disc", // 金麦 转盘
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},	
+		{
+			"path": "pages/saoDianDe/JinMai/discSuc", // 金麦 转盘结束显示
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/saoDianDe/JinMai/yindaoGuanzhu", // 金麦 引导关注
+			"style": {
+				"navigationBarBackgroundColor": "#000",
+				"navigationBarTitleText": "青岛啤酒"
+			}
+		},		
+		{
+			"path": "pages/saoDianDe/JinMai/rule", // 金麦 活动规则、兑换规则
+			"style": {
+				"navigationBarBackgroundColor": "#000",
+				"navigationBarTitleText": "青岛啤酒"
+			}
+		},	
+		{
+			"path": "pages/saoDianDe/JinMai/abnormal", // 金麦 异常显示页面
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/saoDianDe/common/getPrize", // 通用版 大奖页面
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "components/activityRuleDetail", // 活动规则
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/saoDianDe/openScan/openScan", //打开扫一扫 tabr
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/saoDianDe/openScanCom/openScanCom", // 扫一扫通用
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/module/imgWrap",
+			"style": {
+				"navigationBarTitleText": "青岛啤酒"
+			}
+		},
+		{
+			"path": "pages/module/webview",
+			"style": {
+				"navigationBarTitleText": "青岛啤酒"
+			}
+		},
+		
+		{
+			"path" : "pages/module/rule-common",
+			"style" : {
+				"navigationBarTitleText": "活动规则",
+				"navigationStyle": "default"
+			}
+		},
+		{
+			"path" : "pages/luckDrawList/luckDrawList",
+			"style" : {
+				"navigationStyle": "custom"
+			}
+		}
+	],
+	"tabBar": {
+		"list": [{
+				"pagePath": "pages/index/index",
+				"text": "首页",
+				"iconPath": "static/tab/home.png",
+				"selectedIconPath": "static/tab/homeOn.png"
+			},
+			{
+				"pagePath": "pages/mall/mall",
+				"text": "商城",
+				"iconPath": "static/tab/mall.png",
+				"selectedIconPath": "static/tab/mallOn.png"
+			},
+			{
+				"pagePath": "pages/score/score",
+				"text": "积分",
+				"iconPath": "static/tab/score.png",
+				"selectedIconPath": "static/tab/scoreOn.png"
+			},
+			{
+				"pagePath": "pages/personal/personal",   
+				"text": "我的",
+				"iconPath": "static/tab/personal.png",
+				"selectedIconPath": "static/tab/personalOn.png"
+			}
+		],
+		"backgroundColor": "#ffffff",
+		"color": "#656565",
+		"selectedColor": "#F9B900",
+		"borderStyle": "black"
+	},
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "山东青岛啤酒",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"navigateToMiniProgramAppIdList": ["wxb17a1a2610979ad3"]
+}

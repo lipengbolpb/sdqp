@@ -1,0 +1,6 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "custom-template": "/components/custom-template/custom-template"
+  }
+}

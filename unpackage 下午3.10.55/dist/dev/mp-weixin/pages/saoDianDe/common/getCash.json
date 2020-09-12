@@ -1,0 +1,8 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "custom-template": "/components/custom-template/custom-template",
+    "ladder_page": "/components/ladder",
+    "text-scroll": "/components/screenTextScroll/screenTextScroll"
+  }
+}

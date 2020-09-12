@@ -1,0 +1,148 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.payOk {
+  height: 100%;
+  box-sizing: border-box;
+  background: #F6F6F6;
+  overflow: hidden;
+}
+.result {
+  height: 536rpx;
+  background: #FFFFFF;
+  text-align: center;
+  padding-top: 56rpx;
+}
+.result .icon image {
+  width: 134rpx;
+}
+.result .state {
+  font-size: 40rpx;
+  color: #333333;
+  padding: 36rpx 0;
+}
+.result .tip {
+  padding-bottom: 30rpx;
+}
+.result .tip text {
+  font-size: 26rpx;
+  color: #666666;
+}
+.result .btn {
+  width: 50%;
+  border: 3rpx solid #57BE6F;
+  border-radius: 20rpx;
+  font-size: 30rpx;
+  color: #000000;
+  padding: 24rpx;
+  margin: 0 auto;
+}
+.commend {
+  height: 100%;
+  padding: 30rpx;
+}
+.commend .title {
+  text-align: center;
+}
+.commend .title image {
+  width: 353rpx;
+}
+.commend .goods {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+}
+.commend .goods .item {
+  background: #FFF;
+  border-radius: 20rpx;
+  margin-bottom: 30rpx;
+  position: relative;
+}
+.commend .goods .item .proImg {
+  height: 290rpx;
+}
+.commend .goods .item .proImg image {
+  width: 330rpx;
+  border-top-left-radius: 20rpx;
+  border-top-right-radius: 20rpx;
+}
+.commend .goods .item .circle {
+  width: 211rpx;
+  height: 211rpx;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  text-align: center;
+  line-height: 219rpx;
+  color: #fff;
+  font-size: 30rpx;
+  letter-spacing: 4rpx;
+  position: absolute;
+  top: 8%;
+  left: 18%;
+}
+.commend .goods .item .proInfo {
+  padding: 34rpx 28rpx;
+}
+.commend .goods .item .proInfo .proName {
+  font-size: 28rpx;
+  color: #333;
+  padding-top: 34rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.commend .goods .item .proInfo .proUnit {
+  font-size: 22rpx;
+  color: #888888;
+  margin: 24rpx 0;
+  display: inline-block;
+  max-width: 400rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 36rpx;
+}
+.commend .goods .item .proInfo .proUnit view {
+  border: 1rpx solid #CACACA;
+  border-radius: 6px;
+  padding: 0 12rpx;
+}
+.commend .goods .item .proInfo .price {
+  font-size: 30rpx;
+  color: #F60000;
+}
+.commend .goods .item .proInfo .price .danwei {
+  font-size: 24rpx;
+}
+.commend .goods .item .proInfo .price.saleOver {
+  color: #9A9A9A;
+}
+

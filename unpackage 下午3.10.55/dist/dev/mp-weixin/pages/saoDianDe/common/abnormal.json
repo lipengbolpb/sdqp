@@ -1,0 +1,7 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "custom-template": "/components/custom-template/custom-template",
+    "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar"
+  }
+}

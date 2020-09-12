@@ -1,0 +1,7 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "activity-rule": "/components/activityRule",
+    "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar"
+  }
+}

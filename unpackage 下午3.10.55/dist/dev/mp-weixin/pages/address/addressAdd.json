@@ -1,0 +1,8 @@
+{
+  "navigationStyle": "default",
+  "navigationBarTitleText": "新增地址",
+  "usingComponents": {
+    "button-bg": "/components/button-bg",
+    "simple-address": "/components/simple-address/simple-address"
+  }
+}
