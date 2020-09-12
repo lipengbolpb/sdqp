@@ -1,1 +1,0 @@
-<view class="page-template data-v-b369ac9c"><view class="page-template-wrap page-template-wrap-bg data-v-b369ac9c" style="{{'background:'+('url('+ctbackground+') no-repeat center')+';'+('background-size:'+('cover')+';')}}"><view class="page-template-wrap-center data-v-b369ac9c" style="{{'height:'+(ctheight+'rpx')+';'}}"><slot></slot></view></view></view>

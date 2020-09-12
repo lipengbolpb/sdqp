@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "填写信息",
-  "navigationStyle": "custom",
-  "usingComponents": {
-    "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar",
-    "custom-dialog": "/components/customDialog",
-    "custom-footer-bar": "/components/custom-footer-bar/custom-footer-bar"
-  }
-}

@@ -1,1 +1,0 @@
-<view class="content"><image src="{{target}}" mode="widthFix" data-event-opts="{{[['load',[['imgLoad',['$event']]]]]}}" bindload="__e"></image></view>

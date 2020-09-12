@@ -1,1 +1,0 @@
-<view><web-view src="{{target}}"></web-view></view>
