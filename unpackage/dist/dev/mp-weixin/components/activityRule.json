@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "activity-rule-detail": "/components/activityRuleDetail"
+  }
+}

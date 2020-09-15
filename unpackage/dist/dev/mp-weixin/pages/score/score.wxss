@@ -1,0 +1,333 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.scorePage {
+  background-color: #F8F8F8;
+}
+.block {
+  background-color: #fff;
+  border-radius: 20rpx;
+  padding: 0 24rpx;
+}
+.score {
+  width: 100%;
+  height: 70rpx;
+  background: #FFEED2;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  line-height: 70rpx;
+}
+.score .coin {
+  -webkit-flex-basis: 20%;
+          flex-basis: 20%;
+  -webkit-flex-shrink: 1;
+          flex-shrink: 1;
+  text-align: center;
+}
+.score .coin image {
+  width: 66rpx;
+  vertical-align: bottom;
+}
+.score .total {
+  -webkit-flex-basis: 50%;
+          flex-basis: 50%;
+  -webkit-flex-shrink: 5;
+          flex-shrink: 5;
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #9A6005;
+  text-align: left;
+}
+.score .bill {
+  -webkit-flex-basis: 30%;
+          flex-basis: 30%;
+  -webkit-flex-shrink: 4;
+          flex-shrink: 4;
+  font-size: 26rpx;
+  font-weight: 400;
+  color: #050505;
+  text-align: center;
+}
+.part {
+  padding: 24rpx;
+}
+.part .title {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+          flex-direction: row;
+  -webkit-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  border-bottom: 1rpx solid #F3F3F3;
+}
+.part .title .titxt {
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #333333;
+  line-height: 70rpx;
+}
+.part .title .titxt.more {
+  font-size: 24rpx;
+  font-weight: 400;
+  color: #666;
+}
+.part .cj {
+  margin-bottom: 26rpx;
+  padding-bottom: 20rpx;
+}
+.part .cj .cjImg {
+  width: 646rpx;
+}
+.part .task {
+  margin-bottom: 26rpx;
+}
+.part .task .taskList {
+  padding: 42rpx 0  0;
+}
+.part .task .taskList .li {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+          flex-direction: row;
+  -webkit-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  height: 110rpx;
+}
+.part .task .taskList .li .taskname .item {
+  font-size: 28rpx;
+  font-weight: 400;
+  color: #333;
+  line-height: 46rpx;
+}
+.part .task .taskList .li .taskname .jifen {
+  font-size: 22rpx;
+  font-weight: 500;
+  color: #FF2D29;
+}
+.part .task .taskList .li .getBtn {
+  width: 140rpx;
+  height: 62rpx;
+  background: #FABA01;
+  border-radius: 31rpx;
+  font-size: 26rpx;
+  font-weight: 400;
+  color: #000;
+  line-height: 62rpx;
+  text-align: center;
+}
+.part .task .taskList .li .getBtn.getOver {
+  background: #EDEDED;
+  color: #999;
+}
+.part .shareBox {
+  height: 172rpx;
+}
+.part .shareBox .share {
+  width: 100%;
+}
+.part .recommend {
+  margin-top: 26rpx;
+}
+.part .recommend .items .item-list {
+  padding-top: 32rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  height: 225rpx;
+  border-bottom: 1rpx solid #F3F3F3;
+}
+.part .recommend .items .item-list:nth-last-child(1) {
+  border-bottom: none;
+}
+.part .recommend .items .item-list .proImg {
+  -webkit-flex-shrink: 1;
+          flex-shrink: 1;
+  width: 170rpx;
+  height: 170rpx;
+  border: 2rpx solid #e5e5e5;
+  border-radius: 10rpx;
+  position: relative;
+}
+.part .recommend .items .item-list .proImg image {
+  width: 134rpx;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+.part .recommend .items .item-list .proInfo {
+  width: 50%;
+  -webkit-flex-shrink: 2;
+          flex-shrink: 2;
+  padding-left: 20rpx;
+}
+.part .recommend .items .item-list .proInfo .proName {
+  width: 140%;
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #333;
+}
+.part .recommend .items .item-list .proInfo .unit {
+  font-size: 22rpx;
+  color: #999;
+  margin: 14rpx 0 0;
+  display: inline-block;
+  max-width: 200rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.part .recommend .items .item-list .proInfo .unit view {
+  border: 1px solid #CACACA;
+  border-radius: 6rpx;
+  padding: 0rpx 12rpx;
+}
+.part .recommend .items .item-list .proInfo .normalPrice {
+  font-size: 22rpx;
+  color: #999;
+}
+.part .recommend .items .item-list .proInfo .price {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #FF4514;
+}
+.part .recommend .items .item-list .proInfo .price .danwei {
+  font-size: 22rpx;
+}
+.part .recommend .items .item-list .exchangeBtn {
+  width: 160rpx;
+  height: 62rpx;
+  background: #FABA01;
+  border-radius: 31rpx;
+  font-size: 26rpx;
+  font-weight: 400;
+  color: #000;
+  line-height: 62rpx;
+  text-align: center;
+  margin-top: 16%;
+}
+.toast {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+  white-space: nowrap;
+  z-index: 99;
+}
+.toast:after {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+.toast .toastBox {
+  width: 475rpx;
+  height: 270rpx;
+  background: #fff;
+  border: 3rpx solid #4EB435;
+  border-radius: 20rpx;
+  display: inline-block;
+  vertical-align: middle;
+  background-color: #fff;
+  text-align: center;
+  white-space: normal;
+}
+.toast .toastBox .img {
+  padding-top: 8%;
+}
+.toast .toastBox .img image {
+  width: 185rpx;
+}
+.toast .toastBox .text {
+  font-size: 28rpx;
+  font-weight: 400;
+  color: #333;
+  line-height: 42rpx;
+}
+.toast .toastBox .text .point {
+  color: #FF2D29;
+}
+.toast.shareShadow {
+  background: rgba(0, 0, 0, 0.6);
+}
+.toast .shareTipBox {
+  border-radius: 10rpx;
+  background: #fff;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  white-space: normal;
+  padding: 30rpx 48rpx 20rpx;
+}
+.toast .shareTipBox .img {
+  margin-bottom: 20rpx;
+}
+.toast .shareTipBox .img .title {
+  width: 369rpx;
+}
+.toast .shareTipBox .coverImg {
+  width: 563rpx;
+  margin-bottom: 24rpx;
+}
+.toast .shareTipBox .text {
+  text-align: left;
+  font-size: 24rpx;
+  font-weight: 400;
+  color: #656565;
+  line-height: 32rpx;
+}
+.toast .shareTipBox .text.tit {
+  font-weight: 500;
+  color: #656565;
+  padding-bottom: 10rpx;
+}
+.toast .shareTipBox .btnshare {
+  width: 420rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  background: #65BD6A;
+  border-radius: 10rpx;
+  font-size: 30rpx;
+  color: #FFF;
+  margin: 34rpx auto 0;
+}
+

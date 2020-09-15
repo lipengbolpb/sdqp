@@ -1,0 +1,7 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "wx-open-setting": "/components/wx-open-setting/wx-open-setting",
+    "weixin-open-setting": "/components/wx-open-setting/wx-open-setting"
+  }
+}

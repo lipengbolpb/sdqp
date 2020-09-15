@@ -1,0 +1,7 @@
+{
+  "navigationBarBackgroundColor": "#000",
+  "navigationBarTitleText": "青岛啤酒",
+  "usingComponents": {
+    "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar"
+  }
+}
