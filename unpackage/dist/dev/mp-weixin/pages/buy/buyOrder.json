@@ -1,0 +1,7 @@
+{
+  "navigationStyle": "default",
+  "navigationBarTitleText": "订单结算",
+  "usingComponents": {
+    "button-bg": "/components/button-bg"
+  }
+}

@@ -14,18 +14,18 @@
 						</view>
 						<view class="">
 							<view class="pct-userInfor-nickName">{{ nickNameSub }}</view>
-							<view class="pct-userInfor-shuliang">累计饮酒：{{ total }}支</view>
+							<view class="pct-userInfor-shuliang"> <text>累计饮酒：</text><text>{{ total }}</text><text>支</text> </view>
 						</view>
 					</view>
 				</view>
-				<view class="qiandao">
+				<view class="qiandao" @click="signIn">
 					<text>签到</text>
 				</view>
 			</view>
 			<!-- tab 显示 订单状态 -->
 			<view class="personalCenter-tabs flex-xsb-yc">
-				<block v-for="item in tabsArr" v-key="item.id">
-					<view class="flex-xc-yc-dirY">
+				<block v-for="item in tabsArr" :key="item.id">
+					<view class="flex-xc-yc-dirY" @click="listNav(item)">
 						<image :src="item.icon" mode="widthFix"></image>
 						<text> {{ item.name }} </text>
 						<view class="showCenter" v-if="item.showCenter && item.showCenter>0">{{item.showCenter}}</view>
@@ -36,6 +36,7 @@
 		<!-- 列表 -->
 		<scroll-view :style="{ height: scrollViewHeight + 'px',paddingBottom:'20rpx' }" scroll-y="true" class="wrc-listBox">
 			<view class="pct-list-top-box pct-common">
+
 				<view class="flex-xsb-yc pct-list " v-for="item in pctList" :key="item.id" @click="listNav(item)">
 					<view class="flex-xn-yc pct-list-left">
 						<image class="icon" :src="item.icon"></image>
@@ -46,6 +47,7 @@
 						<text v-if="item.showCenter">{{item.showCenter}}</text>
 					</view>
 				</view>
+
 			</view>
 			<view class="pct-list-top-box pct-common">
 				<view class="flex-xsb-yc pct-list " v-for="item in pctListBot" :key="item.id" @click="listNav(item)">
@@ -60,11 +62,36 @@
 				</view>
 			</view>
 		</scroll-view>
-
 	</view>
 </template>
 
 <script>
+	/**
+	 * 列表优惠券 一期不限制
+	 *  {
+	 *		 id: 3,
+	 *		 isCanClick: true,
+	 *		 isShow: false,
+	 *		 status: 1, // 1 跳转 路径 2 显示弹窗
+	 *		 name: '优惠券',
+	 *		 icon: config.staticUrl + 'personalCenter/iconyouhuiquan.png',
+	 *		 rightIcon: config.staticUrl + 'personalCenter/iconRight.png',
+	 *		 navUrl: ''
+	 * }, 
+	 * 
+	 * 列表 我的心愿单
+	 *  {
+	 *				id: 1,
+	 *				isCanClick: true,
+	 *				isShow: true,
+	 *				status: 1, // 1 跳转 路径 2 显示弹窗
+	 *				name: '我的心愿单',
+	 *				icon: config.staticUrl + 'personalCenter/iconwodexiinyuandan.png',
+	 *				rightIcon: config.staticUrl + 'personalCenter/iconRight.png',
+	 *				navUrl: '/pages/saoDianDe/winningRecord/winningRecord'
+	 *			}, 
+	 * 
+	 * **/
 	import {
 		get,
 		post,
@@ -74,7 +101,8 @@
 		getUserInfo
 	} from '@/common/getWxUserInfor.js';
 	import {
-		queryAllGiftsList
+		queryAllGiftsList,
+		queryUnExchangePrizeLstRequst
 	} from '@/common/getData.js';
 	import activityRule from '@/components/activityRule.vue';
 	import {
@@ -83,7 +111,7 @@
 		dateformatTemp,
 		filterArr,
 		getOpenidSD,
-		getUserBasics
+		getVjifenOpenid
 	} from '@/common/basicsFun.js';
 	import uniNavBar from '@/components/uni-nav-bar/uni-nav-bar.vue';
 	import {
@@ -121,7 +149,7 @@
 				staticUrl: config.staticUrl,
 				personalCenterImg: config.staticUrl + 'personalCenter/',
 				openid: '',
-				total: '', //累计饮酒 
+				total: 0, //累计饮酒 
 				pctList: [{
 					id: 1,
 					isCanClick: true,
@@ -141,15 +169,6 @@
 					rightIcon: config.staticUrl + 'personalCenter/iconRight.png',
 					navUrl: '/pages/saoDianDe/exchangeGoods/exchangeGoods'
 				}, {
-					id: 3,
-					isCanClick: true,
-					isShow: true,
-					status: 1, // 1 跳转 路径 2 显示弹窗
-					name: '优惠券',
-					icon: config.staticUrl + 'personalCenter/iconyouhuiquan.png',
-					rightIcon: config.staticUrl + 'personalCenter/iconRight.png',
-					navUrl: ''
-				}, {
 					id: 4,
 					isCanClick: true,
 					isShow: true,
@@ -157,7 +176,7 @@
 					name: '积分账单',
 					icon: config.staticUrl + 'personalCenter/iconjifenzhangdan.png',
 					rightIcon: config.staticUrl + 'personalCenter/iconRight.png',
-					navUrl: ''
+					navUrl: '/pages/scoreList/scoreList'
 				}, {
 					id: 5,
 					isCanClick: true,
@@ -169,7 +188,7 @@
 					navUrl: '/pages/saoDianDe/prizeList/prizeList'
 				}, ],
 				pctListBot: [{
-					id: 0,
+					id: 21,
 					isCanClick: true,
 					isShow: true,
 					status: 1, // 1 跳转 路径 2 显示弹窗
@@ -178,43 +197,34 @@
 					rightIcon: config.staticUrl + 'personalCenter/iconRight.png',
 					navUrl: '/pages/luckDrawList/luckDrawList'
 				}, {
-					id: 1,
-					isCanClick: true,
-					isShow: true,
-					status: 1, // 1 跳转 路径 2 显示弹窗
-					name: '我的心愿单',
-					icon: config.staticUrl + 'personalCenter/iconwodexiinyuandan.png',
-					rightIcon: config.staticUrl + 'personalCenter/iconRight.png',
-					navUrl: '/pages/saoDianDe/winningRecord/winningRecord'
-				}, {
-					id: 2,
+					id: 22,
 					isCanClick: true,
 					isShow: true,
 					status: 1, // 1 跳转 路径 2 显示弹窗
 					name: '地址管理',
 					icon: config.staticUrl + 'personalCenter/icondizhi.png',
 					rightIcon: config.staticUrl + 'personalCenter/iconRight.png',
-					navUrl: '/pages/saoDianDe/exchangeGoods/exchangeGoods'
+					navUrl: '/pages/address/addressList'
 				}, {
-					id: 3,
+					id: 23,
 					isCanClick: true,
 					isShow: true,
 					status: 1, // 1 跳转 路径 2 显示弹窗
 					name: '完善信息',
 					icon: config.staticUrl + 'personalCenter/iconwanshanxinxi.png',
 					rightIcon: config.staticUrl + 'personalCenter/iconRight.png',
-					navUrl: ''
+					navUrl: '/pages/userInfo/infoTask'
 				}, {
-					id: 4,
+					id: 24,
 					isCanClick: true,
 					isShow: true,
 					status: 1, // 1 跳转 路径 2 显示弹窗
 					name: '关注公众号',
 					icon: config.staticUrl + 'personalCenter/iconguanzhu.png',
 					rightIcon: config.staticUrl + 'personalCenter/iconRight.png',
-					navUrl: ''
+					navUrl: '/pages/webview/attention'
 				}, {
-					id: 5,
+					id: 25,
 					isCanClick: true,
 					isShow: true,
 					status: 1, // 1 跳转 路径 2 显示弹窗
@@ -223,7 +233,7 @@
 					rightIcon: config.staticUrl + 'personalCenter/iconRight.png',
 					navUrl: '/pages/saoDianDe/strCode/strCode'
 				}, {
-					id: 6,
+					id: 26,
 					isCanClick: true,
 					isShow: true,
 					status: 1, // 1 跳转 路径 2 显示弹窗
@@ -232,7 +242,7 @@
 					rightIcon: config.staticUrl + 'personalCenter/iconRight.png',
 					navUrl: ''
 				}, {
-					id: 5,
+					id: 27,
 					isCanClick: true,
 					isShow: true,
 					status: 1, // 1 跳转 路径 2 显示弹窗
@@ -248,7 +258,7 @@
 						status: 1, // 1 跳转 路径 2 显示弹窗 3 立即提现
 						name: '待付款',
 						icon: config.staticUrl + 'personalCenter/icondaifukuan.png',
-						navUrl: ''
+						navUrl: '/pages/order/order?type=4'
 					},
 					{
 						id: 2,
@@ -257,7 +267,7 @@
 						status: 1, // 1 跳转 路径 2 显示弹窗 3 立即提现
 						name: '待发货',
 						icon: config.staticUrl + 'personalCenter/icondaifahuo.png',
-						navUrl: ''
+						navUrl: '/pages/order/order?type=0'
 					},
 					{
 						id: 3,
@@ -266,7 +276,7 @@
 						status: 1, // 1 跳转 路径 2 显示弹窗 3 立即提现
 						name: '待收货',
 						icon: config.staticUrl + 'personalCenter/icondaishouhuo.png',
-						navUrl: ''
+						navUrl: '/pages/order/order?type=1'
 					}, {
 						id: 4,
 						isCanClick: true,
@@ -274,7 +284,7 @@
 						status: 1, // 1 跳转 路径 2 显示弹窗 3 立即提现
 						name: '售后',
 						icon: config.staticUrl + 'personalCenter/iconshouhou.png',
-						navUrl: ''
+						navUrl: '/pages/order/order?type=5'
 					}, {
 						id: 5,
 						isCanClick: true,
@@ -282,7 +292,7 @@
 						status: 1, // 1 跳转 路径 2 显示弹窗 3 立即提现
 						name: '我的订单',
 						icon: config.staticUrl + 'personalCenter/iconwode.png',
-						navUrl: ''
+						navUrl: '/pages/order/order?type=3'
 					},
 				],
 				userInfo: {
@@ -316,18 +326,6 @@
 					that.isHasUserInfo = false;
 				}
 			});
-			wx.createSelectorQuery()
-				.select('#personalCenter')
-				.boundingClientRect()
-				.select('#wr-center-top')
-				.boundingClientRect()
-				.exec(function(res) {
-					const scrollViewHeight = parseFloat(res[0].height - res[1].height - 60).toFixed(2);
-					// const scrollViewHeight = 480;
-					console.log(res);
-					console.log(scrollViewHeight);
-					that.scrollViewHeight = scrollViewHeight || 237;
-				});
 
 			getOpenidSD();
 
@@ -337,11 +335,42 @@
 			// 获取展示 信息
 			const that = this;
 			that.openid = that.openid ? that.openid : uni.getStorageSync('openid').openid;
-			getUserBasics().then((res) => {
-				console.log('getUserBasics');
-				console.log(res);
-				this.sortingParameters(res);
-			});
+			if (that.openid) {
+				// getUserBasics().then((res) => {
+				// 	console.log('getUserBasics');
+				// 	console.log(res);
+				// 	this.sortingParameters(res);
+				// });
+				
+				const that = this;
+				queryAllGiftsList(that.openid, 1, 10).then(res => {
+					if (res) {
+						console.log('getUserBasics');
+						console.log(res);
+						this.sortingParameters(res);
+					}
+				});
+				
+			}
+
+			that.vjifenOpenid = that.vjifenOpenid ? that.vjifenOpenid : uni.getStorageSync('vjfOpenid').vjfOpenid;
+			console.log('that.vjifenOpenid');
+			console.log(that.vjifenOpenid);
+			if (that.vjifenOpenid) {
+				// 获取换购商品数量 
+				queryUnExchangePrizeLstRequst().then((res) => {
+					console.log('queryUnExchangePrizeLstRequst')
+					console.log(res)
+					this.pctList[1].showCenter = res.prizeNum > 0 ? `${res.prizeNum}支待兑换` : ''; // 换购商品数量显示
+					this.pctList.splice();
+				});
+			} else {
+				// 没有 vjifenOpenid 读条获取
+				getVjifenOpenid();
+			}
+
+			this.getScrollHeight();
+
 		},
 		/**
 		 * 用户点击右上角分享
@@ -359,6 +388,13 @@
 		},
 
 		methods: {
+
+			signIn() {
+				uni.navigateTo({
+					url: '../sign/sign'
+				})
+			},
+
 			sortingParameters(res) {
 				// 整理参数
 				this.tabsArr[0].showCenter = res.orderNonPaymentNum; //订单待付款数量
@@ -366,8 +402,8 @@
 				this.tabsArr[2].showCenter = res.orderNonReceiveNum; // 订单待收货数量
 				this.tabsArr.splice();
 				this.pctList[0].showCenter = res.totalMoney > 0 ? `￥${res.totalMoney}元可提现` : ''; //账户余额(元) 
-				this.pctList[2].showCenter = res.totalTicketNum > 0 ? `${res.totalTicketNum}张待使用` : ''; //优惠券总数量
-				this.pctList[3].showCenter = res.totalVpoints > 0 ? `积分余额${res.totalVpoints}` : ''; //账户剩余积分
+				//优惠券 this.pctList[2].showCenter = res.totalTicketNum > 0 ? `${res.totalTicketNum}张待使用` : ''; //优惠券总数量
+				this.pctList[2].showCenter = res.totalVpoints > 0 ? `积分余额${res.totalVpoints}` : ''; //账户剩余积分
 				this.pctList.splice();
 				// total
 				this.total = res.total;
@@ -449,6 +485,23 @@
 						}
 					}
 				);
+			},
+			// 获取 滚动 区域 高度
+			getScrollHeight() {
+				const that = this;
+				wx.createSelectorQuery()
+					.select('#personalCenter')
+					.boundingClientRect()
+					.select('#wr-center-top')
+					.boundingClientRect()
+					.exec(function(res) {
+						const scrollViewHeight = parseFloat(res[0].height - res[1].height - 60).toFixed(2);
+						// const scrollViewHeight = 480;
+						console.log('createSelectorQuery');
+						console.log(res);
+						console.log(scrollViewHeight);
+						that.scrollViewHeight = scrollViewHeight || 237;
+					});
 			}
 
 		}
@@ -528,12 +581,13 @@
 	}
 
 	.pct-userInfor-userImg {
-		width: 128rpx;
-		height: 128rpx;
+		width: 125rpx;
+		height: 125rpx;
 		border-radius: 128rpx;
 		background: #f1f1f1;
 		padding: 2rpx;
 		margin: 0 28rpx 0 28rpx;
+		border: 3rpx solid #FFFFFF;
 
 		button,
 		image {
@@ -550,8 +604,19 @@
 	}
 
 	.pct-userInfor-shuliang {
-		font-size: 32rpx;
 		color: #FFFFFF;
+
+		>text:nth-of-type(1) {
+			font-size: 32rpx;
+		}
+
+		>text:nth-of-type(2) {
+			font-size: 40rpx;
+		}
+
+		>text:nth-of-type(3) {
+			font-size: 30rpx;
+		}
 	}
 
 	.pct-tab {
@@ -656,6 +721,7 @@
 
 			image {
 				width: 48rpx;
+				height: 48rpx;
 			}
 
 			text {
@@ -665,15 +731,16 @@
 
 			.showCenter {
 				position: absolute;
-				right: 10rpx;
-				top: -25rpx;
-				width: 50rpx;
-				height: 50rpx;
+				right: 26rpx;
+				top: -23rpx;
+				width: 34rpx;
+				height: 34rpx;
 				text-align: center;
-				line-height: 50rpx;
-				border-radius: 50rpx;
+				line-height: 34rpx;
+				border-radius: 34rpx;
 				color: #FF9F33;
 				border: 2rpx solid #FF9F33;
+				font-size: 24rpx;
 			}
 
 		}

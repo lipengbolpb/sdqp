@@ -53,7 +53,7 @@
 			return {
 				title: '皇冠丹麦曲奇',
 				path: '/pages/index/index',
-				imageUrl: this.staticUrl + 'fenxiangImg.png'
+				imageUrl: this.staticUrl + 'mall/shareImg.jpg?v=1'
 			};
 		}
 	};

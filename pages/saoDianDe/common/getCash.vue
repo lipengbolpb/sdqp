@@ -508,7 +508,8 @@
 						}
 					} else {
 						// 没有关注 引导关注 跳转到 推文页面
-
+						// webview 跳转
+							// https://mp.weixin.qq.com/s?__biz=MzA3Mjk3OTY3OA==&mid=503286221&idx=1&sn=29e3380fd079263bc2350d5dd18fe852&chksm=071d2c7c306aa56a60a76c67241b318b4754dd9427768d3b48fbb03e387fa3f2c6610bd6f86c#rd
 					}
 				})
 			},
@@ -621,12 +622,19 @@
 				this.isOpenECJXMini = true ;
 			}
 			
-
 		}
 	};
 </script>
 
 <style scoped lang="scss">
+	button{
+		border: 0;
+		background-color: transparent;
+		outline: none;
+		&:after {
+		  border: none;
+		}
+	}
 	image {
 		display: block;
 		margin: 0 auto;

@@ -323,8 +323,6 @@
 				that.wxOpenSettingIsShow = false;
 				// 关闭了 也要继续往下走
 				// 继续调用 接口
-				// that.getSweepQrcode('', '', that.sweepstr);
-
 				that.sweepTypeFun();
 			},
 			// 获取手机号
@@ -354,11 +352,8 @@
 				console.log('getSweepQrcodegetSweepQrcodegetSweepQrcodegetSweepQrcode');
 				const that = this;
 				var sendParams = {
-					// openid: that.openid,
 					openid: that.openid,
 					vjifenOpenid: that.vjifenOpenid,
-					// "openid": "oIwlotxQp-oond0xy_4zPENd4A_g",
-					// "vjifenOpenid": "oJMqvt7MsD4Dk9ZVEQDgFVyl2qNs",
 					sweepstr: sweepstr,
 					longitude: longitude, //"经度"
 					latitude: latitude, //"纬度"
@@ -407,13 +402,8 @@
 				// 			}
 				const that = this;
 				var sendParams = {
-					// openid: that.openid,
-					// "openid": "oIwlotxQp-oond0xy_4zPENd4A_g",
-					// "vjifenOpenid": "oJMqvt7MsD4Dk9ZVEQDgFVyl2qNs",
-
-					"openid": "oIwlotxQp-oond0xy_4zPENd4A_g",
-					"vjifenOpenid": "oJMqvt7MsD4Dk9ZVEQDgFVyl2qNs",
-
+					openid: that.openid,
+					vjifenOpenid: that.vjifenOpenid,
 					sweepstr: sweepstr,
 					longitude: longitude, //"经度"
 					latitude: latitude, //"纬度"
