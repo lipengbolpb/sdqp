@@ -231,6 +231,7 @@
 			},
 
 		},
+<<<<<<< HEAD
 		onShow() {
 			
 			if (!getApp().globalData.xcxOpenid) { //是否有小程序openid
@@ -268,6 +269,13 @@
 				if(getApp().globalData.shareOpenid){
 					this.shareRecord();
 				}
+=======
+		onShow() {
+			const that = this;
+			that.openid = that.openid ? that.openid : uni.getStorageSync('openid').openid;
+			if(that.openid){
+				that.init();
+>>>>>>> parent of 1ef4431... 更新 代码
 			}
 		},
 
@@ -365,7 +373,11 @@
 					getUserBasics().then((res)=>{
 						console.log('getUserBasics');
 						console.log(res);
+<<<<<<< HEAD
 						this.totalVpoints = Number(res.totalVpoints) > 0 ? res.totalVpoints : 0; //账户剩余积分
+=======
+						this.totalVpoints = Number(res.totalVpoints) > 0 ? res.totalVpoints : 0; //账户剩余积分
+>>>>>>> parent of 1ef4431... 更新 代码
 					});
 			},
 			

@@ -167,7 +167,13 @@
 
 			};
 		},
+<<<<<<< HEAD
 		async onLoad() {
+=======
+		async onLoad(options) {
+			const pageSource = options.pageSource || ''; 
+			this.pageSource = pageSource ; // 页面来源 拆红包页（getCash） 返回 首页 页面 中心进入 返回 我的 页面
+>>>>>>> parent of 1ef4431... 更新 代码
 			const backStorage = uni.getStorageSync('userMobileData').phoneNumber;
 			if (backStorage) {
 				this.isHasPhoneNumber = true;

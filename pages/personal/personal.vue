@@ -18,14 +18,19 @@
 						</view>
 					</view>
 				</view>
-				<view class="qiandao" @click="signIn">
+				<view class="qiandao">
 					<text>签到</text>
 				</view>
 			</view>
 			<!-- tab 显示 订单状态 -->
 			<view class="personalCenter-tabs flex-xsb-yc">
+<<<<<<< HEAD
 				<block v-for="item in tabsArr" v-key="item.id" >
 					<view class="flex-xc-yc-dirY" @click="listNav(item)">
+=======
+				<block v-for="item in tabsArr" v-key="item.id">
+					<view class="flex-xc-yc-dirY">
+>>>>>>> parent of 1ef4431... 更新 代码
 						<image :src="item.icon" mode="widthFix"></image>
 						<text> {{ item.name }} </text>
 						<view class="showCenter" v-if="item.showCenter && item.showCenter>0">{{item.showCenter}}</view>
@@ -157,7 +162,7 @@
 					name: '积分账单',
 					icon: config.staticUrl + 'personalCenter/iconjifenzhangdan.png',
 					rightIcon: config.staticUrl + 'personalCenter/iconRight.png',
-					navUrl: '/pages/scoreList/scoreList'
+					navUrl: ''
 				}, {
 					id: 5,
 					isCanClick: true,
@@ -194,7 +199,7 @@
 					name: '地址管理',
 					icon: config.staticUrl + 'personalCenter/icondizhi.png',
 					rightIcon: config.staticUrl + 'personalCenter/iconRight.png',
-					navUrl: '/pages/address/addressList'
+					navUrl: '/pages/saoDianDe/exchangeGoods/exchangeGoods'
 				}, {
 					id: 3,
 					isCanClick: true,
@@ -203,7 +208,7 @@
 					name: '完善信息',
 					icon: config.staticUrl + 'personalCenter/iconwanshanxinxi.png',
 					rightIcon: config.staticUrl + 'personalCenter/iconRight.png',
-					navUrl: '/pages/userInfo/infoTask'
+					navUrl: ''
 				}, {
 					id: 4,
 					isCanClick: true,
@@ -212,7 +217,7 @@
 					name: '关注公众号',
 					icon: config.staticUrl + 'personalCenter/iconguanzhu.png',
 					rightIcon: config.staticUrl + 'personalCenter/iconRight.png',
-					navUrl: '/pages/webview/attention'
+					navUrl: ''
 				}, {
 					id: 5,
 					isCanClick: true,
@@ -248,7 +253,11 @@
 						status: 1, // 1 跳转 路径 2 显示弹窗 3 立即提现
 						name: '待付款',
 						icon: config.staticUrl + 'personalCenter/icondaifukuan.png',
+<<<<<<< HEAD
 						navUrl: '/pages/order/order?type=4' 
+=======
+						navUrl: ''
+>>>>>>> parent of 1ef4431... 更新 代码
 					},
 					{
 						id: 2,
@@ -257,7 +266,11 @@
 						status: 1, // 1 跳转 路径 2 显示弹窗 3 立即提现
 						name: '待发货',
 						icon: config.staticUrl + 'personalCenter/icondaifahuo.png',
+<<<<<<< HEAD
 						navUrl: '/pages/order/order?type=0' 
+=======
+						navUrl: ''
+>>>>>>> parent of 1ef4431... 更新 代码
 					},
 					{
 						id: 3,
@@ -266,7 +279,7 @@
 						status: 1, // 1 跳转 路径 2 显示弹窗 3 立即提现
 						name: '待收货',
 						icon: config.staticUrl + 'personalCenter/icondaishouhuo.png',
-						navUrl: '/pages/order/order?type=1'
+						navUrl: ''
 					}, {
 						id: 4,
 						isCanClick: true,
@@ -274,7 +287,7 @@
 						status: 1, // 1 跳转 路径 2 显示弹窗 3 立即提现
 						name: '售后',
 						icon: config.staticUrl + 'personalCenter/iconshouhou.png',
-						navUrl: '/pages/order/order?type=5'
+						navUrl: ''
 					}, {
 						id: 5,
 						isCanClick: true,
@@ -282,7 +295,7 @@
 						status: 1, // 1 跳转 路径 2 显示弹窗 3 立即提现
 						name: '我的订单',
 						icon: config.staticUrl + 'personalCenter/iconwode.png',
-						navUrl: '/pages/order/order?type=3'
+						navUrl: ''
 					},
 				],
 				userInfo: {
@@ -359,6 +372,7 @@
 		},
 
 		methods: {
+<<<<<<< HEAD
 			
 			signIn(){
 				uni.navigateTo({
@@ -367,6 +381,8 @@
 			},
 			
 			
+=======
+>>>>>>> parent of 1ef4431... 更新 代码
 			sortingParameters(res) {
 				// 整理参数
 				this.tabsArr[0].showCenter = res.orderNonPaymentNum; //订单待付款数量

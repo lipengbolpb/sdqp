@@ -48,7 +48,7 @@
 										<view v-if="list.goodsSpecification">{{list.goodsSpecification}}{{list.goodsUnitName}}</view>
 									</view>
 									<view class="normalPrice">市场价：{{list.goodsMoney}}元</view>
-									<view  :class="['price',{'overPrice':list.goodsStatus == 1}]">
+									<view class="price">
 										<text v-if="list.realPay!=0"><text class="danwei">¥</text>{{(list.realPay/100)|toThousands}}
 										      <text v-if="list.realPay!=0 && list.realVpoints!=0" >+</text>
 										</text>
@@ -713,7 +713,7 @@
 		margin-top: 10rpx;
 		display: flex;
 		flex-direction: column;
-		// overflow: hidden;
+		overflow: hidden;
 		height: 78%;
 		// padding-bottom: 88rpx;
 		&.prevent {
@@ -939,15 +939,12 @@
 					.normalPrice{
 						font-size:22rpx;
 						color:#999;
-						padding: 10rpx 0 4rpx 0;
+						padding: 10rpx 0;
 					}
 					.price{
 						font-size:28rpx;
 						font-weight:500;
 						color:#FF4514;
-						&.overPrice{
-							color:#999;
-						}
 						.danwei{
 							font-size:22rpx;
 						}

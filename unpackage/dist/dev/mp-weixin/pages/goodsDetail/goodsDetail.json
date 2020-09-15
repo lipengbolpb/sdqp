@@ -1,8 +1,0 @@
-{
-  "navigationStyle": "default",
-  "navigationBarTitleText": "商品详情",
-  "usingComponents": {
-    "button-bg": "/components/button-bg",
-    "u-parse": "/components/gaoyia-parse/parse"
-  }
-}
