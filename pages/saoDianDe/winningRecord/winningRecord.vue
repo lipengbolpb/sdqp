@@ -35,7 +35,7 @@
 
 		<view class="wr-center flex-xn-ys" id="wr-center">
 			<view class="flex-xsb-yc wr-center-title" id="wr-center-title">
-				<block v-for="(item,index) in tabArr">
+				<block v-for="(item,index) in tabArr" :key="item.id">
 					<view class="" @click="tabSwitch(index)">
 						<view :class="tabIsCur==index?'tabOn':''">{{ item.text }}</view>
 					</view>
@@ -163,19 +163,21 @@
 					freezeMoney: '', // 冻结 金额
 					giftsMoney: '', // 已领金额
 				},
-				detailDialog:false //冻结 金额 规则说明
-
+				detailDialog:false, //冻结 金额 规则说明
+				pageSource:''
 			};
 		},
-<<<<<<< HEAD
-		async onLoad() {
-=======
 		async onLoad(options) {
 			const pageSource = options.pageSource || ''; 
 			this.pageSource = pageSource ; // 页面来源 拆红包页（getCash） 返回 首页 页面 中心进入 返回 我的 页面
->>>>>>> parent of 1ef4431... 更新 代码
 			const backStorage = uni.getStorageSync('userMobileData').phoneNumber;
-			if (backStorage) {
+			let phoneNumber = '';
+			if(getApp().globalData.reply){
+				phoneNumber  = getApp().globalData.reply.phoneNumber; // 如果 扫码接口返回 手机号 就不唤起 微信手机号授权
+			}else{
+				phoneNumber = '';
+			}
+			if (backStorage || phoneNumber) {
 				this.isHasPhoneNumber = true;
 			} else {
 				this.isHasPhoneNumber = false;
@@ -292,7 +294,13 @@
 			},
 			// 返回
 			back() {
-				uni.navigateBack(1);
+				if(this.pageSource && this.pageSource == 'getCash'){
+					uni.switchTab({
+						url:'/pages/index/index'
+					})
+				}else{
+					uni.navigateBack(1);
+				}
 			},
 			// giveSpackTxFun() {
 			// 	console.log("我要提现了");
@@ -574,7 +582,7 @@
 
 	.wr-title-box-lishijine {
 		margin-top: 34rpx;
-		margin-bottom: 40rpx;
+		// margin-bottom: 40rpx; 
 
 		view {
 			font-size: 26rpx;

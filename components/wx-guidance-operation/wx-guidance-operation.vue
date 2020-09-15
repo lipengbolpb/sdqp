@@ -8,7 +8,7 @@
 				<view class="head">
 					<!-- 小程序的logo和名字 -->
 					<image :src="staticUrl + 'crownCookiesImgLogo.png'" mode="widthFix" class="headimg"></image>
-					<text>Danisa皇冠丹麦曲奇</text>
+					<text>青岛啤酒畅享山东</text>
 					<text>申请</text>
 					<image :src="staticUrl+'closeimg.png'" @click="WXGuidanceOperationClose" mode="widthFix" class="close"></image>
 				</view>

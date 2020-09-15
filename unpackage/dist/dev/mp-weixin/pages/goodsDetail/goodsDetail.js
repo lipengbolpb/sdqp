@@ -178,10 +178,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator */ 21));
-
-
-
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator */ 22));
 
 
 
@@ -334,7 +331,7 @@ var _api = __webpack_require__(/*! @/utils/api.js */ 8);function _interopRequire
   },
   onShow: function onShow() {var _this = this;
     if (!getApp().globalData.openid) {
-      this.$store.dispatch('getOpenid').then(function (res) {var _res = _slicedToArray(
+      this.$Store.dispatch('getOpenid').then(function (res) {var _res = _slicedToArray(
         res, 2),e = _res[0],r = _res[1];
         if (r) {//有openid
           getApp().globalData.openid = r.data.openid;

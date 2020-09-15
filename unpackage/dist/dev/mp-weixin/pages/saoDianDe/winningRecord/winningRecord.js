@@ -134,7 +134,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator */ 21));
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator */ 22));
 
 
 
@@ -237,7 +237,7 @@ var _getData = __webpack_require__(/*! @/common/getData.js */ 26);
 
 
 
-var _basicsFun = __webpack_require__(/*! @/common/basicsFun.js */ 24);
+var _basicsFun = __webpack_require__(/*! @/common/basicsFun.js */ 21);
 
 
 
@@ -299,13 +299,21 @@ var _getWxUserInfor = __webpack_require__(/*! @/common/getWxUserInfor.js */ 25);
         freezeMoney: '', // 冻结 金额
         giftsMoney: '' // 已领金额
       },
-      detailDialog: false //冻结 金额 规则说明
-    };
+      detailDialog: false, //冻结 金额 规则说明
+      pageSource: '' };
 
   },
-  onLoad: function onLoad() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var backStorage, that;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+  onLoad: function onLoad(options) {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var pageSource, backStorage, phoneNumber, that;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+              pageSource = options.pageSource || '';
+              _this.pageSource = pageSource; // 页面来源 拆红包页（getCash） 返回 首页 页面 中心进入 返回 我的 页面
               backStorage = uni.getStorageSync('userMobileData').phoneNumber;
-              if (backStorage) {
+              phoneNumber = '';
+              if (getApp().globalData.reply) {
+                phoneNumber = getApp().globalData.reply.phoneNumber; // 如果 扫码接口返回 手机号 就不唤起 微信手机号授权
+              } else {
+                phoneNumber = '';
+              }
+              if (backStorage || phoneNumber) {
                 _this.isHasPhoneNumber = true;
               } else {
                 _this.isHasPhoneNumber = false;
@@ -324,7 +332,7 @@ var _getWxUserInfor = __webpack_require__(/*! @/common/getWxUserInfor.js */ 25);
                 console.log(res);
                 console.log(scrollViewHeight);
                 that.scrollViewHeight = scrollViewHeight;
-              });case 5:case "end":return _context.stop();}}}, _callee);}))();
+              });case 9:case "end":return _context.stop();}}}, _callee);}))();
   },
   onShow: function onShow() {
 
@@ -422,7 +430,13 @@ var _getWxUserInfor = __webpack_require__(/*! @/common/getWxUserInfor.js */ 25);
     },
     // 返回
     back: function back() {
-      uni.navigateBack(1);
+      if (this.pageSource && this.pageSource == 'getCash') {
+        uni.switchTab({
+          url: '/pages/index/index' });
+
+      } else {
+        uni.navigateBack(1);
+      }
     },
     // giveSpackTxFun() {
     // 	console.log("我要提现了");

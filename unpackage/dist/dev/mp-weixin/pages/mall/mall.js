@@ -196,7 +196,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator */ 21));
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator */ 22));
 
 
 
@@ -369,7 +369,7 @@ var _swiperMixin = _interopRequireDefault(__webpack_require__(/*! @/components/s
       categoryData: [],
       children: [], //右边商品        
       currentPage: 1,
-      count: 4, // 50
+      count: 4,
 
       categoryParent: '', // 传递的菜单值
       hasMore: false,
@@ -380,21 +380,12 @@ var _swiperMixin = _interopRequireDefault(__webpack_require__(/*! @/components/s
 
       cartNum: '0',
       totalMoney: '0.00',
-      totalVpoint: '0',
-
-      pricePaixu: '' };
+      totalVpoint: '0' };
 
   },
   computed: {},
-  onLoad: function onLoad(options) {
-    // 定位到积分商城
-    if (getApp().globalData.from == 'jfhw') {
-      this.categoryType = '-2',
-      this.onType(2, -2);
-      getApp().globalData.from = ''; // 置空
-    } else {
-      this.getgoods(0); // 全部商品
-    }
+  onLoad: function onLoad() {
+    this.getgoods(0); // 全部商品
   },
   onShow: function onShow() {var _this = this;
     // 获取菜单
@@ -694,9 +685,6 @@ var _swiperMixin = _interopRequireDefault(__webpack_require__(/*! @/components/s
                 }case 5:case "end":return _context.stop();}}}, _callee);}))();
     },
     onType: function onType(idx, categoryParent) {
-      this.curTop = false;
-      this.curBottom = false; // 箭头置灰
-
       this.currentPage = 1; // 切换菜单重回第一页
       this.categoryType = idx;
 
@@ -707,7 +695,7 @@ var _swiperMixin = _interopRequireDefault(__webpack_require__(/*! @/components/s
     },
     getMore: function getMore() {//加载更多
       this.currentPage++;
-      this.getgoods(this.categoryParent, this.pricePaixu);
+      this.getgoods(this.categoryParent);
     },
     getgoods: function getgoods(categoryParent, order) {var _this5 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var params, priceOrderType, saleNumOrderType, jo, i, j;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
                 params = {
@@ -806,23 +794,18 @@ var _swiperMixin = _interopRequireDefault(__webpack_require__(/*! @/components/s
     },
     upSort: function upSort() {//升序
       this.children = [];
-      this.currentPage = 1;
       if (this.curTop == false) {
         this.arrowUp = this.imgUrl + 'arrowTop.png';
         this.arrowDown = this.imgUrl + 'arrowDown.png';
         this.curTop = true;
         this.curBottom = false;
-
-        this.pricePaixu = 'up';
-        this.getgoods(this.categoryParent, this.pricePaixu);
+        this.getgoods(this.categoryParent, 'up');
       } else {
         this.arrowUp = this.imgUrl + 'arrowDown.png';
         this.arrowDown = this.imgUrl + 'arrowTop.png';
         this.curTop = false;
         this.curBottom = true;
-
-        this.pricePaixu = 'down';
-        this.getgoods(this.categoryParent, this.pricePaixu);
+        this.getgoods(this.categoryParent, 'down');
       }
     },
     downSort: function downSort() {// 降序

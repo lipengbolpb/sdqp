@@ -175,7 +175,7 @@ __webpack_require__.r(__webpack_exports__);
 var _api = __webpack_require__(/*! @/utils/api.js */ 8);
 
 
-var _basicsFun = __webpack_require__(/*! @/common/basicsFun.js */ 24); //
+var _basicsFun = __webpack_require__(/*! @/common/basicsFun.js */ 21); //
 //
 //
 //
@@ -216,9 +216,10 @@ var _basicsFun = __webpack_require__(/*! @/common/basicsFun.js */ 24); //
 //
 //
 //
-var _default = { data: function data() {return { personalCenterImg: _api.config.staticUrl + 'personalCenter/', reply: getApp().globalData.reply, checkPrizeRecord: getApp().globalData.reply.checkPrizeRecord, needWrite: false, checkRemarks: '', readOnly: false, openid: '' };}, onShow: function onShow() {if (!this.checkPrizeRecord.userName) {//未填写
+var _default = { data: function data() {return { personalCenterImg: _api.config.staticUrl + 'personalCenter/', reply: getApp().globalData.reply, checkPrizeRecord: getApp().globalData.reply.checkPrizeRecord, needWrite: false, checkRemarks: '', readOnly: false, openid: '' };}, onShow: function onShow() {var that = this;if (!this.checkPrizeRecord.userName) {//未填写
       this.needWrite = true;}that.openid = that.openid ? that.openid : uni.getStorageSync('openid').openid;console.log("onshow ---- hexiao");console.log(this.reply);console.log(this.checkPrizeRecord);}, computed: { // 当窗口 高度 大于800 是 重新 计算 盒子的上边距
-    safeAreaTop: function safeAreaTop() {var userSystemInfo = uni.getStorageSync('userSystemInfo');var safeAreaTop = '30';if (userSystemInfo) {safeAreaTop = userSystemInfo.safeArea.top == 0 ? '30' : userSystemInfo.safeArea.top;} else {safeAreaTop = '30';}console.log('safeAreaTopsafeAreaTopsafeAreaTopsafeAreaTop');console.log(safeAreaTop);return safeAreaTop;} }, onLoad: function onLoad() {(0, _basicsFun.getOpenidSD)();}, methods: { checkPrize: function checkPrize() {var _this = this;
+    safeAreaTop: function safeAreaTop() {var userSystemInfo = uni.getStorageSync('userSystemInfo');var safeAreaTop = '30';if (userSystemInfo) {safeAreaTop = userSystemInfo.safeArea.top == 0 ? '30' : userSystemInfo.safeArea.top;} else {safeAreaTop = '30';}console.log('safeAreaTopsafeAreaTopsafeAreaTopsafeAreaTop');console.log(safeAreaTop);return safeAreaTop;} }, onLoad: function onLoad() {(0, _basicsFun.getOpenidSD)();}, methods: {
+    checkPrize: function checkPrize() {var _this = this;
       var that = this;
       uni.showLoading({
         title: '兑奖中' });

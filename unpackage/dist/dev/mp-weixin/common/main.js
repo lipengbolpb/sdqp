@@ -115,11 +115,10 @@ var _api = __webpack_require__(/*! @/utils/api.js */ 8);function _interopRequire
 {
   onLaunch: function onLaunch(options) {var _this = this;
     // console.log('App Launch', options)
-    console.log(options);
-    this.$scope.globalData.shareOpenid = '';
-    if (options && options.query.form == 'share') {//从朋友分享点进来的
-      console.log("分享者的openid" + options.query.openid); //传递过来的值
-      this.$scope.globalData.shareOpenid = options.query.openid;
+
+    if (options && options.form == 'share') {//从朋友分享点进来的
+      console.log("分享者的openid" + options.openid); //传递过来的值
+      this.$scope.globalData.shareOpenid = options.openid;
     } else {
       this.$scope.globalData.shareOpenid = '';
     }

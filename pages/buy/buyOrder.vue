@@ -37,14 +37,12 @@
 						<view v-if="item.goodsSpecification">{{item.goodsSpecification}} {{item.goodsUnitName}}</view>
 					</view>
 					<view class="price">
-						<view>
-							<text v-if="item.realPay != 0"><text class="danwei">¥</text>{{(item.realPay/100)|toThousands}}</text>
-							<text v-if="item.realPay != 0 && item.realVpoints != 0">+</text>
-							<text v-if="item.realVpoints != 0">{{item.realVpoints|toThousands}}<text class="danwei">积分</text></text>
-						</view>
-						<view class="goods_num">x{{item.specialChooseNum}}</view>
+						<text v-if="item.realPay != 0"><text class="danwei">¥</text>{{(item.realPay/100)|toThousands}}</text>
+						<text v-if="item.realPay != 0 && item.realVpoints != 0">+</text>
+						<text v-if="item.realVpoints != 0">{{item.realVpoints|toThousands}}<text class="danwei">积分</text></text>
 					</view>
 				</view>
+				<view class="goods_num">x{{item.specialChooseNum}}</view>
 			</view>
 		</view>
 		
@@ -247,44 +245,6 @@
 					  content: jo.result.msg,            
 					})
 				}
-			},
-			
-			queryAddressList(){
-				uni.request({
-					url:this.requestUrl+'/vpoints/vpointsAddress/getAddressByOpenid',
-					method:'POST',
-					data:{
-						"openid": getApp().globalData.openid,
-						"projectServerName":'shandongagt'
-					}
-				}).then(res=>{
-					let [e,r] = res;
-					if(r){
-						console.log(r)
-						if(r.data.result.code==0){
-							this.addressList = r.data.reply
-							if(r.data.reply.length<1){//地址列表为空时删除缓存地址
-							    // 详情中删除空了回来没有任何一条
-								getApp().globalData.address=false;
-								uni.removeStorage({
-									key:'address'
-								})
-							}
-						}else{
-							uni.showModal({
-								title: "查询地址提示",
-								content: r.data.result.msg?r.data.result.msg:'系统开了个小差',
-								showCancel: false
-							})
-						}
-					}else{
-						uni.showModal({
-							title: "查询地址提示",
-							content: '系统繁忙!',
-							showCancel: false
-						})
-					}
-				})
 			},
             toAddAddress(){
 				uni.navigateTo({
@@ -498,7 +458,7 @@
 		// background-color: pink;
 		position: relative;
 		
-		padding-bottom: 150rpx;
+		padding-bottom: 130rpx;
 		.address_box{
 			color: #FFFFFF;
 			overflow: hidden;
@@ -592,7 +552,7 @@
 					border-radius:10rpx;
 					position: relative;
 					image{
-						width: 168rpx;
+						width: 134rpx;
 						position: relative;
 						top: 50%;
 						left: 50%;
@@ -600,23 +560,22 @@
 					}
 				}
 				.proInfo{
-					width:68%;
+					width:50%;
 					flex-shrink:2;
 					padding-left: 20rpx;
 					.proName{
-						// width: 140%;
+						width:200rpx;
 						font-size:30rpx;
 						font-weight:500;
 						color:#333;
-						// white-space:nowrap;
-						// overflow:hidden;
-						// text-overflow:ellipsis;
+						white-space:nowrap;
+						overflow:hidden;
+						text-overflow:ellipsis;
 					}
 					.unit{
 						font-size:22rpx;
 						color:#999;
-						// margin:24rpx 0;
-						margin: 14rpx 0 0;
+						margin:24rpx 0;
 						display: inline-block;
 						max-width: 400rpx;
 						white-space:nowrap;
@@ -625,29 +584,29 @@
 						height: 36rpx;
 						view{
 							border:1rpx solid #CACACA;
-							border-radius:6rpx;
+							border-radius:6px;
 							padding: 0 12rpx;
 						}
 					}
 					.price{
-						display: flex;
-						justify-content: space-between;
 						font-size:32rpx;
 						font-weight:500;
 						color:#FF4514;
 						.danwei{
 						  font-size:22rpx;	
 						}
-						.goods_num{
-							// width:20%;
-							font-size: 26rpx;
-							color: #999;
-						}
 					}
-					
-					
+				}
+				.goods_num{
+					width:20%;
+					flex-shrink:3;
+					margin-top: 20%;
+					font-size: 26rpx;
+					color: #999;
+					text-align: right;
 				}
 			}
+			
 			&.free{
 				padding:0 28rpx;
 				.item{

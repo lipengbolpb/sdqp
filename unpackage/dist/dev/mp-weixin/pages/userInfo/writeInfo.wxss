@@ -86,7 +86,6 @@ button:after {
   vertical-align: middle;
   height: 100rpx;
   line-height: 100rpx;
-  width: 60%;
 }
 .userInfoPage .wrap .item input image, .userInfoPage .wrap .item .selectBox image {
   width: 15rpx;

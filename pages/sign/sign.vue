@@ -2,9 +2,7 @@
 	<view class="signPage">
 		<view class="top">
 			<view class="title">
-				<view @click="toBack" class="backArea" >
-					<view class="jiantou" :style="{'margin-top':(safeHeight + customBarHeight*1/3) + 'px' ,'margin-left':'20px'}"></view>
-				</view>
+				<view @click="toBack" class="jiantou" :style="{'margin-top':(safeHeight + customBarHeight*1/3) + 'px' ,'margin-left':'20px'}"></view>
 				<view :style="{'padding-top':safeHeight + 'px' ,'line-height':customBarHeight + 'px'}" class="head">签到</view>
 			</view>
 			<view class="qd">
@@ -15,12 +13,7 @@
 				</view>
 
 				<view class="btn" v-else>
-					<!-- <text class="innerBtn qdOver">签到 \n 成功</text> -->
-					<view class="innerBtn qdOver">
-						<view>签到</view>
-						<view>成功</view>
-					</view>
-					
+					<text class="innerBtn qdOver">签到 \n 成功</text>
 				</view>
 			</view>
 		</view>
@@ -53,9 +46,7 @@
 				</view>
 				<view class="riqi" v-for="(item,index) in dateArr" :key="index" v-if="contains(item)">
 					<view class="td" v-for="(data,idx) in item" :class="{ 'specil_day': (isSpecilDay(data) || isSpecilWeek(idx)) && !isCheck(data),'cur_day': data == date , 'check': isCheck(data)}">
-						<view  class="day" v-if="(isSpecilDay(data) || isSpecilWeek(idx)) && !isCheck(data)">
-							<view class="highScore">高积分</view>
-						</view>
+						<view class="day" v-if="(isSpecilDay(data) || isSpecilWeek(idx)) && !isCheck(data)"></view>
 						<view class="day" v-else>{{data}}</view>
 					</view>
 				</view>
@@ -206,16 +197,15 @@
 							}  
 							// 特殊高积分日                                             
 							// "timeType":"时间类型：默认空，1 按天，2按周",  
-							// "timeValue":"时间值：多个使用英文逗号分开"  
-							var highScoreDay = jo.reply.signinInfo.timeValue.split(',')
+							// "timeValue":"时间值：多个使用英文逗号分开"        
 							if (jo.reply.signinInfo.timeType == 1) {
-								for (var j in highScoreDay) {
-									this.specil_days.push(highScoreDay[j])
+								for (let j in jo.reply.signinInfo.timeValue) {
+									this.specil_days.push(jo.reply.signinInfo.timeValue[j])
 									console.log(this.specil_days)
 								}
 							} else if (jo.reply.signinInfo.timeType == 2) {
-								for (var j in highScoreDay) { // 周？？
-									this.specil_Weeks.push(highScoreDay[j])
+								for (let j in jo.reply.signinInfo.timeValue) { // 周？？
+									this.specil_Weeks.push(jo.reply.signinInfo.timeValue[j])
 									console.log(this.specil_Weeks)
 								}
 							}
@@ -384,19 +374,16 @@
 		// height: 626rpx;
 		.title {
 			padding-bottom: 35rpx;
-			.backArea{
+
+			.jiantou {
+				width: 24rpx;
+				height: 24rpx;
+				border-top: 3rpx solid #333;
+				border-right: 3rpx solid #333;
+				transform: rotate(225deg);
 				position: absolute;
-				width: 150rpx;
-				height: 150rpx;
-				.jiantou {
-					width: 24rpx;
-					height: 24rpx;
-					border-top: 3rpx solid #333;
-					border-right: 3rpx solid #333;
-					transform: rotate(225deg);
-					position: absolute;
-				}
 			}
+
 			.head {
 				text-align: center;
 				font-size: 36rpx;
@@ -445,14 +432,9 @@
 						background: #fff;
 						color: #FF4824;
 						line-height: 60rpx;
-						// display: flex;
+						display: flex;
 						justify-content: center;
 						align-items: center;
-					}
-					view{
-						&:nth-last-child(2){
-							margin-top: 20%;
-						}
 					}
 				}
 			}
@@ -471,7 +453,7 @@
 		.total {
 			display: flex;
 			border-bottom: 1rpx solid #FBCA5A;
-			padding-bottom: 25rpx;
+			padding-bottom: 35rpx;
 
 			.quan {
 				width: 30rpx;
@@ -587,13 +569,6 @@
 						background: url($mallImg + 'specilDay.png') no-repeat center bottom;
 						background-size: 35rpx 36rpx;
 						height: 60rpx;
-						// background-position-y:0rpx;
-						.highScore{
-							font-size: 17rpx;
-							color: #999;
-							position: relative;
-							top: 36rpx;
-						}
 					}
 				}
 
@@ -622,7 +597,6 @@
 
 		.hb {
 			width: 100rpx;
-			background: #fff;
 		}
 	}
 

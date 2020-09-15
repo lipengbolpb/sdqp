@@ -153,7 +153,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator */ 21));
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator */ 22));
 
 
 
@@ -234,8 +234,8 @@ var _api = __webpack_require__(/*! @/utils/api.js */ 8);function _interopRequire
                 params = {
                   "currentPage": '1',
                   "count": '4',
-                  'goodShowFlag': '2' //首页商品小图
-                  // 'saleNumOrderType':'0',//0-升序、1-降序
+                  'goodShowFlag': '2', //首页商品小图
+                  'saleNumOrderType': '0' //0-升序、1-降序
                 };_context.next = 3;return (
                   (0, _api.requestPost)('/vpoints/vpointsShop/getShopGoods', params));case 3:jo = _context.sent;
                 console.log(jo); // reply result replyTime

@@ -8935,17 +8935,537 @@ internalMixin(Vue);
 /***/ }),
 
 /***/ 21:
+/*!**********************************************************************!*\
+  !*** /Users/pengboli/Desktop/v积分/xcx/山东小程序/sdqp/common/basicsFun.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.judgeBusinessCode = judgeBusinessCode;exports.filterArr = filterArr;exports.getUserDataFun = getUserDataFun;exports.judgeBusinessStrCode = judgeBusinessStrCode;exports.strlen = strlen;exports.strSub = strSub;exports.judgeSeckillBusinessCode = judgeSeckillBusinessCode;exports.getOpenidSD = getOpenidSD;exports.getVjifenOpenid = getVjifenOpenid;exports.dateformatTemp = exports.dateformat = exports.idcardValidate = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator */ 22));var _getWxUserInfor = __webpack_require__(/*! @/common/getWxUserInfor.js */ 25);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}
+
+
+
+
+// 验证身份证号码
+var idcardValidate = function idcardValidate(idds) {
+  var weight = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2],
+  validate = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'];
+  var reg2 = /^[1-9][0-9xX]{17}$/;
+  var sum = 0,
+  mod = 0,
+  ymd = [];
+  if (reg2.test(idds)) {
+    for (var i = 0; i < 17; ++i) {
+      sum += parseInt(idds[i], 10) * weight[i];
+      if (i > 5 && i < 14) ymd.push(idds[i]);
+    }
+    mod = sum % 11;
+    return validate[mod] === idds[17].toUpperCase() && reg2.test(idds);
+  } else {
+    return reg2.test(idds);
+  }
+};
+
+// 获取地理位置信息
+exports.idcardValidate = idcardValidate;function getCityInfo() {
+  return new Promise(function (resolve, reject) {
+    wx.getLocation({
+      success: function success(data) {
+        var url = 'http://api.map.baidu.com/geocoder?location=纬度,经度&output=输出格式类型&key=用户密钥';
+        var latitude = data.latitude,
+        longitude = data.longitude;
+        wx.request({
+          url: 'https://api.map.baidu.com/geocoder',
+          method: 'GET',
+          dataType: 'json',
+          data: {
+            key: '4ATeuGLwAt08UunArKywQ1KyYalvpdi8',
+            location: latitude + ',' + longitude,
+            output: 'json' },
+
+          success: function success(data) {
+            resolve(data.data.result);
+          },
+          fail: function fail(err) {
+            reject(err);
+          } });
+
+      },
+      fail: function fail(error) {
+        reject(error);
+      } });
+
+  });
+}
+
+/**
+   * 扫码 businessCode 区分跳转不同的 页面
+   */
+function judgeBusinessCode(data) {
+  return new Promise(function (resolve, reject) {
+    console.log('judgeBusinessCode');
+    console.log(data);
+    var result = data.result;
+    var reply = data.reply;
+    var replyTime = data.replyTime;
+    var businessCode = data.result.businessCode;
+    // const businessCode = 0 ; 
+
+    // 获取版本名称
+    var activityVersion = getActivityVersion(reply.activityVersion) || '';
+    console.log('-----');
+    console.log(activityVersion);
+    if (businessCode == 0) {// 扫码成功 红包
+      var redirectToUrl = '';
+      if (activityVersion == 'LaoShan') {
+        redirectToUrl = "/pages/saoDianDe/LaoShan/getCash?bizcode=".concat(businessCode);
+      } else if (activityVersion == 'JinMai') {
+        getApp().globalData.lxCompanyKey = reply.lxCompanyKey || '';
+        getApp().globalData.ticketCode = reply.ticketInfo.ticketCode || '';
+        redirectToUrl = "/pages/saoDianDe/JinMai/disc?bizcode=".concat(businessCode, "&prizeType=").concat(reply.prizeType);
+      } else {
+        // 通用版本
+        redirectToUrl = "/pages/saoDianDe/common/getCash?bizcode=".concat(businessCode);
+      }
+      resolve(redirectToUrl);
+    } else if (businessCode == 11 || businessCode == 2 || businessCode == 15) {// 11：本人重复扫码  2||15：这个二维码已被扫
+      var _redirectToUrl = '';
+
+      // getApp().globalData.openQrcode = false
+
+      if (activityVersion == 'LaoShan') {
+        _redirectToUrl = "/pages/saoDianDe/LaoShan/abnormal?bizcode=".concat(businessCode);
+      } else if (activityVersion == 'JinMai') {
+        _redirectToUrl = "/pages/saoDianDe/JinMai/abnormal?bizcode=".concat(businessCode);
+      } else {
+        // 通用版本
+        _redirectToUrl = "/pages/saoDianDe/common/codeScanned?bizcode=".concat(businessCode);
+      }
+      resolve(_redirectToUrl);
+
+    } else if (businessCode == 7) {//大奖
+      // let redirectToUrl = '';
+      // // if (reply.username || result.msg == '重复扫码') { //已填写 或者重复扫码 直接显示 已领取 信息
+      // if (reply.username) { //已填写 或者重复扫码 直接显示 已领取 信息
+      // 	redirectToUrl = `../submitUserInformation/submitUserInformation?bizcode=${businessCode}&isGetPrize=true`;
+      // } else {
+      // 	if(reply.checkPrizeRecord){
+      // 		const expireTime = reply.checkPrizeRecord.expireTime;
+      // 		const expireTimeStatus = dateformatTemp(replyTime,expireTime); //返回 false 说明 当前小于活动截止时间 可以正常扫码 如果true说明当前时间大于截止时间不能扫码 跳转至二维码被扫
+      // 		console.log('判断大奖是否到期');
+      // 		console.log(expireTime);
+      // 		console.log(expireTimeStatus);
+      // 		if(expireTimeStatus){
+      // 			redirectToUrl = `../codeScanned/codeScanned?bizcode=${businessCode}`
+      // 		}else{
+      // 			// redirectToUrl = `../getPrize/getPrize?bizcode=${businessCode}&isGetPrize=false`;
+      // 			// 修改原因 中出大奖 也要 走点击抽奖按钮 和 弹出 红包一样
+      // 			redirectToUrl = businessCode;
+      // 		}
+      // 	}else{
+      // 			redirectToUrl = businessCode;
+      // 	}
+      // }
+      // resolve(redirectToUrl); 
+
+      // 金麦版本 没有大奖 
+      var _redirectToUrl2 = '';
+      if (activityVersion == 'LaoShan') {
+        _redirectToUrl2 = "/pages/saoDianDe/LaoShan/getCash?bizcode=".concat(businessCode);
+      } else {
+
+        // 通用版本
+        // 定义 领取 大奖 所需参数  
+        getApp().globalData.getPrizeSendData = {
+          prizeVcode: reply.prizeVcode,
+          prizeType: reply.prizeType };
+
+
+        if (reply.username) {//已填写 或者重复扫码 直接显示 已领取 信息
+
+          var isDay19 = reply.perMantissaPrize ? true : false;
+          _redirectToUrl2 = "/pages/saoDianDe/common/submitUserInformation?bizcode=".concat(
+          businessCode, "&prizeType=").concat(reply.prizeType, "&prizeVcode=").concat(reply.prizeVcode, "&isDay19=").concat(isDay19, "&pageSource=getCash&isGetPrize=true");
+
+        } else {
+          _redirectToUrl2 = "/pages/saoDianDe/common/getCash?bizcode=".concat(businessCode);
+        }
+      }
+      console.log(_redirectToUrl2);
+      resolve(_redirectToUrl2);
+    } else if (businessCode == 12 || businessCode == 13) {//可疑 黑名单
+      // 12 可疑用户展示出入手机号 13 静态页面 提示
+      var _redirectToUrl3 = "/pages/saoDianDe/blackList/blackList?bizcode=".concat(businessCode);
+      resolve(_redirectToUrl3);
+    } else if (businessCode == 24) {
+      // 金麦版本 中出 苏打水
+      var _redirectToUrl4 = '';
+      if (activityVersion == 'JinMai') {
+        _redirectToUrl4 = "/pages/saoDianDe/JinMai/disc?bizcode=".concat(businessCode);
+      }
+      resolve(_redirectToUrl4);
+    } else if (businessCode == 21) {
+      console.log(212121);
+
+      // 中出 金额 + 大奖 类型  或者 19日
+      var _redirectToUrl5 = '';
+      if (reply.exchangeChannel == '5') {//皮尔森——要酒日大奖
+        // 通用版本
+        // 定义 领取 大奖 所需参数  
+        getApp().globalData.getPrizeSendData = {
+          prizeVcode: reply.prizeVcode,
+          prizeType: reply.prizeType };
+
+        _redirectToUrl5 = "/pages/saoDianDe/common/getCash?bizcode=7";
+      } else {
+        if (activityVersion == 'LaoShan') {
+          _redirectToUrl5 = "/pages/saoDianDe/LaoShan/abnormal?bizcode=".concat(businessCode);
+        } else {
+          // 通用版本
+          // 定义 领取 大奖 所需参数  
+          getApp().globalData.getPrizeSendData = {
+            prizeVcode: reply.prizeVcode,
+            prizeType: reply.prizeType };
+
+          _redirectToUrl5 = "/pages/saoDianDe/common/getCash?bizcode=".concat(businessCode);
+        }
+      }
+      resolve(_redirectToUrl5);
+    } else if (businessCode == 30) {
+      // 大奖核销
+      var _redirectToUrl6 = "/pages/saoDianDe/verification/verification";
+      resolve(_redirectToUrl6);
+    } else {//其他异常
+      // businessCode 1 : 这个二维码不存在
+      // businessCode 2 || 15  : 这个二维码已被扫
+      // businessCode 3 : 这个二维码已过期
+      // businessCode 4 : 活动未开始
+      // businessCode 5 : 活动已截止
+      // businessCode 6 : 系统繁忙
+      // businessCode 19 : 漏码
+      // businessCode 23 : 扫码次数已达上限
+      // businessCode -1 : 系统升级中
+      uni.setStorage({
+        key: 'businessCode',
+        data: businessCode });
+
+      var _redirectToUrl7 = '';
+      if (activityVersion == 'LaoShan') {
+        _redirectToUrl7 = "/pages/saoDianDe/LaoShan/abnormal?bizcode=".concat(businessCode);
+      } else if (activityVersion == 'JinMai') {
+        _redirectToUrl7 = "/pages/saoDianDe/JinMai/abnormal?bizcode=".concat(businessCode);
+      } else {
+        // 通用版本
+        _redirectToUrl7 = "/pages/saoDianDe/common/abnormal?bizcode=".concat(businessCode);
+      }
+      resolve(_redirectToUrl7);
+
+    }
+  });
+}
+
+/**
+   * 秒杀 处理返回数据 
+   */
+function judgeSeckillBusinessCode(data) {
+  return new Promise(function (resolve, reject) {
+    console.log('judgeSeckillBusinessCode');
+    console.log(data);
+    var result = data.result;
+    var reply = data.reply;
+    var replyTime = data.replyTime;
+    var businessCode = data.result.businessCode;
+
+    if (businessCode == 0) {// 扫码成功 红包
+      // 通用版本
+      var redirectToUrl = "/pages/saoDianDe/common/getCash?bizcode=".concat(businessCode);
+      resolve(redirectToUrl);
+    } else {//其他异常
+      // businessCode 1 : 这个二维码不存在
+      // businessCode 2 || 15  : 这个二维码已被扫
+      // businessCode 3 : 这个二维码已过期
+      // businessCode 4 : 活动未开始
+      // businessCode 5 : 活动已截止
+      // businessCode 6 : 系统繁忙
+      // businessCode 19 : 漏码
+      // businessCode 23 : 扫码次数已达上限
+      // businessCode -1 : 系统升级中
+      // uni.setStorage({
+      // 	key: 'businessCode',
+      // 	data: businessCode
+      // })
+      // 通用版本
+      var _redirectToUrl8 = "/pages/saoDianDe/common/getCash?bizcode=".concat(businessCode);
+      resolve(_redirectToUrl8);
+    }
+  });
+}
+
+/**
+   * 判断版本
+   * 崂山版本
+   * 金麦版本
+   * 通用版本
+   * */
+function getActivityVersion(activityVersion) {
+  console.log('activityVersion');
+  console.log(activityVersion);
+  var returnActName = '';
+  if (activityVersion == 9) {
+    // 崂山版本
+    returnActName = 'LaoShan';
+  } else if (activityVersion == 10) {
+    // 金麦版本
+    returnActName = 'JinMai';
+  } else {
+    // 通用版本
+    returnActName = 'common';
+  }
+  // 定义全局 变量接收 版本名称
+  getApp().globalData.activityVersion = returnActName;
+  return returnActName;
+}
+
+
+/**
+   * 输入串码  businessCode  区分跳转不同的 页面
+   */
+function judgeBusinessStrCode(data) {
+  return new Promise(function (resolve, reject) {
+    console.log('judgeBusinessCode');
+    console.log(data);
+    var result = data.result;
+    var reply = data.reply;
+    var replyTime = data.replyTime;
+    var businessCode = data.result.businessCode;
+    // const businessCode = 0;
+    console.log('businessCodebusinessCodebusinessCodebusinessCode');
+    console.log(businessCode);
+    if (businessCode == 0) {// 扫码成功 红包
+      var redirectToUrl = "../activityEntrance/activityEntrance?bizcode=".concat(businessCode, "&codeType=2");
+      resolve(redirectToUrl);
+    } else if (businessCode == 11) {// 重复扫 码
+      var _redirectToUrl9 = "../codeScanned/codeScanned?bizcode=".concat(businessCode);
+      resolve(_redirectToUrl9);
+    } else if (businessCode == 7 || businessCode == 21) {//大奖 
+      var _redirectToUrl10 = '';
+      // if (reply.username || result.msg == '重复扫码') { //已填写 或者重复扫码 直接显示 已领取 信息
+      if (reply.username) {//已填写 或者重复扫码 直接显示 已领取 信息
+        _redirectToUrl10 = "../submitUserInformation/submitUserInformation?bizcode=".concat(businessCode, "&isGetPrize=true");
+      } else {
+        if (reply.checkPrizeRecord) {
+          var expireTime = reply.checkPrizeRecord.expireTime;
+          var expireTimeStatus = dateformatTemp(replyTime, expireTime); //返回 false 说明 当前小于活动截止时间 可以正常扫码 如果true说明当前时间大于截止时间不能扫码 跳转至二维码被扫
+          console.log('判断大奖是否到期');
+          console.log(expireTime);
+          console.log(expireTimeStatus);
+          if (expireTimeStatus) {
+            _redirectToUrl10 = "../codeScanned/codeScanned?bizcode=".concat(businessCode);
+          } else {
+            _redirectToUrl10 = "../getPrize/getPrize?bizcode=".concat(businessCode, "&isGetPrize=false");
+          }
+        } else {
+          _redirectToUrl10 = "../getPrize/getPrize?bizcode=".concat(businessCode, "&isGetPrize=false");
+        }
+      }
+      resolve(_redirectToUrl10);
+    } else if (businessCode == 12 || businessCode == 13) {//可疑 黑名单
+      // 12 展示出入手机号 13 静态页面 提示
+      var _redirectToUrl11 = "../blackList/blackList?bizcode=".concat(businessCode);
+      resolve(_redirectToUrl11);
+    } else {//其他异常
+      // businessCode 1 : 这个二维码不存在
+      // businessCode 2 || 15  : 这个二维码已被扫
+      // businessCode 3 : 这个二维码已过期
+      // businessCode 4 : 活动未开始
+      // businessCode 5 : 活动已截止
+      // businessCode 6 : 系统繁忙
+      // businessCode 19 : 漏码
+      // businessCode 23 : 扫码次数已达上限
+      // businessCode -1 : 系统升级中
+
+      // uni.setStorage({
+      // 	key: 'businessCode',
+      // 	data: businessCode
+      // })
+
+      reject(result);
+      // if (businessCode == 2) {
+      // 	uni.showModal({
+      // 		title: '这个串码已被扫',
+      // 		content: `扫码时间: ${ reply.earnTime } 再扫一瓶试试看~~`,
+      // 	})
+      // } else if (businessCode == 4) {
+      // 	uni.showModal({
+      // 		title: '活动未开始',
+      // 		content: "亲再等等哦",
+      // 	})
+      // } else {
+      // 	reject(businessCode);
+      // }
+    }
+  });
+}
+
+/**
+   * 筛选数组对象
+   * 单个条件筛选：
+   */
+function filterArr(keyName, val, arr) {
+  return arr.filter(function (item) {return item[keyName] === val;});
+}
+
+function strlen(str) {
+  var len = 0;
+  for (var i = 0; i < str.length; i++) {
+    var c = str.charCodeAt(i);
+    //单字节加1 
+    if (c >= 0x0001 && c <= 0x007e || 0xff60 <= c && c <= 0xff9f) {
+      len++;
+    } else {
+      len += 2;
+    }
+  }
+  return len;
+}
+
+function strSub(str, charCodeAtNum, showLength, replaceCharacter) {
+  var curLen = strlen(str);
+  console.log("strSub");
+  console.log(curLen);
+  var returnStr = '';
+  if (curLen > charCodeAtNum) {
+    returnStr = str.substring(0, showLength) + replaceCharacter;
+  } else {
+    returnStr = str;
+  }
+  return returnStr;
+}
+// 验证缓存中 是否 存在用户信息（openid、sessiong_key）
+// *
+//  * 获从缓存中  获取 用户信息（openid，session_key） 信息
+//  * 存在
+//  * 		验证session（checkSessionStatus） 是否过期
+//  * 			未过期 直接调用 返回 用户信息
+//  * 			过期   直接调用 重新调用获取小程序 code （getCode）拿到code 获取用户信息（getOpenid）
+//  * 没有 调用（）   验证用户位置授权状态 2未操作 1已经授权  0拒绝授权
+//  * 		 0 ： 弹出自定义引导，引导用户 开启位置授权（openSetting）
+//  * 		 1 :  一般不会存在 缓存中没有数据 然后 已经授权 如果存在还是调用 微信授权
+//  * 		 2 :  继续 调用微信授权
+// 
+function getUserDataFun() {return _getUserDataFun.apply(this, arguments);}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 获取 小程序 code 请求接口换取 openid
+function _getUserDataFun() {_getUserDataFun = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var returnUserData, that, userData, checkSessionStatus;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:returnUserData = '';that = this; //用户缓存信息
+            userData = uni.getStorageSync('userData');if (!userData) {_context.next = 17;break;}_context.next = 6;return (0, _getWxUserInfor.checkSession)();case 6:checkSessionStatus = _context.sent;if (!(checkSessionStatus == 0)) {_context.next = 12;break;}console.log('checkSessionStatus---');returnUserData = userData.uinfo;_context.next = 15;break;case 12:_context.next = 14;return userCodeExchangeOpenid();case 14:returnUserData = _context.sent;case 15:_context.next = 20;break;case 17:_context.next = 19;return userCodeExchangeOpenid();case 19:returnUserData = _context.sent;case 20:return _context.abrupt("return", returnUserData);case 21:case "end":return _context.stop();}}}, _callee, this);}));return _getUserDataFun.apply(this, arguments);}function userCodeExchangeOpenid() {return _userCodeExchangeOpenid.apply(this, arguments);}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 时间判断 判断但前时间 与 某个时间比较
+function _userCodeExchangeOpenid() {_userCodeExchangeOpenid = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var backData, xcxCode, backOpenidData;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:backData = ''; // 获取 小程序 code 请求接口换取 openid
+            _context2.next = 3;return (0, _getWxUserInfor.getCode)();case 3:xcxCode = _context2.sent;_context2.next = 6;return (0, _getWxUserInfor.getOpenid)(xcxCode, 'sdqp');case 6:backOpenidData = _context2.sent;console.log('backOpenidData--------' + backOpenidData);console.log(backOpenidData);if (backOpenidData.uinfo) {console.log('checkSessionStatus2---');backData = backOpenidData.uinfo;} else {backData = '';}return _context2.abrupt("return", backData);case 11:case "end":return _context2.stop();}}}, _callee2);}));return _userCodeExchangeOpenid.apply(this, arguments);}var dateformat = function dateformat(date1) {console.log('dataTimesTamp');
+  var dateEnd = date1.replace(/-/g, "/").substring(0, 19);
+  var curTimesTamp = new Date().getTime();
+  var dataTimesTamp = new Date(dateEnd).getTime();
+  var backStatus = '';
+  if (curTimesTamp > dataTimesTamp) {
+    backStatus = true;
+  } else {
+    backStatus = false;
+  }
+  return backStatus;
+};
+
+// 时间判断 判断但前时间 与 某个时间比较
+exports.dateformat = dateformat;var dateformatTemp = function dateformatTemp(temp, date1) {
+  console.log('dateformatTempdateformatTempdateformatTemp');
+  console.log(temp);
+  console.log(date1);
+  var dateEnd = date1.replace(/-/g, "/").substring(0, 19);
+  var curTimesTamp = new Date().getTime();
+  var dataTimesTamp = new Date(dateEnd).getTime();
+  var backStatus = '';
+  if (temp > dataTimesTamp) {
+    backStatus = true;
+  } else {
+    backStatus = false;
+  }
+  return backStatus;
+};
+// 获取 openid
+exports.dateformatTemp = dateformatTemp;function getOpenidSD() {
+  var storageOpenid = uni.getStorageSync('openid');
+  console.log('getOpenidSD');
+  console.log(storageOpenid);
+  if (storageOpenid) {
+    return storageOpenid;
+  } else {
+    uni.navigateTo({
+      url: '/pages/getOpenid/getOpenid?getIdType=openid' });
+
+  }
+}
+// 获取 vjifenOpenid
+function getVjifenOpenid() {
+  var storageOpenid = uni.getStorageSync('vjfOpenid');
+  console.log('vjfOpenid');
+  console.log(storageOpenid);
+  // this.isHasVjifenOpenid = false;
+  if (storageOpenid) {
+    return storageOpenid;
+  } else {
+    uni.navigateTo({
+      url: '/pages/getOpenid/getOpenid?getIdType=vjfOpenid' });
+
+  }
+}
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 22:
 /*!*********************************************************************************************!*\
   !*** ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator/index.js ***!
   \*********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! regenerator-runtime */ 22);
+module.exports = __webpack_require__(/*! regenerator-runtime */ 23);
 
 /***/ }),
 
-/***/ 22:
+/***/ 23:
 /*!************************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime-module.js ***!
   \************************************************************/
@@ -8976,7 +9496,7 @@ var oldRuntime = hadRuntime && g.regeneratorRuntime;
 // Force reevalutation of runtime.js.
 g.regeneratorRuntime = undefined;
 
-module.exports = __webpack_require__(/*! ./runtime */ 23);
+module.exports = __webpack_require__(/*! ./runtime */ 24);
 
 if (hadRuntime) {
   // Restore the original runtime.
@@ -8993,7 +9513,7 @@ if (hadRuntime) {
 
 /***/ }),
 
-/***/ 23:
+/***/ 24:
 /*!*****************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime.js ***!
   \*****************************************************/
@@ -9725,533 +10245,6 @@ if (hadRuntime) {
 
 /***/ }),
 
-/***/ 24:
-/*!**********************************************************************!*\
-  !*** /Users/pengboli/Desktop/v积分/xcx/山东小程序/sdqp/common/basicsFun.js ***!
-  \**********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.judgeBusinessCode = judgeBusinessCode;exports.filterArr = filterArr;exports.getUserDataFun = getUserDataFun;exports.judgeBusinessStrCode = judgeBusinessStrCode;exports.strlen = strlen;exports.strSub = strSub;exports.judgeSeckillBusinessCode = judgeSeckillBusinessCode;exports.getOpenidSD = getOpenidSD;exports.getUserBasics = getUserBasics;exports.dateformatTemp = exports.dateformat = exports.idcardValidate = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator */ 21));var _getWxUserInfor = __webpack_require__(/*! @/common/getWxUserInfor.js */ 25);
-
-
-
-
-var _getData = __webpack_require__(/*! @/common/getData.js */ 26);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}
-
-
-// 验证身份证号码
-var idcardValidate = function idcardValidate(idds) {
-  var weight = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2],
-  validate = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'];
-  var reg2 = /^[1-9][0-9xX]{17}$/;
-  var sum = 0,
-  mod = 0,
-  ymd = [];
-  if (reg2.test(idds)) {
-    for (var i = 0; i < 17; ++i) {
-      sum += parseInt(idds[i], 10) * weight[i];
-      if (i > 5 && i < 14) ymd.push(idds[i]);
-    }
-    mod = sum % 11;
-    return validate[mod] === idds[17].toUpperCase() && reg2.test(idds);
-  } else {
-    return reg2.test(idds);
-  }
-};
-
-// 获取地理位置信息
-exports.idcardValidate = idcardValidate;function getCityInfo() {
-  return new Promise(function (resolve, reject) {
-    wx.getLocation({
-      success: function success(data) {
-        var url = 'http://api.map.baidu.com/geocoder?location=纬度,经度&output=输出格式类型&key=用户密钥';
-        var latitude = data.latitude,
-        longitude = data.longitude;
-        wx.request({
-          url: 'https://api.map.baidu.com/geocoder',
-          method: 'GET',
-          dataType: 'json',
-          data: {
-            key: '4ATeuGLwAt08UunArKywQ1KyYalvpdi8',
-            location: latitude + ',' + longitude,
-            output: 'json' },
-
-          success: function success(data) {
-            resolve(data.data.result);
-          },
-          fail: function fail(err) {
-            reject(err);
-          } });
-
-      },
-      fail: function fail(error) {
-        reject(error);
-      } });
-
-  });
-}
-
-/**
-   * 扫码 businessCode 区分跳转不同的 页面
-   */
-function judgeBusinessCode(data) {
-  return new Promise(function (resolve, reject) {
-    console.log('judgeBusinessCode');
-    console.log(data);
-    var result = data.result;
-    var reply = data.reply;
-    var replyTime = data.replyTime;
-    var businessCode = data.result.businessCode;
-    // const businessCode = 0 ; 
-
-    // 获取版本名称
-    var activityVersion = getActivityVersion(reply.activityVersion) || '';
-    console.log('-----');
-    console.log(activityVersion);
-    if (businessCode == 0) {// 扫码成功 红包
-      var redirectToUrl = '';
-      if (activityVersion == 'LaoShan') {
-        redirectToUrl = "/pages/saoDianDe/LaoShan/getCash?bizcode=".concat(businessCode);
-      } else if (activityVersion == 'JinMai') {
-        getApp().globalData.lxCompanyKey = reply.lxCompanyKey || '';
-        getApp().globalData.ticketCode = reply.ticketInfo.ticketCode || '';
-        redirectToUrl = "/pages/saoDianDe/JinMai/disc?bizcode=".concat(businessCode, "&prizeType=").concat(reply.prizeType);
-      } else {
-        // 通用版本
-        redirectToUrl = "/pages/saoDianDe/common/getCash?bizcode=".concat(businessCode);
-      }
-      resolve(redirectToUrl);
-    } else if (businessCode == 11 || businessCode == 2 || businessCode == 15) {// 11：本人重复扫码  2||15：这个二维码已被扫
-      var _redirectToUrl = '';
-
-      // getApp().globalData.openQrcode = false
-
-      if (activityVersion == 'LaoShan') {
-        _redirectToUrl = "/pages/saoDianDe/LaoShan/abnormal?bizcode=".concat(businessCode);
-      } else if (activityVersion == 'JinMai') {
-        _redirectToUrl = "/pages/saoDianDe/JinMai/abnormal?bizcode=".concat(businessCode);
-      } else {
-        // 通用版本
-        _redirectToUrl = "/pages/saoDianDe/common/codeScanned?bizcode=".concat(businessCode);
-      }
-      resolve(_redirectToUrl);
-
-    } else if (businessCode == 7) {//大奖
-      // let redirectToUrl = '';
-      // // if (reply.username || result.msg == '重复扫码') { //已填写 或者重复扫码 直接显示 已领取 信息
-      // if (reply.username) { //已填写 或者重复扫码 直接显示 已领取 信息
-      // 	redirectToUrl = `../submitUserInformation/submitUserInformation?bizcode=${businessCode}&isGetPrize=true`;
-      // } else {
-      // 	if(reply.checkPrizeRecord){
-      // 		const expireTime = reply.checkPrizeRecord.expireTime;
-      // 		const expireTimeStatus = dateformatTemp(replyTime,expireTime); //返回 false 说明 当前小于活动截止时间 可以正常扫码 如果true说明当前时间大于截止时间不能扫码 跳转至二维码被扫
-      // 		console.log('判断大奖是否到期');
-      // 		console.log(expireTime);
-      // 		console.log(expireTimeStatus);
-      // 		if(expireTimeStatus){
-      // 			redirectToUrl = `../codeScanned/codeScanned?bizcode=${businessCode}`
-      // 		}else{
-      // 			// redirectToUrl = `../getPrize/getPrize?bizcode=${businessCode}&isGetPrize=false`;
-      // 			// 修改原因 中出大奖 也要 走点击抽奖按钮 和 弹出 红包一样
-      // 			redirectToUrl = businessCode;
-      // 		}
-      // 	}else{
-      // 			redirectToUrl = businessCode;
-      // 	}
-      // }
-      // resolve(redirectToUrl); 
-
-      // 金麦版本 没有大奖 
-      var _redirectToUrl2 = '';
-      if (activityVersion == 'LaoShan') {
-        _redirectToUrl2 = "/pages/saoDianDe/LaoShan/getCash?bizcode=".concat(businessCode);
-      } else {
-
-        // 通用版本
-        // 定义 领取 大奖 所需参数  
-        getApp().globalData.getPrizeSendData = {
-          prizeVcode: reply.prizeVcode,
-          prizeType: reply.prizeType };
-
-
-        if (reply.username) {//已填写 或者重复扫码 直接显示 已领取 信息
-
-          var isDay19 = reply.perMantissaPrize ? true : false;
-          _redirectToUrl2 = "/pages/saoDianDe/common/submitUserInformation?bizcode=".concat(businessCode, "&prizeType=").concat(reply.prizeType, "&prizeVcode=").concat(reply.prizeVcode, "&isDay19=").concat(isDay19, "&pageSource=getCash&isGetPrize=true");
-
-        } else {
-          _redirectToUrl2 = "/pages/saoDianDe/common/getCash?bizcode=".concat(businessCode);
-        }
-      }
-      console.log(_redirectToUrl2);
-      resolve(_redirectToUrl2);
-    } else if (businessCode == 12 || businessCode == 13) {//可疑 黑名单
-      // 12 可疑用户展示出入手机号 13 静态页面 提示
-      var _redirectToUrl3 = "/pages/saoDianDe/blackList/blackList?bizcode=".concat(businessCode);
-      resolve(_redirectToUrl3);
-    } else if (businessCode == 24) {
-      // 金麦版本 中出 苏打水
-      var _redirectToUrl4 = '';
-      if (activityVersion == 'JinMai') {
-        _redirectToUrl4 = "/pages/saoDianDe/JinMai/disc?bizcode=".concat(businessCode);
-      }
-      resolve(_redirectToUrl4);
-    } else if (businessCode == 21) {
-      console.log(212121);
-
-      // 中出 金额 + 大奖 类型  或者 19日
-      var _redirectToUrl5 = '';
-      if (reply.exchangeChannel == '5') {//皮尔森——要酒日大奖
-        // 通用版本
-        // 定义 领取 大奖 所需参数  
-        getApp().globalData.getPrizeSendData = {
-          prizeVcode: reply.prizeVcode,
-          prizeType: reply.prizeType };
-
-        _redirectToUrl5 = "/pages/saoDianDe/common/getCash?bizcode=7";
-      } else {
-        if (activityVersion == 'LaoShan') {
-          _redirectToUrl5 = "/pages/saoDianDe/LaoShan/abnormal?bizcode=".concat(businessCode);
-        } else {
-          // 通用版本
-          // 定义 领取 大奖 所需参数  
-          getApp().globalData.getPrizeSendData = {
-            prizeVcode: reply.prizeVcode,
-            prizeType: reply.prizeType };
-
-          _redirectToUrl5 = "/pages/saoDianDe/common/getCash?bizcode=".concat(businessCode);
-        }
-      }
-      resolve(_redirectToUrl5);
-    } else if (businessCode == 30) {
-      // 大奖核销
-      var _redirectToUrl6 = "/pages/saoDianDe/verification/verification";
-      resolve(_redirectToUrl6);
-    } else {//其他异常
-      // businessCode 1 : 这个二维码不存在
-      // businessCode 2 || 15  : 这个二维码已被扫
-      // businessCode 3 : 这个二维码已过期
-      // businessCode 4 : 活动未开始
-      // businessCode 5 : 活动已截止
-      // businessCode 6 : 系统繁忙
-      // businessCode 19 : 漏码
-      // businessCode 23 : 扫码次数已达上限
-      // businessCode -1 : 系统升级中
-      uni.setStorage({
-        key: 'businessCode',
-        data: businessCode });
-
-      var _redirectToUrl7 = '';
-      if (activityVersion == 'LaoShan') {
-        _redirectToUrl7 = "/pages/saoDianDe/LaoShan/abnormal?bizcode=".concat(businessCode);
-      } else if (activityVersion == 'JinMai') {
-        _redirectToUrl7 = "/pages/saoDianDe/JinMai/abnormal?bizcode=".concat(businessCode);
-      } else {
-        // 通用版本
-        _redirectToUrl7 = "/pages/saoDianDe/common/abnormal?bizcode=".concat(businessCode);
-      }
-      resolve(_redirectToUrl7);
-
-    }
-  });
-}
-
-/**
-   * 秒杀 处理返回数据 
-   */
-function judgeSeckillBusinessCode(data) {
-  return new Promise(function (resolve, reject) {
-    console.log('judgeSeckillBusinessCode');
-    console.log(data);
-    var result = data.result;
-    var reply = data.reply;
-    var replyTime = data.replyTime;
-    var businessCode = data.result.businessCode;
-
-    if (businessCode == 0) {// 扫码成功 红包
-      // 通用版本
-      var redirectToUrl = "/pages/saoDianDe/common/getCash?bizcode=".concat(businessCode);
-      resolve(redirectToUrl);
-    } else {//其他异常
-      // businessCode 1 : 这个二维码不存在
-      // businessCode 2 || 15  : 这个二维码已被扫
-      // businessCode 3 : 这个二维码已过期
-      // businessCode 4 : 活动未开始
-      // businessCode 5 : 活动已截止
-      // businessCode 6 : 系统繁忙
-      // businessCode 19 : 漏码
-      // businessCode 23 : 扫码次数已达上限
-      // businessCode -1 : 系统升级中
-      // uni.setStorage({
-      // 	key: 'businessCode',
-      // 	data: businessCode
-      // })
-      // 通用版本
-      var _redirectToUrl8 = "/pages/saoDianDe/common/getCash?bizcode=".concat(businessCode);
-      resolve(_redirectToUrl8);
-    }
-  });
-}
-
-/**
-   * 判断版本
-   * 崂山版本
-   * 金麦版本
-   * 通用版本
-   * */
-function getActivityVersion(activityVersion) {
-  console.log('activityVersion');
-  console.log(activityVersion);
-  var returnActName = '';
-  if (activityVersion == 9) {
-    // 崂山版本
-    returnActName = 'LaoShan';
-  } else if (activityVersion == 10) {
-    // 金麦版本
-    returnActName = 'JinMai';
-  } else {
-    // 通用版本
-    returnActName = 'common';
-  }
-  // 定义全局 变量接收 版本名称
-  getApp().globalData.activityVersion = returnActName;
-  return returnActName;
-}
-
-
-/**
-   * 输入串码  businessCode  区分跳转不同的 页面
-   */
-function judgeBusinessStrCode(data) {
-  return new Promise(function (resolve, reject) {
-    console.log('judgeBusinessCode');
-    console.log(data);
-    var result = data.result;
-    var reply = data.reply;
-    var replyTime = data.replyTime;
-    var businessCode = data.result.businessCode;
-    // const businessCode = 0;
-    console.log('businessCodebusinessCodebusinessCodebusinessCode');
-    console.log(businessCode);
-    if (businessCode == 0) {// 扫码成功 红包
-      var redirectToUrl = "../activityEntrance/activityEntrance?bizcode=".concat(businessCode, "&codeType=2");
-      resolve(redirectToUrl);
-    } else if (businessCode == 11) {// 重复扫 码
-      var _redirectToUrl9 = "../codeScanned/codeScanned?bizcode=".concat(businessCode);
-      resolve(_redirectToUrl9);
-    } else if (businessCode == 7 || businessCode == 21) {//大奖 
-      var _redirectToUrl10 = '';
-      // if (reply.username || result.msg == '重复扫码') { //已填写 或者重复扫码 直接显示 已领取 信息
-      if (reply.username) {//已填写 或者重复扫码 直接显示 已领取 信息
-        _redirectToUrl10 = "../submitUserInformation/submitUserInformation?bizcode=".concat(businessCode, "&isGetPrize=true");
-      } else {
-        if (reply.checkPrizeRecord) {
-          var expireTime = reply.checkPrizeRecord.expireTime;
-          var expireTimeStatus = dateformatTemp(replyTime, expireTime); //返回 false 说明 当前小于活动截止时间 可以正常扫码 如果true说明当前时间大于截止时间不能扫码 跳转至二维码被扫
-          console.log('判断大奖是否到期');
-          console.log(expireTime);
-          console.log(expireTimeStatus);
-          if (expireTimeStatus) {
-            _redirectToUrl10 = "../codeScanned/codeScanned?bizcode=".concat(businessCode);
-          } else {
-            _redirectToUrl10 = "../getPrize/getPrize?bizcode=".concat(businessCode, "&isGetPrize=false");
-          }
-        } else {
-          _redirectToUrl10 = "../getPrize/getPrize?bizcode=".concat(businessCode, "&isGetPrize=false");
-        }
-      }
-      resolve(_redirectToUrl10);
-    } else if (businessCode == 12 || businessCode == 13) {//可疑 黑名单
-      // 12 展示出入手机号 13 静态页面 提示
-      var _redirectToUrl11 = "../blackList/blackList?bizcode=".concat(businessCode);
-      resolve(_redirectToUrl11);
-    } else {//其他异常
-      // businessCode 1 : 这个二维码不存在
-      // businessCode 2 || 15  : 这个二维码已被扫
-      // businessCode 3 : 这个二维码已过期
-      // businessCode 4 : 活动未开始
-      // businessCode 5 : 活动已截止
-      // businessCode 6 : 系统繁忙
-      // businessCode 19 : 漏码
-      // businessCode 23 : 扫码次数已达上限
-      // businessCode -1 : 系统升级中
-
-      // uni.setStorage({
-      // 	key: 'businessCode',
-      // 	data: businessCode
-      // })
-
-      reject(result);
-      // if (businessCode == 2) {
-      // 	uni.showModal({
-      // 		title: '这个串码已被扫',
-      // 		content: `扫码时间: ${ reply.earnTime } 再扫一瓶试试看~~`,
-      // 	})
-      // } else if (businessCode == 4) {
-      // 	uni.showModal({
-      // 		title: '活动未开始',
-      // 		content: "亲再等等哦",
-      // 	})
-      // } else {
-      // 	reject(businessCode);
-      // }
-    }
-  });
-}
-
-/**
-   * 筛选数组对象
-   * 单个条件筛选：
-   */
-function filterArr(keyName, val, arr) {
-  return arr.filter(function (item) {return item[keyName] === val;});
-}
-
-function strlen(str) {
-  var len = 0;
-  for (var i = 0; i < str.length; i++) {
-    var c = str.charCodeAt(i);
-    //单字节加1 
-    if (c >= 0x0001 && c <= 0x007e || 0xff60 <= c && c <= 0xff9f) {
-      len++;
-    } else {
-      len += 2;
-    }
-  }
-  return len;
-}
-
-function strSub(str, charCodeAtNum, showLength, replaceCharacter) {
-  var curLen = strlen(str);
-  console.log("strSub");
-  console.log(curLen);
-  var returnStr = '';
-  if (curLen > charCodeAtNum) {
-    returnStr = str.substring(0, showLength) + replaceCharacter;
-  } else {
-    returnStr = str;
-  }
-  return returnStr;
-}
-// 验证缓存中 是否 存在用户信息（openid、sessiong_key）
-// *
-//  * 获从缓存中  获取 用户信息（openid，session_key） 信息
-//  * 存在
-//  * 		验证session（checkSessionStatus） 是否过期
-//  * 			未过期 直接调用 返回 用户信息
-//  * 			过期   直接调用 重新调用获取小程序 code （getCode）拿到code 获取用户信息（getOpenid）
-//  * 没有 调用（）   验证用户位置授权状态 2未操作 1已经授权  0拒绝授权
-//  * 		 0 ： 弹出自定义引导，引导用户 开启位置授权（openSetting）
-//  * 		 1 :  一般不会存在 缓存中没有数据 然后 已经授权 如果存在还是调用 微信授权
-//  * 		 2 :  继续 调用微信授权
-// 
-function getUserDataFun() {return _getUserDataFun.apply(this, arguments);}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// 获取 小程序 code 请求接口换取 openid
-function _getUserDataFun() {_getUserDataFun = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var returnUserData, that, userData, checkSessionStatus;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:returnUserData = '';that = this; //用户缓存信息
-            userData = uni.getStorageSync('userData');if (!userData) {_context.next = 17;break;}_context.next = 6;return (0, _getWxUserInfor.checkSession)();case 6:checkSessionStatus = _context.sent;if (!(checkSessionStatus == 0)) {_context.next = 12;break;}console.log('checkSessionStatus---');returnUserData = userData.uinfo;_context.next = 15;break;case 12:_context.next = 14;return userCodeExchangeOpenid();case 14:returnUserData = _context.sent;case 15:_context.next = 20;break;case 17:_context.next = 19;return userCodeExchangeOpenid();case 19:returnUserData = _context.sent;case 20:return _context.abrupt("return", returnUserData);case 21:case "end":return _context.stop();}}}, _callee, this);}));return _getUserDataFun.apply(this, arguments);}function userCodeExchangeOpenid() {return _userCodeExchangeOpenid.apply(this, arguments);}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// 时间判断 判断但前时间 与 某个时间比较
-function _userCodeExchangeOpenid() {_userCodeExchangeOpenid = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var backData, xcxCode, backOpenidData;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:backData = ''; // 获取 小程序 code 请求接口换取 openid
-            _context2.next = 3;return (0, _getWxUserInfor.getCode)();case 3:xcxCode = _context2.sent;_context2.next = 6;return (0, _getWxUserInfor.getOpenid)(xcxCode, 'sdqp');case 6:backOpenidData = _context2.sent;console.log('backOpenidData--------' + backOpenidData);console.log(backOpenidData);if (backOpenidData.uinfo) {console.log('checkSessionStatus2---');backData = backOpenidData.uinfo;} else {backData = '';}return _context2.abrupt("return", backData);case 11:case "end":return _context2.stop();}}}, _callee2);}));return _userCodeExchangeOpenid.apply(this, arguments);}var dateformat = function dateformat(date1) {console.log('dataTimesTamp');
-  var dateEnd = date1.replace(/-/g, "/").substring(0, 19);
-  var curTimesTamp = new Date().getTime();
-  var dataTimesTamp = new Date(dateEnd).getTime();
-  var backStatus = '';
-  if (curTimesTamp > dataTimesTamp) {
-    backStatus = true;
-  } else {
-    backStatus = false;
-  }
-  return backStatus;
-};
-
-// 时间判断 判断但前时间 与 某个时间比较
-exports.dateformat = dateformat;var dateformatTemp = function dateformatTemp(temp, date1) {
-  console.log('dateformatTempdateformatTempdateformatTemp');
-  console.log(temp);
-  console.log(date1);
-  var dateEnd = date1.replace(/-/g, "/").substring(0, 19);
-  var curTimesTamp = new Date().getTime();
-  var dataTimesTamp = new Date(dateEnd).getTime();
-  var backStatus = '';
-  if (temp > dataTimesTamp) {
-    backStatus = true;
-  } else {
-    backStatus = false;
-  }
-  return backStatus;
-};
-// 获取 openid
-exports.dateformatTemp = dateformatTemp;function getOpenidSD() {
-  var storageOpenid = uni.getStorageSync('openid');
-  console.log('getOpenidSD');
-  console.log(storageOpenid);
-  if (storageOpenid) {
-    return storageOpenid;
-  } else {
-    uni.navigateTo({
-      url: '/pages/getOpenid/getOpenid?getIdType=openid' });
-
-  }
-}
-
-// 获取 用户 基本展示 信息 首页用到 积分 ； 我的 页面 ： 累计喝了多少酒 红包剩余 金额等
-function getUserBasics() {var _this = this;
-  // 获取用户基本信息目前用到 账户剩余积分
-  return new Promise(function (resolve, reject) {
-    var openid = uni.getStorageSync('openid').openid;;
-    if (getApp().globalData.userBasicsShowData) {
-      resolve(getApp().globalData.userBasicsShowData);
-    } else {
-      var that = _this;
-      (0, _getData.queryAllGiftsList)(openid, 1, 10).then(function (res) {
-        if (res) {
-          getApp().globalData.userBasicsShowData = res;
-          resolve(res);
-        }
-      });
-    }
-  });
-}
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
-
-/***/ }),
-
 /***/ 25:
 /*!***************************************************************************!*\
   !*** /Users/pengboli/Desktop/v积分/xcx/山东小程序/sdqp/common/getWxUserInfor.js ***!
@@ -10554,7 +10547,7 @@ var _api = __webpack_require__(/*! @/utils/api.js */ 8);
 
 
 
-var _basicsFun = __webpack_require__(/*! @/common/basicsFun.js */ 24); // 所有获取 微信用户 信息存放
+var _basicsFun = __webpack_require__(/*! @/common/basicsFun.js */ 21); // 所有获取 微信用户 信息存放
 // 获取地理位置信息
 function getCityInfo() {return new Promise(function (resolve, reject) {wx.getLocation({ success: function success(data) {var url = 'http://api.map.baidu.com/geocoder?location=纬度,经度&output=输出格式类型&key=用户密钥';var latitude = data.latitude,longitude = data.longitude;wx.request({ url: 'https://api.map.baidu.com/geocoder', method: 'GET', dataType: 'json', data: { key: '4ATeuGLwAt08UunArKywQ1KyYalvpdi8', location: latitude + ',' + longitude, output: 'json' }, success: function success(data) {resolve(data.data.result);}, fail: function fail(err) {reject(err);} });}, fail: function fail(error) {reject(error);} });});} /**
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         * 获取用户 基础信息
@@ -10651,7 +10644,7 @@ function navigateToMiniProgram() {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.sweepQrcode = sweepQrcode;exports.getCaptcha = getCaptcha;exports.updateUserInfoMobile = updateUserInfoMobile;exports.savePrize = savePrize;exports.queryUserHomePage = queryUserHomePage;exports.queryAllGiftsList = queryAllGiftsList;exports.getFailCount = getFailCount;exports.serialCode = serialCode;exports.giveSpackTx = giveSpackTx;exports.queryExchangePrizeAllLst = queryExchangePrizeAllLst;exports.queryPrizeList = queryPrizeList;exports.sweepSeckill = sweepSeckill;exports.ifremeber = ifremeber;exports.getShopGoodsRequst = getShopGoodsRequst;exports.getExchangeRecordRequst = getExchangeRecordRequst;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.sweepQrcode = sweepQrcode;exports.getCaptcha = getCaptcha;exports.updateUserInfoMobile = updateUserInfoMobile;exports.savePrize = savePrize;exports.queryUserHomePage = queryUserHomePage;exports.queryAllGiftsList = queryAllGiftsList;exports.getFailCount = getFailCount;exports.serialCode = serialCode;exports.giveSpackTx = giveSpackTx;exports.queryExchangePrizeAllLst = queryExchangePrizeAllLst;exports.queryPrizeList = queryPrizeList;exports.sweepSeckill = sweepSeckill;exports.ifremeber = ifremeber;exports.getShopGoodsRequst = getShopGoodsRequst;exports.getExchangeRecordRequst = getExchangeRecordRequst;exports.queryUnExchangePrizeLstRequst = queryUnExchangePrizeLstRequst;exports.getUserInfoRequst = getUserInfoRequst;
 var _api = __webpack_require__(/*! @/utils/api.js */ 8); // 所有接口请求存放
 
 
@@ -10738,13 +10731,11 @@ function sweepSeckill(sendParams) {
     // if (sendParams.openid == '') {
     // 	sendParams.openid = uni.getStorageSync("userData").uinfo.openid;
     // }
-
     console.log("backParams");
     console.log(sendParams);
     (0, _api.requestPost)('/vpoints/seckill/sweepQrcode', sendParams).then(function (backParams) {
       uni.hideLoading();
       console.log(backParams);
-
       if (backParams) {
         if (backParams.businessCode != 0) {
           // 因为 秒杀目前 只有中 红包 或者 提示 您离红包只差一点点  
@@ -10757,12 +10748,10 @@ function sweepSeckill(sendParams) {
           };
           backParams.result.businessCode = 0;
           backParams.result.mytype = backParams.businessCode; // 存储原始 businessCode
-
         }
         uni.setStorage({
           key: 'sweepQrcodeData',
           data: backParams });
-
 
         getApp().globalData.sweepQrcodeData = backParams;
         var backData = backParams.result;
@@ -10955,17 +10944,14 @@ function queryAllGiftsList(openid, currentPage, count) {var searchFlag = argumen
 
 // 换购列表 
 function queryExchangePrizeAllLst(currentPage, count, searchFlag) {
-  var userData = uni.getStorageSync('openid');
-  console.log(userData);
-  var openid = userData.openid;
+  var userData = uni.getStorageSync('vjfOpenid');
+  var vjfOpenid = userData.vjfOpenid;
   var ExchangePrizeAllLst_PORT = '/consumer/queryExchangePrizeAllLst'; // 我的换购 待兑换 已过期
   var ExchangePrizeAllLstUsed_PORT = '/consumer/queryExchangedPrizeLst'; // 我的换购 已兑换
   var sendUrl = searchFlag == 2 ? ExchangePrizeAllLstUsed_PORT : ExchangePrizeAllLst_PORT;
   var params = {
-    "companyKey": '85f57fb1-585b-11ea-ba2a-6e6d36e3ad65',
-    "vjifenOpenid": 'oJMqvt7MsD4Dk9ZVEQDgFVyl2qNs',
-    // "companyKey": companyKey,
-    // "vjifenOpenid": vjifenOpenid,
+    "companyKey": _api.config.companyKey,
+    "vjifenOpenid": vjfOpenid,
     "projectServerName": 'shandongagt',
     "currentPage": currentPage,
     "count": count,
@@ -11204,9 +11190,9 @@ function getShopGoodsRequst(goodShowFlag, currentPage, count) {
   var params = {
     currentPage: currentPage,
     count: count,
-    goodShowFlag: goodShowFlag, //商品展示类型：1首页商品大图，2首页商品小图，3积分好礼
-    saleNumOrderType: 0 };
-
+    goodShowFlag: goodShowFlag //商品展示类型：1首页商品大图，2首页商品小图，3积分好礼
+    // saleNumOrderType:0 // 自定义 排序 
+  };
   var promise = new Promise(function (reslove, reject) {
     (0, _api.requestPost)('/vpoints/vpointsShop/getShopGoods', params).then(function (jo) {
       console.log('getShopGoodsgetShopGoodsgetShopGoodsgetShopGoodsgetShopGoods');
@@ -11264,6 +11250,71 @@ function getExchangeRecordRequst(queryType, currentPage, count) {
   });
   return promise;
 }
+
+// 个人中心 获取 换购商品 数量
+function queryUnExchangePrizeLstRequst(queryType, currentPage, count) {
+  var userData = uni.getStorageSync('vjfOpenid');
+  var vjfOpenid = userData.vjfOpenid;
+  var params = {
+    vjifenOpenid: vjfOpenid,
+    currentPage: currentPage,
+    count: count,
+    companyKey: _api.config.companyKey //否	string	1.积分商城订单(默认)，2.河北现金支付订单，3.游戏记录
+  };
+  var promise = new Promise(function (reslove, reject) {
+    (0, _api.requestPost)('/consumer/queryUnExchangePrizeLst', params, _api.config.yylg).then(function (jo) {
+      console.log('getShopGoodsgetShopGoodsgetShopGoodsgetShopGoodsgetShopGoods');
+      console.log(jo);
+      if (jo.result.code == 0) {
+        if (jo.result.businessCode == 0) {
+          reslove(jo.reply);
+        } else {
+          reslove();
+        }
+      } else {
+        // uni.showModal({
+        // 	title: '提示',
+        // 	content: jo.result.msg
+        // });
+      }
+    }, function (err) {
+      console.log('queryUserHomePage');
+      console.log(err);
+    });
+  });
+  return promise;
+}
+
+// 首页查询用户信息 
+function getUserInfoRequst() {
+  var userData = uni.getStorageSync('openid');
+  var openid = userData.openid;
+  var params = {
+    openid: openid };
+
+  var promise = new Promise(function (reslove, reject) {
+    (0, _api.requestPost)('/user/userInfo', params).then(function (jo) {
+      console.log('userInfo');
+      console.log(jo);
+      if (jo.result.code == 0) {
+        if (jo.result.businessCode == 0) {
+          reslove(jo.reply);
+        } else {
+          reslove();
+        }
+      } else {
+        // uni.showModal({
+        // 	title: '提示',
+        // 	content: jo.result.msg
+        // });
+      }
+    }, function (err) {
+      console.log('queryUserHomePage');
+      console.log(err);
+    });
+  });
+  return promise;
+}
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
@@ -11276,7 +11327,7 @@ function getExchangeRecordRequst(queryType, currentPage, count) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator */ 21));var _api = __webpack_require__(/*! ../utils/api.js */ 8);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator */ 22));var _api = __webpack_require__(/*! ../utils/api.js */ 8);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
 
 
 {
@@ -11398,7 +11449,7 @@ module.exports = g;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator */ 21));var _api = __webpack_require__(/*! ../utils/api.js */ 8);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator */ 22));var _api = __webpack_require__(/*! ../utils/api.js */ 8);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
 
 
 {
@@ -26454,7 +26505,8 @@ if (isOnline) {
     appid: 'wx9c6255f9c646909f',
     payAppid: 'wxa42a20606316e2e9',
     yylg: 'https://yylg.vjifen.com/DBTLXInterface',
-    envVersion: 'release' // 跳转 小程序的 版本   //**重点**要打开的小程序版本，有效值 develop（开发版），trial（体验版），release（正式版） 
+    envVersion: 'release', // 跳转 小程序的 版本   //**重点**要打开的小程序版本，有效值 develop（开发版），trial（体验版），release（正式版）
+    companyKey: "85f57fb1-585b-11ea-ba2a-6e6d36e3ad65" // 线上
   };
 } else {var _config;
   exports.config = config = (_config = {
@@ -26472,7 +26524,8 @@ if (isOnline) {
     yylg: 'https://jxqp.vjifen.com:444/DBTLXInterface' }, _defineProperty(_config, "appid",
   'wx1ce2ca65ccc5aa5e'), _defineProperty(_config, "payAppid",
   'wx459ee9aa61f38da3'), _defineProperty(_config, "envVersion",
-  'trial'), _config);
+  'trial'), _defineProperty(_config, "companyKey",
+  "85f57fb1-585b-11ea-ba2a-6e6d36e3ad65"), _config);
 
 }
 

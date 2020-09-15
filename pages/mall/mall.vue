@@ -48,7 +48,7 @@
 										<view v-if="list.goodsSpecification">{{list.goodsSpecification}}{{list.goodsUnitName}}</view>
 									</view>
 									<view class="normalPrice">市场价：{{list.goodsMoney}}元</view>
-									<view class="price">
+									<view  :class="['price',{'overPrice':list.goodsStatus == 1}]">
 										<text v-if="list.realPay!=0"><text class="danwei">¥</text>{{(list.realPay/100)|toThousands}}
 										      <text v-if="list.realPay!=0 && list.realVpoints!=0" >+</text>
 										</text>
@@ -64,7 +64,7 @@
 							</view>
 							    
 							<view class="more" v-if="hasMore" @click="getMore">加载更多</view>
-							<view class="more" v-else>没有更多商品了哦</view>
+							<view class="more" v-else>没有更多了商品了</view>
 							
 						</view>
 						
@@ -85,7 +85,7 @@
 						<view class="free" >
 							<view class="" v-show="cartNumShow">
 								<view class="money">¥{{totalMoney|toThousands}}</view>
-								<view class="score">{{totalVpoint|toThousands}}积分</view>
+								<view class="score">{{totalVpoint|toThousands}}</view>
 							</view>
 						</view>
 						<view class="buy" @click="toBuy">去结算 ></view>
@@ -171,7 +171,7 @@
 				categoryData: [],
 				children:[],  //右边商品        
 				currentPage:1,
-				count:4, // 50
+				count:4,
 				
 				categoryParent:'',// 传递的菜单值
 				hasMore:false,
@@ -182,21 +182,12 @@
 				
 				cartNum:'0',
 				totalMoney:'0.00',
-				totalVpoint:'0',
-				
-				pricePaixu:'',
+				totalVpoint:'0'
 			};
 		},
 		computed: {},
-		onLoad(options) {
-			// 定位到积分商城
-			if(getApp().globalData.from == 'jfhw'){
-				this.categoryType= '-2',
-				this.onType(2,-2);
-				getApp().globalData.from = ''; // 置空
-			} else {
-				this.getgoods(0) ; // 全部商品
-			}
+		onLoad() {
+			this.getgoods(0) ; // 全部商品
 		},
 		onShow() {
 			// 获取菜单
@@ -496,9 +487,6 @@
 				}
 			},
 			onType(idx,categoryParent) {
-				this.curTop = false;
-				this.curBottom = false; // 箭头置灰
-				
 				this.currentPage = 1; // 切换菜单重回第一页
 				this.categoryType = idx;
 				
@@ -509,7 +497,7 @@
 			},
 			getMore() { //加载更多
 				this.currentPage++;
-				this.getgoods(this.categoryParent,this.pricePaixu);    
+				this.getgoods(this.categoryParent);    
 			},
 			async getgoods(categoryParent,order) {
 				var params = {
@@ -608,23 +596,18 @@
 			},
 			upSort(){ //升序
 			    this.children = [];
-				this.currentPage = 1;
 				if(this.curTop == false ){
 					this.arrowUp = this.imgUrl + 'arrowTop.png';
 					this.arrowDown = this.imgUrl + 'arrowDown.png';
 					this.curTop = true;
 					this.curBottom = false;
-					
-					this.pricePaixu = 'up'
-					this.getgoods(this.categoryParent,this.pricePaixu);
+					this.getgoods(this.categoryParent,'up');
 				} else {
 					this.arrowUp = this.imgUrl + 'arrowDown.png';
 					this.arrowDown = this.imgUrl + 'arrowTop.png';
 					this.curTop = false;
 					this.curBottom = true;
-					
-					this.pricePaixu = 'down'
-					this.getgoods(this.categoryParent,this.pricePaixu);
+					this.getgoods(this.categoryParent,'down');
 				}
 			},
 			downSort(){ // 降序
@@ -713,7 +696,7 @@
 		margin-top: 10rpx;
 		display: flex;
 		flex-direction: column;
-		overflow: hidden;
+		// overflow: hidden;
 		height: 78%;
 		// padding-bottom: 88rpx;
 		&.prevent {
@@ -739,15 +722,15 @@
 		flex: 1;
 		background: #fff;
 		-webkit-overflow-scrolling: touch;      
-		padding-left: 22rpx;
 	}
 
 	.left {
-		width: 197rpx;
+		width: 200rpx;
 		height: 100%;
 		background: url($mallImg + 'menuBg.png') no-repeat center;
 		background-size: 100% auto;
-		padding: 100rpx 0rpx;
+		padding-top: 100rpx;
+		padding-bottom: 100rpx;
 		background-position-y: 0rpx;
 		.list-active {
 			color: #EDA323 !important;
@@ -760,7 +743,7 @@
 		}
 
 		.type-list {
-			height: 100upx;
+			height: 120upx;
 			position: relative;
 			width: 156upx;
 			font-size: 28upx;
@@ -848,15 +831,14 @@
 		}
 	}
 	.right {
-		padding-right: 10rpx;
+		padding: 0 10rpx 0 22rpx;
 		margin-top:10rpx;
 		flex: 1;
 		height: 100%;
-		width: 70%;
 		.items{
 			padding-bottom: 200rpx;
 			.item-list {
-				padding: 30rpx 30rpx 30rpx 0;
+				padding:30rpx 0 30rpx 20rpx;
 				border-bottom: 1rpx solid #eee;
 				display: flex;
 				// width:100%;
@@ -872,8 +854,7 @@
 					border-radius:10rpx;
 					position: relative;
 					image{
-						// width: 134rpx;
-						width: 168rpx;
+						width: 134rpx;
 						position: relative;
 						top: 50%;
 						left: 50%;
@@ -909,16 +890,13 @@
 					flex-shrink:2;
 					padding-left: 20rpx;
 					.proName{
-						// width:200rpx;
-						// width: 460rpx;
-						width: 140%;
+						width:200rpx;
 						font-size:28rpx;
 						font-weight:500;
 						color:#333;
-						padding-right: 20rpx;
-						// white-space:nowrap;
-						// overflow:hidden;
-						// text-overflow:ellipsis;
+						white-space:nowrap;
+						overflow:hidden;
+						text-overflow:ellipsis;
 					}
 					.unit{
 						font-size:22rpx;
@@ -930,8 +908,8 @@
 						text-overflow:ellipsis;
 						height: 50rpx;
 						view{
-							border-radius:6rpx;
-							border:1rpx solid #CACACA;
+							border-radius:6px;
+							border:1px solid #CACACA;
 							margin:14rpx 0 22rpx;
 							padding: 0 12rpx;
 						}
@@ -939,12 +917,15 @@
 					.normalPrice{
 						font-size:22rpx;
 						color:#999;
-						padding: 10rpx 0;
+						padding: 10rpx 0 4rpx 0;
 					}
 					.price{
 						font-size:28rpx;
 						font-weight:500;
 						color:#FF4514;
+						&.overPrice{
+							color:#999;
+						}
 						.danwei{
 							font-size:22rpx;
 						}
@@ -1137,7 +1118,7 @@
 						border-radius:10rpx;
 						position: relative;
 						image{
-							width: 168rpx;
+							width: 134rpx;
 							position: relative;
 							top: 50%;
 							left: 50%;
@@ -1149,19 +1130,18 @@
 						flex-shrink:2;
 						padding-left: 20rpx;
 						.proName{
-							// width:200rpx;
-							width: 140%;
+							width:200rpx;
 							font-size:28rpx;
 							font-weight:500;
 							color:#333;
-							// white-space:nowrap;
-							// overflow:hidden;
-							// text-overflow:ellipsis;
+							white-space:nowrap;
+							overflow:hidden;
+							text-overflow:ellipsis;
 						}
 						.unit{
 							font-size:22rpx;
 							color:#999;
-							margin: 14rpx 0 0rpx;
+							// margin:14rpx 0 22rpx;
 							display: inline-block;
 							max-width: 200rpx;
 							white-space:nowrap;
@@ -1169,8 +1149,9 @@
 							text-overflow:ellipsis;
 							height: 60rpx;
 							view{
-								border-radius:6rpx;
+								border-radius:6px;
 								border:1rpx solid #CACACA;
+								margin: 24rpx 0 36rpx;
 								padding: 0 12rpx;
 							}
 						}
@@ -1182,7 +1163,7 @@
 							font-size:28rpx;
 							font-weight:500;
 							color:#FF4514;
-							// padding-top: 40rpx;
+							padding-top: 40rpx;
 							.danwei{
 								font-size:22rpx;
 							}

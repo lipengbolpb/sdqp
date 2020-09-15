@@ -134,7 +134,34 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator */ 21));
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator */ 22));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -213,7 +240,8 @@ var _getData = __webpack_require__(/*! @/common/getData.js */ 26);
 
 
 
-var _basicsFun = __webpack_require__(/*! @/common/basicsFun.js */ 24);
+
+var _basicsFun = __webpack_require__(/*! @/common/basicsFun.js */ 21);
 
 
 
@@ -257,7 +285,7 @@ var _tipConfig = __webpack_require__(/*! @/common/tipConfig.js */ 53);function _
       staticUrl: _api.config.staticUrl,
       personalCenterImg: _api.config.staticUrl + 'personalCenter/',
       openid: '',
-      total: '', //累计饮酒 
+      total: 0, //累计饮酒 
       pctList: [{
         id: 1,
         isCanClick: true,
@@ -276,15 +304,6 @@ var _tipConfig = __webpack_require__(/*! @/common/tipConfig.js */ 53);function _
         icon: _api.config.staticUrl + 'personalCenter/iconhuangou.png',
         rightIcon: _api.config.staticUrl + 'personalCenter/iconRight.png',
         navUrl: '/pages/saoDianDe/exchangeGoods/exchangeGoods' },
-      {
-        id: 3,
-        isCanClick: true,
-        isShow: true,
-        status: 1, // 1 跳转 路径 2 显示弹窗
-        name: '优惠券',
-        icon: _api.config.staticUrl + 'personalCenter/iconyouhuiquan.png',
-        rightIcon: _api.config.staticUrl + 'personalCenter/iconRight.png',
-        navUrl: '' },
       {
         id: 4,
         isCanClick: true,
@@ -305,7 +324,7 @@ var _tipConfig = __webpack_require__(/*! @/common/tipConfig.js */ 53);function _
         navUrl: '/pages/saoDianDe/prizeList/prizeList' }],
 
       pctListBot: [{
-        id: 0,
+        id: 21,
         isCanClick: true,
         isShow: true,
         status: 1, // 1 跳转 路径 2 显示弹窗
@@ -314,16 +333,7 @@ var _tipConfig = __webpack_require__(/*! @/common/tipConfig.js */ 53);function _
         rightIcon: _api.config.staticUrl + 'personalCenter/iconRight.png',
         navUrl: '/pages/luckDrawList/luckDrawList' },
       {
-        id: 1,
-        isCanClick: true,
-        isShow: true,
-        status: 1, // 1 跳转 路径 2 显示弹窗
-        name: '我的心愿单',
-        icon: _api.config.staticUrl + 'personalCenter/iconwodexiinyuandan.png',
-        rightIcon: _api.config.staticUrl + 'personalCenter/iconRight.png',
-        navUrl: '/pages/saoDianDe/winningRecord/winningRecord' },
-      {
-        id: 2,
+        id: 22,
         isCanClick: true,
         isShow: true,
         status: 1, // 1 跳转 路径 2 显示弹窗
@@ -332,7 +342,7 @@ var _tipConfig = __webpack_require__(/*! @/common/tipConfig.js */ 53);function _
         rightIcon: _api.config.staticUrl + 'personalCenter/iconRight.png',
         navUrl: '/pages/address/addressList' },
       {
-        id: 3,
+        id: 23,
         isCanClick: true,
         isShow: true,
         status: 1, // 1 跳转 路径 2 显示弹窗
@@ -341,7 +351,7 @@ var _tipConfig = __webpack_require__(/*! @/common/tipConfig.js */ 53);function _
         rightIcon: _api.config.staticUrl + 'personalCenter/iconRight.png',
         navUrl: '/pages/userInfo/infoTask' },
       {
-        id: 4,
+        id: 24,
         isCanClick: true,
         isShow: true,
         status: 1, // 1 跳转 路径 2 显示弹窗
@@ -350,7 +360,7 @@ var _tipConfig = __webpack_require__(/*! @/common/tipConfig.js */ 53);function _
         rightIcon: _api.config.staticUrl + 'personalCenter/iconRight.png',
         navUrl: '/pages/webview/attention' },
       {
-        id: 5,
+        id: 25,
         isCanClick: true,
         isShow: true,
         status: 1, // 1 跳转 路径 2 显示弹窗
@@ -359,7 +369,7 @@ var _tipConfig = __webpack_require__(/*! @/common/tipConfig.js */ 53);function _
         rightIcon: _api.config.staticUrl + 'personalCenter/iconRight.png',
         navUrl: '/pages/saoDianDe/strCode/strCode' },
       {
-        id: 6,
+        id: 26,
         isCanClick: true,
         isShow: true,
         status: 1, // 1 跳转 路径 2 显示弹窗
@@ -368,7 +378,7 @@ var _tipConfig = __webpack_require__(/*! @/common/tipConfig.js */ 53);function _
         rightIcon: _api.config.staticUrl + 'personalCenter/iconRight.png',
         navUrl: '' },
       {
-        id: 5,
+        id: 27,
         isCanClick: true,
         isShow: true,
         status: 1, // 1 跳转 路径 2 显示弹窗
@@ -452,20 +462,8 @@ var _tipConfig = __webpack_require__(/*! @/common/tipConfig.js */ 53);function _
                   that.isHasUserInfo = false;
                 } });
 
-              wx.createSelectorQuery().
-              select('#personalCenter').
-              boundingClientRect().
-              select('#wr-center-top').
-              boundingClientRect().
-              exec(function (res) {
-                var scrollViewHeight = parseFloat(res[0].height - res[1].height - 60).toFixed(2);
-                // const scrollViewHeight = 480;
-                console.log(res);
-                console.log(scrollViewHeight);
-                that.scrollViewHeight = scrollViewHeight || 237;
-              });
 
-              (0, _basicsFun.getOpenidSD)();case 7:case "end":return _context.stop();}}}, _callee);}))();
+              (0, _basicsFun.getOpenidSD)();case 6:case "end":return _context.stop();}}}, _callee);}))();
 
   },
 
@@ -473,11 +471,42 @@ var _tipConfig = __webpack_require__(/*! @/common/tipConfig.js */ 53);function _
     // 获取展示 信息
     var that = this;
     that.openid = that.openid ? that.openid : uni.getStorageSync('openid').openid;
-    (0, _basicsFun.getUserBasics)().then(function (res) {
-      console.log('getUserBasics');
-      console.log(res);
-      _this2.sortingParameters(res);
-    });
+    if (that.openid) {
+      // getUserBasics().then((res) => {
+      // 	console.log('getUserBasics');
+      // 	console.log(res);
+      // 	this.sortingParameters(res);
+      // });
+
+      var _that = this;
+      (0, _getData.queryAllGiftsList)(_that.openid, 1, 10).then(function (res) {
+        if (res) {
+          console.log('getUserBasics');
+          console.log(res);
+          _this2.sortingParameters(res);
+        }
+      });
+
+    }
+
+    that.vjifenOpenid = that.vjifenOpenid ? that.vjifenOpenid : uni.getStorageSync('vjfOpenid').vjfOpenid;
+    console.log('that.vjifenOpenid');
+    console.log(that.vjifenOpenid);
+    if (that.vjifenOpenid) {
+      // 获取换购商品数量 
+      (0, _getData.queryUnExchangePrizeLstRequst)().then(function (res) {
+        console.log('queryUnExchangePrizeLstRequst');
+        console.log(res);
+        _this2.pctList[1].showCenter = res.prizeNum > 0 ? "".concat(res.prizeNum, "\u652F\u5F85\u5151\u6362") : ''; // 换购商品数量显示
+        _this2.pctList.splice();
+      });
+    } else {
+      // 没有 vjifenOpenid 读条获取
+      (0, _basicsFun.getVjifenOpenid)();
+    }
+
+    this.getScrollHeight();
+
   },
   /**
       * 用户点击右上角分享
@@ -502,7 +531,6 @@ var _tipConfig = __webpack_require__(/*! @/common/tipConfig.js */ 53);function _
 
     },
 
-
     sortingParameters: function sortingParameters(res) {
       // 整理参数
       this.tabsArr[0].showCenter = res.orderNonPaymentNum; //订单待付款数量
@@ -510,8 +538,8 @@ var _tipConfig = __webpack_require__(/*! @/common/tipConfig.js */ 53);function _
       this.tabsArr[2].showCenter = res.orderNonReceiveNum; // 订单待收货数量
       this.tabsArr.splice();
       this.pctList[0].showCenter = res.totalMoney > 0 ? "\uFFE5".concat(res.totalMoney, "\u5143\u53EF\u63D0\u73B0") : ''; //账户余额(元) 
-      this.pctList[2].showCenter = res.totalTicketNum > 0 ? "".concat(res.totalTicketNum, "\u5F20\u5F85\u4F7F\u7528") : ''; //优惠券总数量
-      this.pctList[3].showCenter = res.totalVpoints > 0 ? "\u79EF\u5206\u4F59\u989D".concat(res.totalVpoints) : ''; //账户剩余积分
+      //优惠券 this.pctList[2].showCenter = res.totalTicketNum > 0 ? `${res.totalTicketNum}张待使用` : ''; //优惠券总数量
+      this.pctList[2].showCenter = res.totalVpoints > 0 ? "\u79EF\u5206\u4F59\u989D".concat(res.totalVpoints) : ''; //账户剩余积分
       this.pctList.splice();
       // total
       this.total = res.total;
@@ -593,6 +621,23 @@ var _tipConfig = __webpack_require__(/*! @/common/tipConfig.js */ 53);function _
         }
       });
 
+    },
+    // 获取 滚动 区域 高度
+    getScrollHeight: function getScrollHeight() {
+      var that = this;
+      wx.createSelectorQuery().
+      select('#personalCenter').
+      boundingClientRect().
+      select('#wr-center-top').
+      boundingClientRect().
+      exec(function (res) {
+        var scrollViewHeight = parseFloat(res[0].height - res[1].height - 60).toFixed(2);
+        // const scrollViewHeight = 480;
+        console.log('createSelectorQuery');
+        console.log(res);
+        console.log(scrollViewHeight);
+        that.scrollViewHeight = scrollViewHeight || 237;
+      });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

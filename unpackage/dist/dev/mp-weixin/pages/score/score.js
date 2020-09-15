@@ -162,7 +162,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator */ 21));
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator */ 22));
 
 
 
@@ -329,18 +329,32 @@ var _api = __webpack_require__(/*! @/utils/api.js */ 8);function _interopRequire
         title: "参与赚积分兑好物活动", // 默认是小程序的名称(可以写slogan等)
         path: '/pages/index/index', // 默认是当前页面，必须是以‘/’开头的完整路径
         imageUrl: this.imgUrl + 'shareImg.jpg?v=1', //自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径，支持PNG及JPG，不传入 imageUrl 则使用默认截图。显示图片长宽比是 5:4
-        complete: function complete(res) {
-          console.log(res);
+        success: function success(res) {
+          // 转发成功之后的回调
+          if (res.errMsg == 'shareAppMessage:ok') {
+          }
+        },
+        fail: function fail() {
+          // 转发失败之后的回调
+          if (res.errMsg == 'shareAppMessage:fail cancel') {
+            // 用户取消转发
+            uni.showToast({
+              title: '已取消转发',
+              icon: 'none' });
+
+          } else if (res.errMsg == 'shareAppMessage:fail') {
+            // 转发失败，其中 detail message 为详细失败信息
+          }
         } };
+
 
       // 来自页面内的按钮的转发
       if (res.from === 'button') {
         // 此处可以修改 shareObj 中的内容
         shareObj.path = '/pages/index/index?form=' + 'share' + '&openid=' + getApp().globalData.openid;
       } else if (res.from === 'menu') {
-        //console.log('右上角菜单转发按钮');
-      }
-      this.showShareTip = false;
+
+      } //console.log('右上角菜单转发按钮');
       // 返回shareObj
       return shareObj;
     },
@@ -367,8 +381,6 @@ var _api = __webpack_require__(/*! @/utils/api.js */ 8);function _interopRequire
                       _this.earnVpoints = jo.reply.earnVpoints; //任务完后领取的积分
                       _this.getScore = true; //展示得到积分数
 
-
-                      _this.restVpoints = _this.restVpoints + _this.earnVpoints; //实时更新积分余额
                       timer = null;
 
                       timer = setTimeout(function () {

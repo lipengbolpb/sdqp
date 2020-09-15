@@ -25,7 +25,6 @@
 /* 透明度 */
 /* 文章场景相关 */
 .add_page {
-  height: 100%;
   background: #F8F8F8;
   overflow: hidden;
 }

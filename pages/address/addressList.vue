@@ -1,8 +1,8 @@
 <template>
 	<view class="addressList">
 		<!-- 地址列表 -->
-		<view class="address_list" v-if="addressList.length>0">
-			<view class="address_card"  v-for="(item,index) in addressList"  :key="index"  >
+		<view class="address_list">
+			<view class="address_card"  v-for="(item,index) in addressList"  :key="index"  v-if="addressList.length>0">
 				<view class="select"  @click="selectAddress(index)">
 					 <!-- 选中仅需此条件就可显示对勾 :class="addressIndex===index?'checked':''" --> 
 					<view :class="['chooseBox',addressIndex===index?'checked':'']">
@@ -22,10 +22,9 @@
 				<view class="operation" @click="editAddress(item.addressId)">编辑</view>
 			</view>
 			
-		</view>
-		
-		<view class="noList" v-else>
-			没有更多地址记录了
+			<view class="noList" v-else>
+				没有更多地址记录了
+			</view>
 		</view>
 		
 		<view class="btn_box" >
@@ -83,7 +82,7 @@
 			prepage.$vm.fromType = 'choose';
 		},
 		onShow() {
-			this.queryAddressList();
+			this.queryAddressList()
 		},
 		methods:{
 			useWxAddress(){
@@ -165,21 +164,13 @@
 					if(r){
 						console.log(r)
 						if(r.data.result.code==0){
-							this.addressList = r.data.reply;
+							this.addressList = r.data.reply
 							if(r.data.reply.length<1){//地址列表为空时删除缓存地址
 							    // 详情中删除空了回来没有任何一条
 								getApp().globalData.address=false;
 								uni.removeStorage({
 									key:'address'
 								})
-							} else {
-								getApp().globalData.addressId = this.addressList[0].addressId;
-								getApp().globalData.address={
-									tel:this.addressList[0].phoneNum,
-									username:this.addressList[0].userName,
-									address:this.addressList[0].address,
-									area:`${this.addressList[0].province}-${this.addressList[0].city}-${this.addressList[0].county}`
-								};
 							}
 						}else{
 							uni.showModal({
@@ -215,7 +206,7 @@
 		height: 100%;
 		width: 100%;
 		overflow: hidden;
-		margin-bottom: 340rpx;
+		padding-bottom: 340rpx;
 	}
 	// 地址列表
 	.address_card{

@@ -85,13 +85,11 @@ function sweepSeckill(sendParams) {
 		// if (sendParams.openid == '') {
 		// 	sendParams.openid = uni.getStorageSync("userData").uinfo.openid;
 		// }
-
 		console.log("backParams");
 		console.log(sendParams);
 		requestPost('/vpoints/seckill/sweepQrcode', sendParams).then((backParams) => {
 			uni.hideLoading();
 			console.log(backParams);
-
 			if (backParams) {
 				if (backParams.businessCode != 0) {
 					// 因为 秒杀目前 只有中 红包 或者 提示 您离红包只差一点点  
@@ -104,13 +102,11 @@ function sweepSeckill(sendParams) {
 					}
 					backParams.result.businessCode = 0;
 					backParams.result.mytype = backParams.businessCode // 存储原始 businessCode
-
 				}
 				uni.setStorage({
 					key: 'sweepQrcodeData',
 					data: backParams
 				})
-
 				getApp().globalData.sweepQrcodeData = backParams;
 				const backData = backParams.result;
 				if (backParams.result.code == 0) {
@@ -302,17 +298,14 @@ function queryAllGiftsList(openid, currentPage, count,searchFlag=1) {
 
 // 换购列表 
 function queryExchangePrizeAllLst(currentPage, count, searchFlag) {
-	const userData = uni.getStorageSync('openid');
-	console.log(userData);
-	const openid = userData.openid;
+	const userData = uni.getStorageSync('vjfOpenid');
+	const vjfOpenid = userData.vjfOpenid;
 	const ExchangePrizeAllLst_PORT = '/consumer/queryExchangePrizeAllLst'; // 我的换购 待兑换 已过期
 	const ExchangePrizeAllLstUsed_PORT = '/consumer/queryExchangedPrizeLst'; // 我的换购 已兑换
 	let sendUrl = searchFlag == 2 ? ExchangePrizeAllLstUsed_PORT : ExchangePrizeAllLst_PORT;
 	const params = {
-		"companyKey": '85f57fb1-585b-11ea-ba2a-6e6d36e3ad65',
-		"vjifenOpenid": 'oJMqvt7MsD4Dk9ZVEQDgFVyl2qNs',
-		// "companyKey": companyKey,
-		// "vjifenOpenid": vjifenOpenid,
+		"companyKey": config.companyKey,
+		"vjifenOpenid": vjfOpenid,
 		"projectServerName": 'shandongagt',
 		"currentPage": currentPage,
 		"count": count,
@@ -551,8 +544,8 @@ function getShopGoodsRequst(goodShowFlag,currentPage,count){
 	var params = {
 		currentPage: currentPage,
 		count: count,
-		goodShowFlag:goodShowFlag  ,//商品展示类型：1首页商品大图，2首页商品小图，3积分好礼
-		saleNumOrderType:0
+		goodShowFlag:goodShowFlag ,//商品展示类型：1首页商品大图，2首页商品小图，3积分好礼
+		// saleNumOrderType:0 // 自定义 排序 
 	};
 	const promise = new Promise((reslove, reject) => {
 		requestPost('/vpoints/vpointsShop/getShopGoods', params).then((jo) => {
@@ -612,6 +605,71 @@ function getExchangeRecordRequst(queryType,currentPage,count){
 	return promise;
 }
 
+// 个人中心 获取 换购商品 数量
+function queryUnExchangePrizeLstRequst(queryType,currentPage,count){
+	const userData = uni.getStorageSync('vjfOpenid');
+	const vjfOpenid = userData.vjfOpenid;
+	var params = {
+		vjifenOpenid:vjfOpenid,
+		currentPage: currentPage,
+		count: count,
+		companyKey:config.companyKey,	//否	string	1.积分商城订单(默认)，2.河北现金支付订单，3.游戏记录
+	};
+	const promise = new Promise((reslove, reject) => {
+		requestPost('/consumer/queryUnExchangePrizeLst', params ,config.yylg).then((jo) => {
+			console.log('getShopGoodsgetShopGoodsgetShopGoodsgetShopGoodsgetShopGoods');
+			console.log(jo);
+			if (jo.result.code == 0) {
+				if (jo.result.businessCode == 0) {
+					reslove(jo.reply)
+				} else {
+					reslove()
+				}
+			} else {
+				// uni.showModal({
+				// 	title: '提示',
+				// 	content: jo.result.msg
+				// });
+			}
+		}, (err) => {
+			console.log('queryUserHomePage');
+			console.log(err);
+		})
+	})
+	return promise;
+}
+
+// 首页查询用户信息 
+function getUserInfoRequst(){
+	const userData = uni.getStorageSync('openid');
+	const openid = userData.openid;
+	var params = {
+		openid:openid,
+		};
+	const promise = new Promise((reslove, reject) => {
+		requestPost('/user/userInfo', params).then((jo) => {
+			console.log('userInfo');
+			console.log(jo);
+			if (jo.result.code == 0) {
+				if (jo.result.businessCode == 0) {
+					reslove(jo.reply)
+				} else {
+					reslove()
+				}
+			} else {
+				// uni.showModal({
+				// 	title: '提示',
+				// 	content: jo.result.msg
+				// });
+			}
+		}, (err) => {
+			console.log('queryUserHomePage');
+			console.log(err);
+		})
+	})
+	return promise;
+}
+
 export {
 	sweepQrcode,
 	getCaptcha,
@@ -627,5 +685,7 @@ export {
 	sweepSeckill, // 扫码秒杀
 	ifremeber, //是否关注公众号
 	getShopGoodsRequst,  //获取首页 商品列表
-	getExchangeRecordRequst // 我的 - 积分抽奖列表 
+	getExchangeRecordRequst, // 我的 - 积分抽奖列表 
+	queryUnExchangePrizeLstRequst,  // 我的 - 获取换购商品数量用作展示 
+	getUserInfoRequst // 首页 查询 用户信息
 }

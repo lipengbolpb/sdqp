@@ -3,7 +3,7 @@
 		<view class="wrap">
 			<view class="item">
 				<text class="txt">手机号授权：</text>
-				<input type="number" maxlength="11" v-model="tel" disabled="true"   placeholder="手机号" class=""/>
+				<input type="number" maxlength="11" v-model="tel"  placeholder="手机号" class=""/>
 			</view>
 		</view>
 		<view  class="btnBox" >

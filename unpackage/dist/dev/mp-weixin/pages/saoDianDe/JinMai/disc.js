@@ -199,9 +199,9 @@ var _api = __webpack_require__(/*! @/utils/api.js */ 8); //
       // 来自页面内分享按钮
     }
     return {
-      title: '皇冠丹麦曲奇',
+      title: '青岛啤酒畅享山东',
       path: '/pages/index/index',
-      imageUrl: this.staticUrl + 'fenxiangImg.png' };
+      imageUrl: this.staticUrl + 'mall/shareImg.jpg?v=1' };
 
   },
   methods: {

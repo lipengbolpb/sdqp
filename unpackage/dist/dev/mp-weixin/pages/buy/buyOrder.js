@@ -174,9 +174,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator */ 21));
-
-
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator */ 22));
 
 
 
@@ -424,44 +422,6 @@ var _api = __webpack_require__(/*! @/utils/api.js */ 8);function _interopRequire
 
 
     },
-
-    queryAddressList: function queryAddressList() {var _this4 = this;
-      uni.request({
-        url: this.requestUrl + '/vpoints/vpointsAddress/getAddressByOpenid',
-        method: 'POST',
-        data: {
-          "openid": getApp().globalData.openid,
-          "projectServerName": 'shandongagt' } }).
-
-      then(function (res) {var _res2 = _slicedToArray(
-        res, 2),e = _res2[0],r = _res2[1];
-        if (r) {
-          console.log(r);
-          if (r.data.result.code == 0) {
-            _this4.addressList = r.data.reply;
-            if (r.data.reply.length < 1) {//地址列表为空时删除缓存地址
-              // 详情中删除空了回来没有任何一条
-              getApp().globalData.address = false;
-              uni.removeStorage({
-                key: 'address' });
-
-            }
-          } else {
-            uni.showModal({
-              title: "查询地址提示",
-              content: r.data.result.msg ? r.data.result.msg : '系统开了个小差',
-              showCancel: false });
-
-          }
-        } else {
-          uni.showModal({
-            title: "查询地址提示",
-            content: '系统繁忙!',
-            showCancel: false });
-
-        }
-      });
-    },
     toAddAddress: function toAddAddress() {
       uni.navigateTo({
         url: '../address/addressAdd?operate=' + 'add' });
@@ -486,7 +446,7 @@ var _api = __webpack_require__(/*! @/utils/api.js */ 8);function _interopRequire
         this.paymentApi();
       }
     },
-    paymentApi: function paymentApi() {var _this5 = this;
+    paymentApi: function paymentApi() {var _this4 = this;
       uni.request({ // 我方下单
         url: this.requestUrl + '/vpoints/vpointsExchange/goodsExchangeForCart',
         method: "POST",
@@ -506,15 +466,15 @@ var _api = __webpack_require__(/*! @/utils/api.js */ 8);function _interopRequire
           "addressId": getApp().globalData.addressId, //详细地址Id 实物兑换必填
           "projectServerName": 'shandongagt' } }).
 
-      then(function (res) {var _res3 = _slicedToArray(
-        res, 2),e = _res3[0],r = _res3[1];
+      then(function (res) {var _res2 = _slicedToArray(
+        res, 2),e = _res2[0],r = _res2[1];
         if (r) {
           if (r.data.result.code == 0) {
             if (r.data.result.businessCode == 0) {// 下单成功 （清空本地购物车）
               uni.removeStorageSync('cart_data'); //清除存储的购物车
               if (r.data.reply.payParam) {// 要支付金额 发起支付
-                _this5.payParam = r.data.reply.payParam;
-                _this5.reqPayment();
+                _this4.payParam = r.data.reply.payParam;
+                _this4.reqPayment();
               } else {// 纯积分兑换
                 uni.redirectTo({ //支付成功
                   url: './paySuccess' });
@@ -566,7 +526,7 @@ var _api = __webpack_require__(/*! @/utils/api.js */ 8);function _interopRequire
         console.log(err);
       });
     },
-    reqPayment: function reqPayment() {var _this6 = this;
+    reqPayment: function reqPayment() {var _this5 = this;
       uni.requestPayment({
         provider: 'wxpay', //服务商
         timeStamp: this.payParam.timeStamp, //时间戳
@@ -575,12 +535,12 @@ var _api = __webpack_require__(/*! @/utils/api.js */ 8);function _interopRequire
         signType: this.payParam.signType, //签名算法，暂支持 MD5
         paySign: this.payParam.paySign //签名，具体签名方案参见微信小程序支付文档
       }).then(function (res) {
-        console.log(res);var _res4 = _slicedToArray(
-        res, 2),e = _res4[0],r = _res4[1];
+        console.log(res);var _res3 = _slicedToArray(
+        res, 2),e = _res3[0],r = _res3[1];
         if (r) {//支付完成
-          _this6.updatePay(); //调接口更改为支付中
+          _this5.updatePay(); //调接口更改为支付中
           if (r.errMsg.indexOf('ok') != -1) {
-            _this6.payParam = '';
+            _this5.payParam = '';
             // uni.requestSubscribeMessage({ //发起订阅消息
             // 	tmplIds: ['2wEMDtfgw0oK84RygiTGGP4xE3H_A08N7aXTsFhamGY'],
             // 	complete: res => {
@@ -638,8 +598,8 @@ var _api = __webpack_require__(/*! @/utils/api.js */ 8);function _interopRequire
 
     },
 
-    getOpenid: function getOpenid() {var _this7 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var xcxOpenid;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:_context3.next = 2;return (
-                  _this7.$store.dispatch('getXcxOpenid'));case 2:xcxOpenid = _context3.sent;
+    getOpenid: function getOpenid() {var _this6 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var xcxOpenid;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:_context3.next = 2;return (
+                  _this6.$store.dispatch('getXcxOpenid'));case 2:xcxOpenid = _context3.sent;
                 uni.setStorage({
                   key: 'xcxOpenid',
                   data: xcxOpenid });return _context3.abrupt("return",

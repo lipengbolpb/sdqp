@@ -93,6 +93,7 @@
 				isDefault:'0', // 0否，1是
 				
 				requestUrl:config.requestUrl,
+				addressList:[],
 				btnType:'save',
 				fromType:'',
 				sec:0,
@@ -302,7 +303,7 @@
 									    duration: 2000,
 										icon:'none'
 									});
-									uni.redirectTo({
+									uni.navigateTo({
 										url:'./addressList'
 									})
 								}else{
@@ -346,7 +347,7 @@
 									    duration: 2000,
 										icon:'none'
 									});
-									uni.redirectTo({
+									uni.navigateTo({
 										url:'./addressList'
 									})
 								}else{
@@ -483,7 +484,6 @@
 <style lang="scss">
 	//编辑、新增地址
 	.add_page{
-		height: 100%;
 		background: #F8F8F8;
 		overflow: hidden;
 		.add_msg{

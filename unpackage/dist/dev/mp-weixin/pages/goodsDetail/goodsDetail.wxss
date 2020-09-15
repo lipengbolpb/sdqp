@@ -256,7 +256,7 @@ swiper .swiper-item image.data-v-21ea9296 {
   position: relative;
 }
 .cart .list_box .item-list .proImg image.data-v-21ea9296 {
-  width: 168rpx;
+  width: 134rpx;
   position: relative;
   top: 50%;
   left: 50%;
@@ -270,17 +270,18 @@ swiper .swiper-item image.data-v-21ea9296 {
   padding-left: 20rpx;
 }
 .cart .list_box .item-list .proInfo .proName.data-v-21ea9296 {
-  width: 140%;
+  width: 200rpx;
   font-size: 28rpx;
   font-weight: 500;
   color: #333;
-  padding-right: 20rpx;
-  padding-bottom: 24rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .cart .list_box .item-list .proInfo .unit.data-v-21ea9296 {
   font-size: 22rpx;
   color: #999;
-  margin: 14rpx 0 0;
+  margin: 24rpx 0 36rpx;
   display: inline-block;
   max-width: 200rpx;
   white-space: nowrap;
@@ -290,8 +291,7 @@ swiper .swiper-item image.data-v-21ea9296 {
 }
 .cart .list_box .item-list .proInfo .unit view.data-v-21ea9296 {
   border: 1rpx solid #CACACA;
-  border-radius: 6rpx;
-  padding: 0 12rpx;
+  border-radius: 6px;
 }
 .cart .list_box .item-list .proInfo .normalPrice.data-v-21ea9296 {
   font-size: 22rpx;
@@ -345,7 +345,6 @@ swiper .swiper-item image.data-v-21ea9296 {
   z-index: 10;
   bottom: 0rpx;
   left: 20rpx;
-  z-index: 11;
 }
 .computePart .send_box image.data-v-21ea9296 {
   width: 172rpx;
@@ -381,9 +380,9 @@ swiper .swiper-item image.data-v-21ea9296 {
           justify-content: space-between;
   padding-left: 210rpx;
   box-sizing: border-box;
-  box-shadow: 2rpx 2rpx 10rpx #333333;
+  box-shadow: 0px -4px 8px 0px rgba(193, 193, 193, 0.2);
   line-height: 120rpx;
-  z-index: 10;
+  z-index: 3;
 }
 .computePart .btn .total.data-v-21ea9296 {
   font-size: 30rpx;

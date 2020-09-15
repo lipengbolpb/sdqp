@@ -24,16 +24,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator */ 21));
-
-
-
-
-
-
-
-
-
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator */ 22));
 
 
 
@@ -196,7 +187,7 @@ var _api = __webpack_require__(/*! @/utils/api.js */ 8);function _interopRequire
 
                 }case 6:case "end":return _context.stop();}}}, _callee);}))();
     },
-    getSignInfo: function getSignInfo() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var params, jo, checkDayList, points, i, nowTime, today, todayDate, k, highScoreDay, j;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
+    getSignInfo: function getSignInfo() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var params, jo, checkDayList, points, i, nowTime, today, todayDate, k, j, _j;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
                 params = {
                   "openid": getApp().globalData.openid };_context2.next = 3;return (
 
@@ -232,16 +223,15 @@ var _api = __webpack_require__(/*! @/utils/api.js */ 8);function _interopRequire
                       }
                       // 特殊高积分日                                             
                       // "timeType":"时间类型：默认空，1 按天，2按周",  
-                      // "timeValue":"时间值：多个使用英文逗号分开"  
-                      highScoreDay = jo.reply.signinInfo.timeValue.split(',');
+                      // "timeValue":"时间值：多个使用英文逗号分开"        
                       if (jo.reply.signinInfo.timeType == 1) {
-                        for (j in highScoreDay) {
-                          _this2.specil_days.push(highScoreDay[j]);
+                        for (j in jo.reply.signinInfo.timeValue) {
+                          _this2.specil_days.push(jo.reply.signinInfo.timeValue[j]);
                           console.log(_this2.specil_days);
                         }
                       } else if (jo.reply.signinInfo.timeType == 2) {
-                        for (j in highScoreDay) {// 周？？
-                          _this2.specil_Weeks.push(highScoreDay[j]);
+                        for (_j in jo.reply.signinInfo.timeValue) {// 周？？
+                          _this2.specil_Weeks.push(jo.reply.signinInfo.timeValue[_j]);
                           console.log(_this2.specil_Weeks);
                         }
                       }

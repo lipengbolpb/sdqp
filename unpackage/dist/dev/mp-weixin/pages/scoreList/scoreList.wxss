@@ -40,12 +40,7 @@ page.data-v-1f3c9430 {
 .top .title.data-v-1f3c9430 {
   padding-bottom: 45rpx;
 }
-.top .title .backArea.data-v-1f3c9430 {
-  position: absolute;
-  width: 150rpx;
-  height: 150rpx;
-}
-.top .title .backArea .jiantou.data-v-1f3c9430 {
+.top .title .jiantou.data-v-1f3c9430 {
   width: 24rpx;
   height: 24rpx;
   border-top: 3rpx solid #333;
@@ -113,13 +108,12 @@ page.data-v-1f3c9430 {
   color: #000;
   font-weight: bold;
   margin: 0 10rpx;
-  display: inline-block;
 }
 .bottom .tab text.cur.data-v-1f3c9430 {
   color: #65BD69;
   border-bottom: 6rpx solid;
-  -webkit-border-image: -webkit-linear-gradient(#01B971, #7BD367) 0 0 1;
-          border-image: linear-gradient(#01B971, #7BD367) 0 0 1;
+  -webkit-border-image: -webkit-linear-gradient(#01B971, #7BD367) 1 10 1;
+          border-image: linear-gradient(#01B971, #7BD367) 1 10 1;
   /* 标准的必须写在最后 */
 }
 .bottom .scoreList.data-v-1f3c9430 {

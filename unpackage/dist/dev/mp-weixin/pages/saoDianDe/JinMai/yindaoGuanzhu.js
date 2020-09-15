@@ -134,7 +134,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator */ 21));
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator */ 22));
 
 
 
@@ -189,7 +189,7 @@ var _api = __webpack_require__(/*! @/utils/api.js */ 8);function _interopRequire
     return {
       title: '皇冠丹麦曲奇',
       path: '/pages/index/index',
-      imageUrl: this.staticUrl + 'fenxiangImg.png' };
+      imageUrl: this.staticUrl + 'mall/shareImg.jpg?v=1' };
 
   } };exports.default = _default;
 

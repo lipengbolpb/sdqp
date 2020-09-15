@@ -134,7 +134,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator */ 21));
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator */ 22));
 
 
 
@@ -174,7 +174,7 @@ var _getData = __webpack_require__(/*! @/common/getData.js */ 26);
 
 
 
-var _basicsFun = __webpack_require__(/*! @/common/basicsFun.js */ 24);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(n);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var wxOpenSetting = function wxOpenSetting() {__webpack_require__.e(/*! require.ensure | components/wx-open-setting/wx-open-setting */ "components/wx-open-setting/wx-open-setting").then((function () {return resolve(__webpack_require__(/*! @/components/wx-open-setting/wx-open-setting.vue */ 489));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
+var _basicsFun = __webpack_require__(/*! @/common/basicsFun.js */ 21);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(n);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var wxOpenSetting = function wxOpenSetting() {__webpack_require__.e(/*! require.ensure | components/wx-open-setting/wx-open-setting */ "components/wx-open-setting/wx-open-setting").then((function () {return resolve(__webpack_require__(/*! @/components/wx-open-setting/wx-open-setting.vue */ 489));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};
 
 
 
@@ -203,35 +203,35 @@ var _default = {
     console.log('页面参数 options 176');
     console.log(options);
 
-    var sweepstrUrl = options.q;
-    this.sweepstr = sweepstrUrl;
+    // const sweepstrUrl = options.q;
+    // this.sweepstr = sweepstrUrl;
 
-    // const sweepstrUrl = decodeURIComponent(options.q);
+    var sweepstrUrl = decodeURIComponent(options.q);
 
     getApp().globalData.sweepstr = sweepstrUrl; //目前用到 黑名单 填写信息 之后 回调本页 
 
-    // if (sweepstrUrl.indexOf('x.vjifen.com') != -1) {
-    // 	//测试二维码
-    // 	that.sweepstr = sweepstrUrl.split('VSD/')[1];
-    // } else if (sweepstrUrl.indexOf('VJ1.TV/') != -1) {
-    // 	that.sweepstr = sweepstrUrl.split('VSD/')[1];
-    // } else if (sweepstrUrl.indexOf('vj1.tv/') != -1) {
-    // 	that.sweepstr = sweepstrUrl.split('VSD/')[1];
-    // } else {
-    // 	that.sweepstr = '';
-    // 	return uni.showModal({
-    // 		title: '温馨提示',
-    // 		content: '请扫描正确的活动二维码~',
-    // 		showCancel: false,
-    // 		success(res) {
-    // 			if (res.confirm) {
-    // 				uni.reLaunch({
-    // 					url: '/pages/index/index'
-    // 				});
-    // 			}
-    // 		}
-    // 	});
-    // }
+    if (sweepstrUrl.indexOf('x.vjifen.com') != -1) {
+      //测试二维码
+      that.sweepstr = sweepstrUrl.split('VSD/')[1];
+    } else if (sweepstrUrl.indexOf('VJ1.TV/') != -1) {
+      that.sweepstr = sweepstrUrl.split('VSD/')[1];
+    } else if (sweepstrUrl.indexOf('vj1.tv/') != -1) {
+      that.sweepstr = sweepstrUrl.split('VSD/')[1];
+    } else {
+      that.sweepstr = '';
+      return uni.showModal({
+        title: '温馨提示',
+        content: '请扫描正确的活动二维码~',
+        showCancel: false,
+        success: function success(res) {
+          if (res.confirm) {
+            uni.reLaunch({
+              url: '/pages/index/index' });
+
+          }
+        } });
+
+    }
     this.getOpenidSD();
   },
   onReady: function onReady() {
@@ -270,7 +270,7 @@ var _default = {
       // 来自页面内分享按钮
     }
     return {
-      title: '青岛啤酒',
+      title: '青岛啤酒畅享山东',
       path: '/pages/index/index',
       imageUrl: this.staticUrl + 'fenxiangImg.png' };
 
@@ -459,8 +459,6 @@ var _default = {
       that.wxOpenSettingIsShow = false;
       // 关闭了 也要继续往下走
       // 继续调用 接口
-      // that.getSweepQrcode('', '', that.sweepstr);
-
       that.sweepTypeFun();
     },
     // 获取手机号
@@ -490,11 +488,8 @@ var _default = {
       console.log('getSweepQrcodegetSweepQrcodegetSweepQrcodegetSweepQrcode');
       var that = this;
       var sendParams = {
-        // openid: that.openid,
         openid: that.openid,
         vjifenOpenid: that.vjifenOpenid,
-        // "openid": "oIwlotxQp-oond0xy_4zPENd4A_g",
-        // "vjifenOpenid": "oJMqvt7MsD4Dk9ZVEQDgFVyl2qNs",
         sweepstr: sweepstr,
         longitude: longitude, //"经度"
         latitude: latitude, //"纬度"
@@ -543,13 +538,8 @@ var _default = {
       // 			}
       var that = this;
       var sendParams = {
-        // openid: that.openid,
-        // "openid": "oIwlotxQp-oond0xy_4zPENd4A_g",
-        // "vjifenOpenid": "oJMqvt7MsD4Dk9ZVEQDgFVyl2qNs",
-
-        "openid": "oIwlotxQp-oond0xy_4zPENd4A_g",
-        "vjifenOpenid": "oJMqvt7MsD4Dk9ZVEQDgFVyl2qNs",
-
+        openid: that.openid,
+        vjifenOpenid: that.vjifenOpenid,
         sweepstr: sweepstr,
         longitude: longitude, //"经度"
         latitude: latitude, //"纬度"

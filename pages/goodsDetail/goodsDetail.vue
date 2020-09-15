@@ -14,8 +14,7 @@
 			<view class="left">
 				<view class="goods_price" v-if="reply">
 					<text :class="['price', {'unusual':reply.goodsStatus == 1 || reply.goodsStatus == 2  || (reply.goodsStatus == 0 && reply.goodsRemains == 0)}]">
-					    <text v-if="reply.realPay != 0"><text class="danwei">¥</text>{{reply.realPay/100|toThousands}}</text>
-						<text v-if="reply.realPay != 0 && reply.realVpoints != 0">+</text>
+					    <text v-if="reply.realPay != 0"><text class="danwei">¥</text>{{reply.realPay/100|toThousands}}+</text>
 					    <text v-if="reply.realVpoints != 0">{{reply.realVpoints|toThousands}}<text class="danwei">积分</text></text>
 					</text>
 					<text class="normalPrice" v-if="reply.goodsMoney>reply.realPay/100">¥{{reply.goodsMoney|toThousands}}</text>
@@ -27,8 +26,7 @@
 				<view class="mail" @click="showMail">包邮</view>
 				<!-- "goodsStatus":"商品状态：0正常，1暂停兑换，2下架", -->
 				<block v-if="reply.goodsStatus == 1 ">
-					<!-- <view class="cartBtn unusual">{{reply.pauseExchangeTips}}</view> -->
-					<view class="cartBtn unusual">暂停兑换</view>
+					<view class="cartBtn unusual">{{reply.pauseExchangeTips}}</view>
 				</block>
 				<block v-else-if="reply.goodsStatus == 2 ">
 					<view class="cartBtn unusual">商品已下架</view>
@@ -69,8 +67,7 @@
 						</view>
 						<!-- <view class="normalPrice">市场价：{{cartItem.goodsMoney}}元</view> -->
 						<view class="price">
-							<text v-if="cartItem.realPay != 0 "><text class="danwei">¥</text>{{(cartItem.realPay/100)|toThousands}}</text>
-							<text v-if="cartItem.realPay != 0 && cartItem.realVpoints != 0 ">+</text>
+							<text v-if="cartItem.realPay != 0 "><text class="danwei">¥</text>{{(cartItem.realPay/100)|toThousands}}+</text>
 						    <text v-if="cartItem.realVpoints != 0 ">{{cartItem.realVpoints|toThousands}}<text class="danwei">积分</text></text>
 						</view>
 					</view>
@@ -154,7 +151,7 @@
 		},
 		onShow() {
 			if(!getApp().globalData.openid){
-				this.$store.dispatch('getOpenid').then(res => {
+				this.$Store.dispatch('getOpenid').then(res => {
 					let [e, r] = res;
 					if (r) { //有openid
 						getApp().globalData.openid = r.data.openid;
@@ -734,7 +731,7 @@
 					border-radius:10rpx;
 					position: relative;
 					image{
-						width: 168rpx;
+						width: 134rpx;
 						position: relative;
 						top: 50%;
 						left: 50%;
@@ -746,22 +743,19 @@
 					flex-shrink:2;
 					padding-left: 20rpx;
 					.proName{
-						// width:200rpx;
-						width:140%;
+						width:200rpx;
 						font-size:28rpx;
 						font-weight:500;
 						color:#333;
-						padding-right: 20rpx;
-						padding-bottom: 24rpx;
-						// white-space:nowrap;
-						// overflow:hidden;
-						// text-overflow:ellipsis;
+						white-space:nowrap;
+						overflow:hidden;
+						text-overflow:ellipsis;
 					}
 					.unit{
 						font-size:22rpx;
 						color:#999;
-						margin: 14rpx 0 0;
-						// margin: 24rpx 0 36rpx;
+						// margin:14rpx 0 22rpx;
+						margin: 24rpx 0 36rpx;
 						display: inline-block;
 						max-width: 200rpx;
 						white-space:nowrap;
@@ -770,8 +764,7 @@
 						height:36rpx;
 						view{
 							border:1rpx solid #CACACA;
-							border-radius:6rpx;
-							padding: 0 12rpx;
+							border-radius:6px;
 						}
 					}
 					.normalPrice{
@@ -827,7 +820,6 @@
 			z-index: 10;
 			bottom:0rpx;
 			left: 20rpx;
-			z-index: 11;
 			image{
 				width: 172rpx;
 			}
@@ -859,10 +851,10 @@
 			justify-content: space-between;
 			padding-left: 210rpx;
 			box-sizing: border-box;
-			box-shadow: 2rpx 2rpx 10rpx #333333;
-			// box-shadow: 0px -10rpx 0px 0px rgba(193, 193, 193, 0.2);   /*上边阴影  红色*/
+			// box-shadow: 2rpx 2rpx 10rpx #333333;
+            box-shadow: 0px -4px 8px 0px rgba(193, 193, 193, 0.2);
 			line-height: 120rpx;
-			z-index: 10;
+			z-index: 3;
 			.total{
 				font-size:30rpx;
 				font-weight:500;

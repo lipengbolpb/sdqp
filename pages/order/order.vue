@@ -714,7 +714,6 @@
 					.unit{
 						font-size:22rpx;
 						color:#999;
-						margin: 14rpx 0 0;
 						// margin: 30rpx 0 42rpx;
 						display: inline-block;
 						max-width: 200rpx;
@@ -724,7 +723,7 @@
 						height: 36rpx;
 						view{
 							border: 1rpx solid #CACACA;
-							border-radius:6rpx;
+							border-radius:12rpx;
 							padding:0 12rpx;
 						}
 					}

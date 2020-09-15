@@ -150,9 +150,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator */ 21));
-
-
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator */ 22));
 
 
 
@@ -200,7 +198,7 @@ var _api = __webpack_require__(/*! @/utils/api.js */ 8);function _interopRequire
       safeHeight: getApp().globalData.safeHeight,
       customBarHeight: getApp().globalData.customBarHeight,
       requestUrl: _api.config.requestUrl,
-      restVpoints: '',
+      restVpoints: '0',
       scoreList: [],
       queryType: 1,
       currentPage: 1,
@@ -298,7 +296,7 @@ var _api = __webpack_require__(/*! @/utils/api.js */ 8);function _interopRequire
               _this2.next = false;
             } else {
               uni.showModal({
-                title: '温馨提示',
+                title: '提示',
                 content: r.data.result.msg ? r.data.result.msg : '系统开了个小差~',
                 showCancel: false });
 
@@ -306,7 +304,7 @@ var _api = __webpack_require__(/*! @/utils/api.js */ 8);function _interopRequire
             }
           } else {
             uni.showModal({
-              title: '温馨提示',
+              title: '大奖列表接口提示',
               content: r.data.result.msg ? r.data.result.msg : '系统开了个小差~',
               showCancel: false });
 
@@ -315,7 +313,7 @@ var _api = __webpack_require__(/*! @/utils/api.js */ 8);function _interopRequire
         } else {
           console.log(e);
           uni.showModal({
-            title: '温馨提示',
+            title: '大奖列表接口提示',
             content: '系统繁忙',
             showCancel: false });
 

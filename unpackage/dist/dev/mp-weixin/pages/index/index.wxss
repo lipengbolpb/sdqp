@@ -42,7 +42,7 @@ button.kefuBtn.data-v-57280228 {
 }
 .banner-swiper.data-v-57280228 {
   width: 100%;
-  height: 622rpx;
+  height: 740rpx;
 }
 .banner-swiper image.data-v-57280228 {
   width: 100%;
@@ -57,18 +57,18 @@ button.kefuBtn.data-v-57280228 {
   border-radius: 20px;
   position: absolute;
   left: 4%;
-  bottom: -80rpx;
+  bottom: -26rpx;
 }
 .wrap-header .wrap-header-usermes .wrap-header-usermes-left.data-v-57280228 {
   margin-left: 44rpx;
 }
 .wrap-header .wrap-header-usermes .wrap-header-usermes-left .wrap-header-usermes-img.data-v-57280228 {
-  width: 128rpx;
-  height: 128rpx;
+  width: 125rpx;
+  height: 125rpx;
+  border: 3rpx solid #C9EBD1;
   border-radius: 128rpx;
   margin-right: 30rpx;
   background: #f1f1f1;
-  padding: 2rpx;
 }
 .wrap-header .wrap-header-usermes .wrap-header-usermes-left .wrap-header-usermes-img button.data-v-57280228,
 .wrap-header .wrap-header-usermes .wrap-header-usermes-left .wrap-header-usermes-img image.data-v-57280228 {
@@ -90,10 +90,14 @@ button.kefuBtn.data-v-57280228 {
   color: #F3AB00;
   font-size: 46rpx;
 }
+.wrap-header .wrap-header-usermes .wrap-header-usermes-right > view.data-v-57280228 {
+  color: #333333;
+  font-size: 32rpx;
+}
 .center-tabs.data-v-57280228 {
   height: 206rpx;
   width: 92%;
-  margin-top: 100rpx;
+  margin-top: 46rpx;
   margin-left: 4%;
 }
 .center-tabs > view.data-v-57280228 {
@@ -152,29 +156,36 @@ button.kefuBtn.data-v-57280228 {
 .center-bigImg-lists > view.center-bigImg-list .center-bigImg-list-datu.data-v-57280228 {
   width: 100%;
   height: 316rpx;
+  display: block;
 }
 .center-bigImg-lists > view.center-bigImg-list .center-bigImg-list-center.data-v-57280228 {
-  padding: 28rpx 30rpx 30rpx 30rpx;
+  padding: 32rpx 12rpx 30rpx 30rpx;
 }
 .center-bigImg-lists > view.center-bigImg-list .center-bigImg-list-center .goodsName.data-v-57280228 {
-  font-size: 32rpx;
+  font-size: 30rpx;
   color: #000000;
   font-weight: bolder;
 }
 .center-bigImg-lists > view.center-bigImg-list .center-bigImg-list-center .goodsMoney.data-v-57280228 {
   font-size: 24rpx;
-  color: #656565;
-  margin: 16rpx 0;
+  color: #999999;
+  margin: 12rpx 0;
 }
 .center-bigImg-lists > view.center-bigImg-list .center-bigImg-list-center .value.data-v-57280228 {
-  font-size: 34rpx;
+  font-size: 26rpx;
   color: #ED0000;
   font-weight: bold;
 }
-.center-bigImg-lists > view.center-bigImg-list .center-bigImg-list-center .valueOn.data-v-57280228 {
+.center-bigImg-lists > view.center-bigImg-list .center-bigImg-list-center .value > text.data-v-57280228 {
   font-size: 34rpx;
+}
+.center-bigImg-lists > view.center-bigImg-list .center-bigImg-list-center .valueOn.data-v-57280228 {
+  font-size: 26rpx;
   color: #999999;
   font-weight: bold;
+}
+.center-bigImg-lists > view.center-bigImg-list .center-bigImg-list-center .valueOn > text.data-v-57280228 {
+  font-size: 34rpx;
 }
 .center-bigImg-lists > view.center-bigImg-list .center-bigImg-list-center .center-bigImg-list-center-left.data-v-57280228 {
   -webkit-box-flex: 1;
@@ -228,7 +239,7 @@ button.kefuBtn.data-v-57280228 {
 }
 .center-samllImg-lists > view.center-samllImg-list .goodsMoney.data-v-57280228 {
   font-size: 22rpx;
-  color: #878787;
+  color: #888888;
   margin: 16rpx 0;
 }
 .center-samllImg-lists > view.center-samllImg-list .value.data-v-57280228 {
@@ -236,21 +247,43 @@ button.kefuBtn.data-v-57280228 {
   color: #ED0000;
   font-weight: bold;
 }
+.center-samllImg-lists > view.center-samllImg-list .value > text.data-v-57280228 {
+  font-size: 30rpx;
+}
 .center-samllImg-lists > view.center-samllImg-list .valueOn.data-v-57280228 {
   font-size: 24rpx;
   color: #999999;
   font-weight: bold;
 }
+.center-samllImg-lists > view.center-samllImg-list .valueOn > text.data-v-57280228 {
+  font-size: 30rpx;
+}
 .center-samllImg-lists > view.center-samllImg-list .bot-box.data-v-57280228 {
   margin: 34rpx 26rpx;
 }
-.top-box.data-v-57280228 {
+.center-samllImg-lists .top-box.data-v-57280228 {
   width: 100%;
   height: 288rpx;
+  position: relative;
 }
-.top-box image.data-v-57280228 {
+.center-samllImg-lists .top-box image.data-v-57280228 {
   width: 100%;
   height: 100%;
+}
+.center-samllImg-lists .center-samllImg-lists-mask.data-v-57280228 {
+  width: 210rpx;
+  height: 210rpx;
+  text-align: center;
+  line-height: 210rpx;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  background: url("https://xcxsite.vjifen.com/v/shanDongImgs/index/wukucunbeijing01.png") no-repeat;
+  background-size: 100% 100%;
+  color: #fff;
+  font-size: 32rpx;
 }
 .set.data-v-57280228 {
   color: #999999;

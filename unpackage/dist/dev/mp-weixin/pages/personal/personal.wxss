@@ -81,12 +81,13 @@ button.kefuBtn.data-v-3df0de86 {
   position: relative;
 }
 .pct-userInfor-userImg.data-v-3df0de86 {
-  width: 128rpx;
-  height: 128rpx;
+  width: 125rpx;
+  height: 125rpx;
   border-radius: 128rpx;
   background: #f1f1f1;
   padding: 2rpx;
   margin: 0 28rpx 0 28rpx;
+  border: 3rpx solid #FFFFFF;
 }
 .pct-userInfor-userImg button.data-v-3df0de86,
 .pct-userInfor-userImg image.data-v-3df0de86 {
@@ -100,8 +101,16 @@ button.kefuBtn.data-v-3df0de86 {
   margin-bottom: 20rpx;
 }
 .pct-userInfor-shuliang.data-v-3df0de86 {
-  font-size: 32rpx;
   color: #FFFFFF;
+}
+.pct-userInfor-shuliang > text.data-v-3df0de86:nth-of-type(1) {
+  font-size: 32rpx;
+}
+.pct-userInfor-shuliang > text.data-v-3df0de86:nth-of-type(2) {
+  font-size: 40rpx;
+}
+.pct-userInfor-shuliang > text.data-v-3df0de86:nth-of-type(3) {
+  font-size: 30rpx;
 }
 .pct-tab image.data-v-3df0de86 {
   width: 40rpx;
@@ -186,6 +195,7 @@ button.kefuBtn.data-v-3df0de86 {
 }
 .personalCenter-tabs > view image.data-v-3df0de86 {
   width: 48rpx;
+  height: 48rpx;
 }
 .personalCenter-tabs > view text.data-v-3df0de86 {
   font-size: 26rpx;
@@ -193,15 +203,16 @@ button.kefuBtn.data-v-3df0de86 {
 }
 .personalCenter-tabs > view .showCenter.data-v-3df0de86 {
   position: absolute;
-  right: 10rpx;
-  top: -25rpx;
-  width: 50rpx;
-  height: 50rpx;
+  right: 26rpx;
+  top: -23rpx;
+  width: 34rpx;
+  height: 34rpx;
   text-align: center;
-  line-height: 50rpx;
-  border-radius: 50rpx;
+  line-height: 34rpx;
+  border-radius: 34rpx;
   color: #FF9F33;
   border: 2rpx solid #FF9F33;
+  font-size: 24rpx;
 }
 .set.data-v-3df0de86 {
   color: #999999;

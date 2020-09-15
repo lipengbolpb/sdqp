@@ -33,12 +33,7 @@
 .top .title.data-v-10dbb326 {
   padding-bottom: 35rpx;
 }
-.top .title .backArea.data-v-10dbb326 {
-  position: absolute;
-  width: 150rpx;
-  height: 150rpx;
-}
-.top .title .backArea .jiantou.data-v-10dbb326 {
+.top .title .jiantou.data-v-10dbb326 {
   width: 24rpx;
   height: 24rpx;
   border-top: 3rpx solid #333;
@@ -100,15 +95,15 @@
   background: #fff;
   color: #FF4824;
   line-height: 60rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
           justify-content: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
           align-items: center;
-}
-.top .qd .btn .innerBtn view.data-v-10dbb326:nth-last-child(2) {
-  margin-top: 20%;
 }
 .calendar.data-v-10dbb326 {
   margin: 34rpx;
@@ -122,7 +117,7 @@
   display: -webkit-flex;
   display: flex;
   border-bottom: 1rpx solid #FBCA5A;
-  padding-bottom: 25rpx;
+  padding-bottom: 35rpx;
 }
 .calendar .total .quan.data-v-10dbb326 {
   width: 30rpx;
@@ -236,12 +231,6 @@
   background-size: 35rpx 36rpx;
   height: 60rpx;
 }
-.calendar .sign_tab .riqi .td.specil_day .day .highScore.data-v-10dbb326 {
-  font-size: 17rpx;
-  color: #999;
-  position: relative;
-  top: 36rpx;
-}
 .calendar .sign_tab .riqi .td.check .day.data-v-10dbb326 {
   color: #FFF;
   width: 52rpx;
@@ -268,7 +257,6 @@
 }
 .hightTip .hb.data-v-10dbb326 {
   width: 100rpx;
-  background: #fff;
 }
 .toast.data-v-10dbb326 {
   position: fixed;

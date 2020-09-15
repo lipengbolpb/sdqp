@@ -134,7 +134,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator */ 21));
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator */ 22));
 
 
 
@@ -446,7 +446,7 @@ var _getWxUserInfor = __webpack_require__(/*! @/common/getWxUserInfor.js */ 25);
       } else if (status == 3) {
         // 存入我的零钱包 我知道了 
         uni.redirectTo({
-          url: '../winningRecord/winningRecord' });
+          url: '/pages/saoDianDe/winningRecord/winningRecord?pageSource=getCash' });
 
       }
       // 判断是否有 阶梯弹窗
@@ -644,7 +644,8 @@ var _getWxUserInfor = __webpack_require__(/*! @/common/getWxUserInfor.js */ 25);
           }
         } else {
           // 没有关注 引导关注 跳转到 推文页面
-
+          // webview 跳转
+          // https://mp.weixin.qq.com/s?__biz=MzA3Mjk3OTY3OA==&mid=503286221&idx=1&sn=29e3380fd079263bc2350d5dd18fe852&chksm=071d2c7c306aa56a60a76c67241b318b4754dd9427768d3b48fbb03e387fa3f2c6610bd6f86c#rd
         }
       });
     },

@@ -136,7 +136,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _api = __webpack_require__(/*! @/utils/api.js */ 8);
-var _basicsFun = __webpack_require__(/*! @/common/basicsFun.js */ 24); //
+var _basicsFun = __webpack_require__(/*! @/common/basicsFun.js */ 21); //
 //
 //
 //

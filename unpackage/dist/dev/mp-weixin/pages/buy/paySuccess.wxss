@@ -132,7 +132,7 @@
 }
 .commend .goods .item .proInfo .proUnit view {
   border: 1rpx solid #CACACA;
-  border-radius: 6rpx;
+  border-radius: 6px;
   padding: 0 12rpx;
 }
 .commend .goods .item .proInfo .price {

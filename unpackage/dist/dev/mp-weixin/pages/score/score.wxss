@@ -199,25 +199,29 @@
   padding-left: 20rpx;
 }
 .part .recommend .items .item-list .proInfo .proName {
-  width: 140%;
+  width: 460rpx;
   font-size: 28rpx;
   font-weight: 500;
   color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .part .recommend .items .item-list .proInfo .unit {
   font-size: 22rpx;
   color: #999;
-  margin: 14rpx 0 0;
+  margin: 14rpx 0;
   display: inline-block;
   max-width: 200rpx;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  height: 36rpx;
 }
 .part .recommend .items .item-list .proInfo .unit view {
   border: 1px solid #CACACA;
-  border-radius: 6rpx;
-  padding: 0rpx 12rpx;
+  border-radius: 6px;
+  padding: 0rpx 10rpx;
 }
 .part .recommend .items .item-list .proInfo .normalPrice {
   font-size: 22rpx;

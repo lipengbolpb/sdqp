@@ -22,8 +22,8 @@
 						</view>
 						<view class="">
 							<view class="wrc-listBox-list-mes">{{ item.goodsShortName }}</view>
-							<view class="wrc-listBox-list-time">中奖时间：{{ item.earnTime }}</view>
-							<view class="wrc-listBox-list-time">{{ item.showTimeLabel }}：{{ item.showTime }}</view>
+							<view class="wrc-listBox-list-time">中奖时间：{{ item.exchangeTime }}</view>
+							<!-- <view class="wrc-listBox-list-time">{{ item.showTimeLabel }}：{{ item.showTime }}</view> -->
 						</view>
 					</view>
 					<view class="flex-xn-yc">
@@ -58,19 +58,16 @@
 					<view class="customDialog-center-title">
 						中奖信息
 					</view>
-					
 					<view class="customDialog-center-common">中 奖 码：{{ winningInformation.prizeVcode }}</view>
 					<view class="customDialog-center-common">中奖产品：{{ winningInformation.prizeName }}</view>
 					<view class="customDialog-center-common">中奖时间：{{ winningInformation.earnTime }}</view>
 					<view class="customDialog-center-common">兑奖截止：{{ winningInformation.expireTime }}</view>
 					<view class="customDialog-center-common">联 系 人：{{ winningInformation.userName }}</view>
 					<view class="customDialog-center-common">联系电话：{{ winningInformation.phoneNum }}</view>
-					
 					<view class="customDialog-center-zixun flex-xc-yc"> 
 					  <view class=""> <image :src="commonImg+'dianhuaIcon.png'"></image> </view>
 					  <view class="">资讯电话：600-6800-0899</view>
 					</view>
-					 
 				</view>
 				<view class="customDialog-close">
 					<image @click="closeCustomDialog" :src="commonImg+'dialogClose.png'" mode="widthFix"></image>
@@ -82,6 +79,11 @@
 </template>
 
 <script>
+	/**
+	 *  exchangeType 1:实物 4：积分 5：现金 6：谢谢惠顾 
+	 * 
+	 * 
+	 * **/
 	import {
 		get,
 		post,

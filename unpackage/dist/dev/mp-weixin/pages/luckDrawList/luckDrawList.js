@@ -218,6 +218,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 var _api = __webpack_require__(/*! @/utils/api.js */ 8);
 
 
@@ -303,10 +305,11 @@ var _getData = __webpack_require__(/*! @/common/getData.js */ 26); //
 //
 //
 //
-//
-//
-//
-var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-nav-bar/uni-nav-bar.vue */ 254));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { name: 'winningRecord', components: { uniNavBar: uniNavBar }, computed: { // 当窗口 高度 大于800 是 重新 计算 盒子的上边距
+/**
+ *  exchangeType 1:实物 4：积分 5：现金 6：谢谢惠顾 
+ * 
+ * 
+ * **/var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-nav-bar/uni-nav-bar */ "components/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-nav-bar/uni-nav-bar.vue */ 254));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { name: 'winningRecord', components: { uniNavBar: uniNavBar }, computed: { // 当窗口 高度 大于800 是 重新 计算 盒子的上边距
     safeAreaTop: function safeAreaTop() {var userSystemInfo = uni.getStorageSync('userSystemInfo');var safeAreaTop = '30';if (userSystemInfo) {safeAreaTop = userSystemInfo.safeArea.top == 0 ? '30' : userSystemInfo.safeArea.top;} else {safeAreaTop = '30';}console.log('safeAreaTopsafeAreaTopsafeAreaTopsafeAreaTop');console.log(safeAreaTop);return safeAreaTop;} }, data: function data() {return { staticUrl: _api.config.staticUrl, commonImg: _api.config.staticUrl + 'CommonImg/', showType: false, prizeRecordAry: [], // 承载 接口 返回的 数组
       moneyNext: true, sendData: { count: 10, // 调用 接口 所需参数
         currentPage: 1, // 调用 接口 所需参数
@@ -315,8 +318,7 @@ var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure |
       tabIsCur: 0, isHasData: false, detailDialog: false, tabArr: [{ text: '待领取' }, { text: '已领取' }, { text: '已过期' }], winningInformation: {} // 中奖信息 已领取 tab 中 点击 查看 弹出框内 所需的 展示字段
     };}, onLoad: function onLoad() {this.initData();var that = this;wx.createSelectorQuery().select('#wr-center').boundingClientRect().select('#wr-center-title').boundingClientRect().exec(function (res) {var scrollViewHeight = parseFloat(res[0].height - res[1].height - 60).toFixed(2);that.scrollViewHeight = scrollViewHeight;});}, methods: { tabSwitch: function tabSwitch(index) {this.tabIsCur = index;this.prizeRecordAry = [];this.sendData.currentPage = 1;this.sendData.useStatus = index;this.initData();}, initData: function initData() {// 先这样 后期 考虑缓存数据
       var that = this;(0, _getData.getExchangeRecordRequst)('3', that.sendData.currentPage, that.sendData.count).then(function (res) {console.log('getExchangeRecordRequst');console.log(res);if (res.reply.length < 1) {that.isHasData = false;} else {that.isHasData = true;} // 判断 是否有下一页 拿 that.count 和当前数组长度 比较 
-        if (res && (!res.reply || res.reply.length < that.sendData.count)) {that.moneyNext = false;} else {that.moneyNext = true;}if (that.sendData.currentPage == 1) {that.prizeRecordAry = res.reply;} else {if (res.reply && res.reply.length > 0) {
-            that.prizeRecordAry = that.prizeRecordAry.concat(res.reply);
+        if (res && (!res.reply || res.reply.length < that.sendData.count)) {that.moneyNext = false;} else {that.moneyNext = true;}if (that.sendData.currentPage == 1) {that.prizeRecordAry = res.reply;} else {if (res.reply && res.reply.length > 0) {that.prizeRecordAry = that.prizeRecordAry.concat(res.reply);
           }
         }
 
