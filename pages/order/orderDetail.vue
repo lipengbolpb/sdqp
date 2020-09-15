@@ -835,7 +835,7 @@
 				// height: 36rpx;
 				view{
 					border: 1rpx solid #CACACA;
-					border-radius: 12rpx;
+					border-radius: 6rpx;
 					padding:0 12rpx;
 				}
 			}

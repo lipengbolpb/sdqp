@@ -3,6 +3,9 @@ import {
 	getCode,
 	getOpenid
 } from '@/common/getWxUserInfor.js';
+import {
+	queryAllGiftsList
+} from '@/common/getData.js'
 // 验证身份证号码
 const idcardValidate = (idds) => {
 	let weight = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2],
@@ -141,8 +144,7 @@ function judgeBusinessCode(data) {
 				if (reply.username) { //已填写 或者重复扫码 直接显示 已领取 信息
 
 					const isDay19 = reply.perMantissaPrize ? true : false;
-					redirectToUrl =
-						`/pages/saoDianDe/common/submitUserInformation?bizcode=${businessCode}&prizeType=${reply.prizeType}&prizeVcode=${reply.prizeVcode}&isDay19=${isDay19}&pageSource=getCash&isGetPrize=true`
+					redirectToUrl = `/pages/saoDianDe/common/submitUserInformation?bizcode=${businessCode}&prizeType=${reply.prizeType}&prizeVcode=${reply.prizeVcode}&isDay19=${isDay19}&pageSource=getCash&isGetPrize=true`
 
 				} else {
 					redirectToUrl = `/pages/saoDianDe/common/getCash?bizcode=${businessCode}`
@@ -492,19 +494,24 @@ function getOpenidSD() {
 		})
 	}
 }
-// 获取 vjifenOpenid
-function getVjifenOpenid() {
-	const storageOpenid = uni.getStorageSync('vjfOpenid');
-	console.log('vjfOpenid');
-	console.log(storageOpenid);
-	// this.isHasVjifenOpenid = false;
-	if (storageOpenid) {
-		return storageOpenid;
-	} else {
-		uni.navigateTo({
-			url: '/pages/getOpenid/getOpenid?getIdType=vjfOpenid'
-		})
-	}
+
+// 获取 用户 基本展示 信息 首页用到 积分 ； 我的 页面 ： 累计喝了多少酒 红包剩余 金额等
+function getUserBasics() {
+	// 获取用户基本信息目前用到 账户剩余积分
+	return new Promise((resolve, reject) => {
+		const openid = uni.getStorageSync('openid').openid;;
+		if (getApp().globalData.userBasicsShowData) {
+			resolve(getApp().globalData.userBasicsShowData);
+		} else {
+			const that = this;
+			queryAllGiftsList(openid, 1, 10).then(res => {
+				if (res) {
+					getApp().globalData.userBasicsShowData = res;
+					resolve(res);
+				}
+			});
+		}
+	})
 }
 export {
 	judgeBusinessCode,
@@ -518,5 +525,5 @@ export {
 	dateformatTemp,
 	judgeSeckillBusinessCode,
 	getOpenidSD,
-	getVjifenOpenid
+	getUserBasics
 }

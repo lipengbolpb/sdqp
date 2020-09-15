@@ -1,7 +1,7 @@
 <template>
 	<!-- 黑名单页面 -->
 	<view class="blacklist flex-xn-ys">
-		<uni-nav-bar :style="{ 'margin-top': safeAreaTop*2 + 'rpx' }" left-icon="back" @click-left="back" title="青岛啤酒畅享山东"></uni-nav-bar>
+		<uni-nav-bar :style="{ 'margin-top': safeAreaTop*2 + 'rpx' }" left-icon="back" @click-left="back" title="皇冠丹麦曲奇"></uni-nav-bar>
 		<view class="blacklist-mask"></view>
 		<view class="bl-center" v-if="showType">
 			<view class="">

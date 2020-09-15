@@ -140,9 +140,9 @@
 				// 来自页面内分享按钮
 			}
 			return {
-				title: '青岛啤酒畅享山东',
+				title: '皇冠丹麦曲奇',
 				path: '/pages/index/index',
-				imageUrl: this.staticUrl + 'mall/shareImg.jpg?v=1'
+				imageUrl: this.staticUrl + 'fenxiangImg.png'
 			};
 		},
 		methods: {

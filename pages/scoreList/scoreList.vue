@@ -2,7 +2,9 @@
 	<view class="listPage">
 		<view class="top">
 			<view class="title">
-				<view @click="toBack" class="jiantou" :style="{'margin-top':(safeHeight + customBarHeight*1/3) + 'px' ,'margin-left':'20px'}"></view>
+				<view  @click="toBack" class="backArea" >
+					<view class="jiantou" :style="{'margin-top':(safeHeight + customBarHeight*1/3) + 'px' ,'margin-left':'20px'}"></view>
+				</view>
 				<view :style="{'padding-top':safeHeight + 'px' ,'line-height':customBarHeight + 'px'}" class="head">积分明细</view>
 			</view>
 			<view class="total">
@@ -46,7 +48,7 @@
 				safeHeight: getApp().globalData.safeHeight,
 				customBarHeight: getApp().globalData.customBarHeight,
 				requestUrl: config.requestUrl,
-				restVpoints:'0',
+				restVpoints:'',
 				scoreList:[],
 				queryType: 1,
 				currentPage:1,
@@ -144,7 +146,7 @@
 								this.next = false;
 							} else {
 								uni.showModal({
-									title:'提示',
+									title:'温馨提示',
 									content:r.data.result.msg?r.data.result.msg:'系统开了个小差~',
 									showCancel:false
 								})
@@ -152,7 +154,7 @@
 							}
 						}else{
 							uni.showModal({
-								title:'大奖列表接口提示',
+								title:'温馨提示',
 								content:r.data.result.msg?r.data.result.msg:'系统开了个小差~',
 								showCancel:false
 							})
@@ -161,7 +163,7 @@
 					}else{
 						console.log(e);
 						uni.showModal({
-							title:'大奖列表接口提示',
+							title:'温馨提示',
 							content:'系统繁忙',
 							showCancel:false
 						})
@@ -203,13 +205,18 @@
 	.top {
 		.title{
 			padding-bottom: 45rpx;
-			.jiantou{
-			    width: 24rpx;
-				height: 24rpx;
-				border-top: 3rpx solid #333;
-				border-right: 3rpx solid #333;
-				transform: rotate(225deg);
+			.backArea{
 				position: absolute;
+				width: 150rpx;
+				height: 150rpx;
+				.jiantou{
+				    width: 24rpx;
+					height: 24rpx;
+					border-top: 3rpx solid #333;
+					border-right: 3rpx solid #333;
+					transform: rotate(225deg);
+					position: absolute;
+				}
 			}
 			.head {
 				text-align: center;
@@ -269,11 +276,12 @@
 				color: #000;
 				font-weight: bold;
 				margin: 0 10rpx;
+				display: inline-block;
 			}
 			text.cur {
 				color: #65BD69;
 				border-bottom: 6rpx solid;
-				border-image: linear-gradient(#01B971,#7BD367)1 10 1; /* 标准的必须写在最后 */
+				border-image: linear-gradient(#01B971,#7BD367)0 0 1; /* 标准的必须写在最后 */
 			}
 		}
 		.scoreList {

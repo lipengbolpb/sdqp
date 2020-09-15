@@ -1,7 +1,0 @@
-{
-  "navigationStyle": "default",
-  "navigationBarTitleText": "订单管理",
-  "usingComponents": {
-    "button-bg": "/components/button-bg"
-  }
-}

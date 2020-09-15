@@ -14,7 +14,7 @@
 						</view>
 						<view class="">
 							<view class="pct-userInfor-nickName">{{ nickNameSub }}</view>
-							<view class="pct-userInfor-shuliang"> <text>累计饮酒：</text><text>{{ total }}</text><text>支</text> </view>
+							<view class="pct-userInfor-shuliang">累计饮酒：{{ total }}支</view>
 						</view>
 					</view>
 				</view>
@@ -24,7 +24,7 @@
 			</view>
 			<!-- tab 显示 订单状态 -->
 			<view class="personalCenter-tabs flex-xsb-yc">
-				<block v-for="item in tabsArr" :key="item.id">
+				<block v-for="item in tabsArr" v-key="item.id" >
 					<view class="flex-xc-yc-dirY" @click="listNav(item)">
 						<image :src="item.icon" mode="widthFix"></image>
 						<text> {{ item.name }} </text>
@@ -36,7 +36,6 @@
 		<!-- 列表 -->
 		<scroll-view :style="{ height: scrollViewHeight + 'px',paddingBottom:'20rpx' }" scroll-y="true" class="wrc-listBox">
 			<view class="pct-list-top-box pct-common">
-
 				<view class="flex-xsb-yc pct-list " v-for="item in pctList" :key="item.id" @click="listNav(item)">
 					<view class="flex-xn-yc pct-list-left">
 						<image class="icon" :src="item.icon"></image>
@@ -47,7 +46,6 @@
 						<text v-if="item.showCenter">{{item.showCenter}}</text>
 					</view>
 				</view>
-
 			</view>
 			<view class="pct-list-top-box pct-common">
 				<view class="flex-xsb-yc pct-list " v-for="item in pctListBot" :key="item.id" @click="listNav(item)">
@@ -62,36 +60,11 @@
 				</view>
 			</view>
 		</scroll-view>
+
 	</view>
 </template>
 
 <script>
-	/**
-	 * 列表优惠券 一期不限制
-	 *  {
-	 *		 id: 3,
-	 *		 isCanClick: true,
-	 *		 isShow: false,
-	 *		 status: 1, // 1 跳转 路径 2 显示弹窗
-	 *		 name: '优惠券',
-	 *		 icon: config.staticUrl + 'personalCenter/iconyouhuiquan.png',
-	 *		 rightIcon: config.staticUrl + 'personalCenter/iconRight.png',
-	 *		 navUrl: ''
-	 * }, 
-	 * 
-	 * 列表 我的心愿单
-	 *  {
-	 *				id: 1,
-	 *				isCanClick: true,
-	 *				isShow: true,
-	 *				status: 1, // 1 跳转 路径 2 显示弹窗
-	 *				name: '我的心愿单',
-	 *				icon: config.staticUrl + 'personalCenter/iconwodexiinyuandan.png',
-	 *				rightIcon: config.staticUrl + 'personalCenter/iconRight.png',
-	 *				navUrl: '/pages/saoDianDe/winningRecord/winningRecord'
-	 *			}, 
-	 * 
-	 * **/
 	import {
 		get,
 		post,
@@ -101,8 +74,7 @@
 		getUserInfo
 	} from '@/common/getWxUserInfor.js';
 	import {
-		queryAllGiftsList,
-		queryUnExchangePrizeLstRequst
+		queryAllGiftsList
 	} from '@/common/getData.js';
 	import activityRule from '@/components/activityRule.vue';
 	import {
@@ -111,7 +83,7 @@
 		dateformatTemp,
 		filterArr,
 		getOpenidSD,
-		getVjifenOpenid
+		getUserBasics
 	} from '@/common/basicsFun.js';
 	import uniNavBar from '@/components/uni-nav-bar/uni-nav-bar.vue';
 	import {
@@ -149,7 +121,7 @@
 				staticUrl: config.staticUrl,
 				personalCenterImg: config.staticUrl + 'personalCenter/',
 				openid: '',
-				total: 0, //累计饮酒 
+				total: '', //累计饮酒 
 				pctList: [{
 					id: 1,
 					isCanClick: true,
@@ -168,6 +140,15 @@
 					icon: config.staticUrl + 'personalCenter/iconhuangou.png',
 					rightIcon: config.staticUrl + 'personalCenter/iconRight.png',
 					navUrl: '/pages/saoDianDe/exchangeGoods/exchangeGoods'
+				}, {
+					id: 3,
+					isCanClick: true,
+					isShow: true,
+					status: 1, // 1 跳转 路径 2 显示弹窗
+					name: '优惠券',
+					icon: config.staticUrl + 'personalCenter/iconyouhuiquan.png',
+					rightIcon: config.staticUrl + 'personalCenter/iconRight.png',
+					navUrl: ''
 				}, {
 					id: 4,
 					isCanClick: true,
@@ -188,7 +169,7 @@
 					navUrl: '/pages/saoDianDe/prizeList/prizeList'
 				}, ],
 				pctListBot: [{
-					id: 21,
+					id: 0,
 					isCanClick: true,
 					isShow: true,
 					status: 1, // 1 跳转 路径 2 显示弹窗
@@ -197,7 +178,16 @@
 					rightIcon: config.staticUrl + 'personalCenter/iconRight.png',
 					navUrl: '/pages/luckDrawList/luckDrawList'
 				}, {
-					id: 22,
+					id: 1,
+					isCanClick: true,
+					isShow: true,
+					status: 1, // 1 跳转 路径 2 显示弹窗
+					name: '我的心愿单',
+					icon: config.staticUrl + 'personalCenter/iconwodexiinyuandan.png',
+					rightIcon: config.staticUrl + 'personalCenter/iconRight.png',
+					navUrl: '/pages/saoDianDe/winningRecord/winningRecord'
+				}, {
+					id: 2,
 					isCanClick: true,
 					isShow: true,
 					status: 1, // 1 跳转 路径 2 显示弹窗
@@ -206,7 +196,7 @@
 					rightIcon: config.staticUrl + 'personalCenter/iconRight.png',
 					navUrl: '/pages/address/addressList'
 				}, {
-					id: 23,
+					id: 3,
 					isCanClick: true,
 					isShow: true,
 					status: 1, // 1 跳转 路径 2 显示弹窗
@@ -215,7 +205,7 @@
 					rightIcon: config.staticUrl + 'personalCenter/iconRight.png',
 					navUrl: '/pages/userInfo/infoTask'
 				}, {
-					id: 24,
+					id: 4,
 					isCanClick: true,
 					isShow: true,
 					status: 1, // 1 跳转 路径 2 显示弹窗
@@ -224,7 +214,7 @@
 					rightIcon: config.staticUrl + 'personalCenter/iconRight.png',
 					navUrl: '/pages/webview/attention'
 				}, {
-					id: 25,
+					id: 5,
 					isCanClick: true,
 					isShow: true,
 					status: 1, // 1 跳转 路径 2 显示弹窗
@@ -233,7 +223,7 @@
 					rightIcon: config.staticUrl + 'personalCenter/iconRight.png',
 					navUrl: '/pages/saoDianDe/strCode/strCode'
 				}, {
-					id: 26,
+					id: 6,
 					isCanClick: true,
 					isShow: true,
 					status: 1, // 1 跳转 路径 2 显示弹窗
@@ -242,7 +232,7 @@
 					rightIcon: config.staticUrl + 'personalCenter/iconRight.png',
 					navUrl: ''
 				}, {
-					id: 27,
+					id: 5,
 					isCanClick: true,
 					isShow: true,
 					status: 1, // 1 跳转 路径 2 显示弹窗
@@ -258,7 +248,7 @@
 						status: 1, // 1 跳转 路径 2 显示弹窗 3 立即提现
 						name: '待付款',
 						icon: config.staticUrl + 'personalCenter/icondaifukuan.png',
-						navUrl: '/pages/order/order?type=4'
+						navUrl: '/pages/order/order?type=4' 
 					},
 					{
 						id: 2,
@@ -267,7 +257,7 @@
 						status: 1, // 1 跳转 路径 2 显示弹窗 3 立即提现
 						name: '待发货',
 						icon: config.staticUrl + 'personalCenter/icondaifahuo.png',
-						navUrl: '/pages/order/order?type=0'
+						navUrl: '/pages/order/order?type=0' 
 					},
 					{
 						id: 3,
@@ -326,6 +316,18 @@
 					that.isHasUserInfo = false;
 				}
 			});
+			wx.createSelectorQuery()
+				.select('#personalCenter')
+				.boundingClientRect()
+				.select('#wr-center-top')
+				.boundingClientRect()
+				.exec(function(res) {
+					const scrollViewHeight = parseFloat(res[0].height - res[1].height - 60).toFixed(2);
+					// const scrollViewHeight = 480;
+					console.log(res);
+					console.log(scrollViewHeight);
+					that.scrollViewHeight = scrollViewHeight || 237;
+				});
 
 			getOpenidSD();
 
@@ -335,42 +337,11 @@
 			// 获取展示 信息
 			const that = this;
 			that.openid = that.openid ? that.openid : uni.getStorageSync('openid').openid;
-			if (that.openid) {
-				// getUserBasics().then((res) => {
-				// 	console.log('getUserBasics');
-				// 	console.log(res);
-				// 	this.sortingParameters(res);
-				// });
-				
-				const that = this;
-				queryAllGiftsList(that.openid, 1, 10).then(res => {
-					if (res) {
-						console.log('getUserBasics');
-						console.log(res);
-						this.sortingParameters(res);
-					}
-				});
-				
-			}
-
-			that.vjifenOpenid = that.vjifenOpenid ? that.vjifenOpenid : uni.getStorageSync('vjfOpenid').vjfOpenid;
-			console.log('that.vjifenOpenid');
-			console.log(that.vjifenOpenid);
-			if (that.vjifenOpenid) {
-				// 获取换购商品数量 
-				queryUnExchangePrizeLstRequst().then((res) => {
-					console.log('queryUnExchangePrizeLstRequst')
-					console.log(res)
-					this.pctList[1].showCenter = res.prizeNum > 0 ? `${res.prizeNum}支待兑换` : ''; // 换购商品数量显示
-					this.pctList.splice();
-				});
-			} else {
-				// 没有 vjifenOpenid 读条获取
-				getVjifenOpenid();
-			}
-
-			this.getScrollHeight();
-
+			getUserBasics().then((res) => {
+				console.log('getUserBasics');
+				console.log(res);
+				this.sortingParameters(res);
+			});
 		},
 		/**
 		 * 用户点击右上角分享
@@ -388,13 +359,14 @@
 		},
 
 		methods: {
-
-			signIn() {
+			
+			signIn(){
 				uni.navigateTo({
-					url: '../sign/sign'
+					url:'../sign/sign'
 				})
 			},
-
+			
+			
 			sortingParameters(res) {
 				// 整理参数
 				this.tabsArr[0].showCenter = res.orderNonPaymentNum; //订单待付款数量
@@ -402,8 +374,8 @@
 				this.tabsArr[2].showCenter = res.orderNonReceiveNum; // 订单待收货数量
 				this.tabsArr.splice();
 				this.pctList[0].showCenter = res.totalMoney > 0 ? `￥${res.totalMoney}元可提现` : ''; //账户余额(元) 
-				//优惠券 this.pctList[2].showCenter = res.totalTicketNum > 0 ? `${res.totalTicketNum}张待使用` : ''; //优惠券总数量
-				this.pctList[2].showCenter = res.totalVpoints > 0 ? `积分余额${res.totalVpoints}` : ''; //账户剩余积分
+				this.pctList[2].showCenter = res.totalTicketNum > 0 ? `${res.totalTicketNum}张待使用` : ''; //优惠券总数量
+				this.pctList[3].showCenter = res.totalVpoints > 0 ? `积分余额${res.totalVpoints}` : ''; //账户剩余积分
 				this.pctList.splice();
 				// total
 				this.total = res.total;
@@ -485,23 +457,6 @@
 						}
 					}
 				);
-			},
-			// 获取 滚动 区域 高度
-			getScrollHeight() {
-				const that = this;
-				wx.createSelectorQuery()
-					.select('#personalCenter')
-					.boundingClientRect()
-					.select('#wr-center-top')
-					.boundingClientRect()
-					.exec(function(res) {
-						const scrollViewHeight = parseFloat(res[0].height - res[1].height - 60).toFixed(2);
-						// const scrollViewHeight = 480;
-						console.log('createSelectorQuery');
-						console.log(res);
-						console.log(scrollViewHeight);
-						that.scrollViewHeight = scrollViewHeight || 237;
-					});
 			}
 
 		}
@@ -581,13 +536,12 @@
 	}
 
 	.pct-userInfor-userImg {
-		width: 125rpx;
-		height: 125rpx;
+		width: 128rpx;
+		height: 128rpx;
 		border-radius: 128rpx;
 		background: #f1f1f1;
 		padding: 2rpx;
 		margin: 0 28rpx 0 28rpx;
-		border: 3rpx solid #FFFFFF;
 
 		button,
 		image {
@@ -604,19 +558,8 @@
 	}
 
 	.pct-userInfor-shuliang {
+		font-size: 32rpx;
 		color: #FFFFFF;
-
-		>text:nth-of-type(1) {
-			font-size: 32rpx;
-		}
-
-		>text:nth-of-type(2) {
-			font-size: 40rpx;
-		}
-
-		>text:nth-of-type(3) {
-			font-size: 30rpx;
-		}
 	}
 
 	.pct-tab {
@@ -721,7 +664,6 @@
 
 			image {
 				width: 48rpx;
-				height: 48rpx;
 			}
 
 			text {
@@ -731,16 +673,15 @@
 
 			.showCenter {
 				position: absolute;
-				right: 26rpx;
-				top: -23rpx;
-				width: 34rpx;
-				height: 34rpx;
+				right: 10rpx;
+				top: -25rpx;
+				width: 50rpx;
+				height: 50rpx;
 				text-align: center;
-				line-height: 34rpx;
-				border-radius: 34rpx;
+				line-height: 50rpx;
+				border-radius: 50rpx;
 				color: #FF9F33;
 				border: 2rpx solid #FF9F33;
-				font-size: 24rpx;
 			}
 
 		}

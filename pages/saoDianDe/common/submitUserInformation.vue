@@ -2,6 +2,7 @@
 	<!-- 输入信息 领取大奖 -->
 	<view class="strCode flex-xn-ys">
 		<uni-nav-bar :style="{ 'margin-top': safeAreaTop*2 + 'rpx' }" left-icon="back" @click-left="back" title="填写信息"></uni-nav-bar>
+		
 		<view class="strCode-center">
 			<view class="submitBox">
 				<view class="flex-xsb-yc submitBox-list">
@@ -9,7 +10,7 @@
 						<text>姓</text>
 						<text>名:</text>
 					</view>
-					<input maxlength="8" v-model.trim="userName" :disabled="isGetPrize" class="submitBox-input" type="text" value=""
+					<input maxlength="20" v-model.trim="userName" :disabled="isGetPrize" class="submitBox-input" type="text" value=""
 					 placeholder="请输入姓名" />
 				</view>
 				<view class="flex-xsb-yc submitBox-list">

@@ -59,7 +59,6 @@
 			};
 		},
 		onShow: function() {
-			const that = this ;
 			if (!this.checkPrizeRecord.userName) { //未填写
 				this.needWrite = true
 			}

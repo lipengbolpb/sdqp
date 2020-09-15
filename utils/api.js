@@ -16,8 +16,7 @@ if (isOnline) {
 		appid: 'wx9c6255f9c646909f',
 		payAppid: 'wxa42a20606316e2e9',
 		yylg:'https://yylg.vjifen.com/DBTLXInterface',
-		envVersion:'release' ,// 跳转 小程序的 版本   //**重点**要打开的小程序版本，有效值 develop（开发版），trial（体验版），release（正式版）
-		companyKey:"85f57fb1-585b-11ea-ba2a-6e6d36e3ad65" // 线上
+		envVersion:'release' // 跳转 小程序的 版本   //**重点**要打开的小程序版本，有效值 develop（开发版），trial（体验版），release（正式版） 
 	}
 } else {
 	config = {
@@ -35,8 +34,7 @@ if (isOnline) {
 		yylg:'https://jxqp.vjifen.com:444/DBTLXInterface',
 		appid: 'wx1ce2ca65ccc5aa5e', //OLC 开头
 		payAppid: 'wx459ee9aa61f38da3', //OJM 开头
-		envVersion:'trial' ,// 跳转 小程序的 版本
-		companyKey:"85f57fb1-585b-11ea-ba2a-6e6d36e3ad65" // 线上
+		envVersion:'trial' // 跳转 小程序的 版本
 	}
 }
 

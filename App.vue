@@ -8,10 +8,11 @@
 	export default {
 		onLaunch: function(options) {
 			// console.log('App Launch', options)
-
-			if (options && options.form == 'share') { //从朋友分享点进来的
-				console.log("分享者的openid" + options.openid); //传递过来的值
-				this.$scope.globalData.shareOpenid = options.openid;
+			console.log(options)
+			this.$scope.globalData.shareOpenid = '';
+			if (options && options.query.form == 'share') { //从朋友分享点进来的
+				console.log("分享者的openid" + options.query.openid); //传递过来的值
+				this.$scope.globalData.shareOpenid = options.query.openid;
 			} else {
 				this.$scope.globalData.shareOpenid = ''
 			}

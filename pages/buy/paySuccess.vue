@@ -80,7 +80,7 @@
 					"currentPage": '1',
 					"count":'4',
 					'goodShowFlag':'2', //首页商品小图
-					'saleNumOrderType':'0',//0-升序、1-降序
+					// 'saleNumOrderType':'0',//0-升序、1-降序
 				}
 				var jo = await requestPost('/vpoints/vpointsShop/getShopGoods',params);
 				console.log(jo); // reply result replyTime
@@ -210,7 +210,7 @@
 						height: 36rpx;
 						view{
 							border:1rpx solid #CACACA;
-							border-radius:6px;
+							border-radius:6rpx;
 							padding: 0 12rpx;	
 						}
 					}

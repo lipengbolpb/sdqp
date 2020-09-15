@@ -20,127 +20,130 @@
 							上传头像
 						</button>
 					</view>
+
 					<view class="">
 						<view class="wrap-header-usermes-right flex-xR-yc">
 							<text>{{ totalVpoints }}</text>
-							<view class="">我的积分：</view>
+							<view class="">我的积分:</view>
 						</view>
 						<text class="nickName">{{userInfo.nickName}}</text>
 					</view>
+
 				</view>
 			</view>
 		</view>
 		<view class="cneter">
 			<view class="center-tabs flex-xn-yc">
-				<view class="" @click="toMall">
+				<view class="">
 					<image :src="indexUrl+'diandian.png'" class="diandian" mode="widthFix"></image>
 					<text>积分</text><text>兑好物</text>
 					<image :src="indexUrl+'jifenhaowu.png'" class="jifenleftImg"></image>
 				</view>
-				<view class="" @click="toScore">
+				<view class="">
 					<image :src="indexUrl+'diandian.png'" class="diandian"></image>
 					<text>积分</text><text>好礼</text>
 					<image :src="indexUrl+'jifenhaoli.png'" class="jifenrightImg"></image>
 				</view>
 			</view>
+
 			<!-- 大图推荐 -->
 			<view class="center-bigImg-lists">
-				<view class="center-bigImg-list" v-for="item in bigImgArr" :key="item.goodsId">
-					<image :src="item.goodsBigUrl?goodsImgRoot+item.goodsBigUrl:''" class="center-bigImg-list-datu"></image>
+				<view class="center-bigImg-list" v-for="item in bigImgArr">
+					<image :src="goodsImgRoot+item.goodsBigUrl" class="center-bigImg-list-datu"></image>
 					<view class="center-bigImg-list-center flex-xsb-yc">
 						<view class="center-bigImg-list-center-left">
-							<view class="goodsName">{{ item.goodsName}} </view>
-							<view class="goodsMoney">市场价：{{ item.goodsMoney}} </view>
+							<view class="goodsName"> {{ item.goodsName}} </view>
+							<view class="goodsMoney"> {{ item.goodsMoney}} </view>
 							<view :class="item.goodsStatus == 0 ? 'value' : 'valueOn'">
-								<block v-if="item.realPay && item.realPay!=0">￥<text>{{item.realPay}}</text></block>
-								<block v-if="item.realPay && item.realPay!=0 && item.realVpoints && item.realVpoints!=0"><text>+</text></block>
-								<block v-if="item.realVpoints && item.realVpoints!=0"><text>{{item.realVpoints}}</text> 积分</block>
+								<block v-if="item.realPay && item.realPay!=0">￥{{item.realPay}}</block>
+								<block v-if="item.realVpoints && item.realVpoints!=0">+{{item.realVpoints}} 积分</block>
 							</view>
 						</view>
 						<view class="btn">
 							<!--    "goodsStatus":"商品状态：0正常，1暂停兑换，2下架", -->
 							<block v-if="item.goodsStatus == 0">
-								<image :src="indexUrl+'lijigoumai.png'" @click="toGoodsDetail(item.goodsId)"></image>
+								<image :src="indexUrl+'lijigoumai.png'"></image>
 							</block>
 							<block v-else>
-								<text class="btn-mes" @click="toGoodsDetail(item.goodsId)">暂停兑换</text>
+								<text class="btn-mes">暂无库存</text>
 								<image :src="indexUrl+'wukucunbeijing.png'"></image>
 							</block>
 						</view>
 					</view>
 				</view>
 			</view>
+
 			<!-- 小图推荐 -->
 			<view class="center-samllImg-lists">
-				<view class="center-samllImg-list flex-xsb-yc" v-for="(item,index) in samllImgArr" v-if="index%2" :key="item.goodsId">
-					<view class="center-samllImg-list-center-left" @click="toGoodsDetailLeft(index-1)">
+
+				<view class="center-samllImg-list flex-xsb-yc" v-for="(item,index) in samllImgArr" v-if="index%2">
+
+					<view class="center-samllImg-list-center-left">
 						<view class="top-box">
-							<image :src="goodsImgRoot+samllImgArr[index-1].showImgUrl"></image>
-							<view class="center-samllImg-lists-mask" v-if="samllImgArr[index-1].goodsStatus != 0">暂停兑换</view>
+							<image :src="goodsImgRoot+samllImgArr[index-1].goodsUrl"></image>
 						</view>
 						<view class="bot-box">
-							<view class="goodsName"> {{ samllImgArr[index-1].goodsShortName}} </view>
-							<view class="goodsMoney"> {{ samllImgArr[index-1].goodsSpecification}} </view>
+							<view class="goodsName"> {{ samllImgArr[index-1].goodsName}} </view>
+							<view class="goodsMoney"> {{ samllImgArr[index-1].goodsMoney}} </view>
 							<view :class="samllImgArr[index-1].goodsStatus == 0 ? 'value' : 'valueOn'">
-								<block v-if="samllImgArr[index-1].realPay && samllImgArr[index-1].realPay!=0">￥<text>{{samllImgArr[index-1].realPay}}</text></block>
-								<block v-if="samllImgArr[index-1].realPay && samllImgArr[index-1].realPay!=0 && samllImgArr[index-1].realVpoints && samllImgArr[index-1].realVpoints!=0"><text>+</text></block>
-								<block v-if="samllImgArr[index-1].realVpoints && samllImgArr[index-1].realVpoints!=0"><text>{{samllImgArr[index-1].realVpoints}}</text>积分</block>
+								<block v-if="samllImgArr[index-1].realPay && samllImgArr[index-1].realPay!=0">￥{{samllImgArr[index-1].realPay}}</block>
+								<block v-if="samllImgArr[index-1].realVpoints && samllImgArr[index-1].realVpoints!=0">+{{samllImgArr[index-1].realVpoints}}
+									积分</block>
 							</view>
 						</view>
 					</view>
-					<view class="center-samllImg-list-center-right" @click="toGoodsDetail(item.goodsId)">
+
+					<view class="center-samllImg-list-center-right">
 						<view class="top-box">
-							<image :src="goodsImgRoot+item.showImgUrl"></image>
-							<view class="center-samllImg-lists-mask" v-if="item.goodsStatus != 0">暂停兑换</view>
+							<image :src="goodsImgRoot+item.goodsUrl"></image>
 						</view>
 						<view class="bot-box">
-							<view class="goodsName"> {{ item.goodsShortName}} </view>
-							<view class="goodsMoney"> {{ item.goodsSpecification}} </view>
+							<view class="goodsName"> {{ item.goodsName}} </view>
+							<view class="goodsMoney"> {{ item.goodsMoney}} </view>
 							<view :class="item.goodsStatus == 0 ? 'value' : 'valueOn'">
-								<block v-if="item.realPay && item.realPay!=0">￥ <text>{{item.realPay}}</text> </block>
-								<block v-if="item.realPay && item.realPay!=0 && item.realVpoints && item.realVpoints!=0"><text>+</text></block>
-								<block v-if="item.realVpoints && item.realVpoints!=0"><text>{{item.realVpoints}}</text> 积分</block>
+								<block v-if="item.realPay && item.realPay!=0">￥{{item.realPay}}</block>
+								<block v-if="item.realVpoints && item.realVpoints!=0">+{{item.realVpoints}} 积分</block>
 							</view>
 						</view>
 					</view>
+
 				</view>
+
 				<block v-if="samllImgArrEnd.length>0">
-					<view class="center-samllImg-list flex-xsb-yc" @click="toGoodsDetail(samllImgArrEnd[0].goodsId)">
+					<view class="center-samllImg-list flex-xsb-yc">
 						<view class="center-samllImg-list-center-left">
 							<view class="top-box">
-								<image :src="goodsImgRoot+samllImgArrEnd[0].showImgUrl"></image>
-								<view class="center-samllImg-lists-mask" v-if="samllImgArrEnd[0].goodsStatus != 0">暂停兑换</view>
+								<image :src="goodsImgRoot+samllImgArrEnd[0].goodsUrl"></image>
 							</view>
 							<view class="bot-box">
-								<view class="goodsName"> {{ samllImgArrEnd[0].goodsShortName}} </view>
-								<view class="goodsMoney"> {{ samllImgArrEnd[0].goodsSpecification}} </view>
+								<view class="goodsName"> {{ samllImgArrEnd[0].goodsName}} </view>
+								<view class="goodsMoney"> {{ samllImgArrEnd[0].goodsMoney}} </view>
 								<view :class="samllImgArrEnd[0].goodsStatus == 0 ? 'value' : 'valueOn'">
-									<block v-if="samllImgArrEnd[0].realPay && samllImgArrEnd[0].realPay!=0">￥ <text>{{samllImgArrEnd[0].realPay}}</text>
-									</block>
-									<block v-if="samllImgArrEnd[0].realPay && samllImgArrEnd[0].realPay!=0 && samllImgArrEnd[0].realVpoints && samllImgArrEnd[0].realVpoints!=0"><text>+</text></block>
-									<block v-if="samllImgArrEnd[0].realVpoints && samllImgArrEnd[0].realVpoints!=0"> <text>{{samllImgArrEnd[0].realVpoints}}</text>积分</block>
+									<block v-if="samllImgArrEnd[0].realPay && samllImgArrEnd[0].realPay!=0">￥{{samllImgArrEnd[0].realPay}}</block>
+									<block v-if="samllImgArrEnd[0].realVpoints && samllImgArrEnd[0].realVpoints!=0">+{{samllImgArrEnd[0].realVpoints}}
+										积分</block>
 								</view>
 							</view>
 						</view>
 						<view class=""></view>
 					</view>
 				</block>
+
+
 			</view>
+
 		</view>
 	</view>
 </template>
 
 <script>
-	import {
-		get,
-		post,
-		config
-	} from '@/utils/api.js';
+	import {requestGet,requestPost,config} from '@/utils/api.js';
 	import {
 		filterArr,
 		getUserDataFun,
 		dateformat,
-		getOpenidSD
+		getOpenidSD,
+		getUserBasics
 	} from '@/common/basicsFun.js';
 	import {
 		customDialog
@@ -149,8 +152,7 @@
 		uniNavBar
 	} from '@/components/uni-nav-bar/uni-nav-bar.vue';
 	import {
-		getShopGoodsRequst,
-		getUserInfoRequst
+		getShopGoodsRequst
 	} from '@/common/getData.js';
 	import SwiperMixin from '@/common/swiper-mixin.js'
 	import {
@@ -161,11 +163,12 @@
 		mixins: [SwiperMixin],
 		components: {
 			customDialog,
-			uniNavBar
+			uniNavBar  
 		},
 		data() {
 			return {
 				staticUrl: config.staticUrl,
+				requestUrl: config.requestUrl,
 				indexUrl: config.staticUrl + 'index/',
 				goodsImgRoot: config.goodsImgRoot,
 				bigImgArr: [], // 大图推荐商品
@@ -173,8 +176,8 @@
 				samllImgArrEnd: [], // 小图推荐 
 				swiperList: [],
 				isHasUserInfo: '',
-				openid: '',
-				totalVpoints: 0, // 剩余 积分数 
+				openid:'',
+				totalVpoints:'', // 剩余 积分数 
 				userInfo: {
 					avatarUrl: '',
 					nickName: '昵称'
@@ -200,6 +203,7 @@
 				}
 			});
 			getOpenidSD(); //获取山东 openid
+			
 		},
 		computed: {
 			// 当窗口 高度 大于800 是 重新 计算 盒子的上边距
@@ -225,14 +229,48 @@
 				})
 				return arr
 			},
+
 		},
 		onShow() {
+			
+			if (!getApp().globalData.xcxOpenid) { //是否有小程序openid
+				this.getOpenid().then(res => {
+					console.log(res)
+					getApp().globalData.xcxOpenid = res.openid;
+					getApp().globalData.sessionKey = res.session_key;
+					getApp().globalData.unionId = res.unionid;
+				})
+			}
+			
+			if (!getApp().globalData.openid) { //是否有openid
+				this.$store.dispatch('getOpenid').then(res => {
+					let [e, r] = res;
+					if (r) { //有openid
+						getApp().globalData.openid = r.data.openid;
+					} else { //重新获取
+						console.log(e)
+						uni.navigateTo({
+							url: '../getOpenid/getOpenid?getIdType=openid',
+						})
+					}
+				})
+			} else {
+				console.log(getApp().globalData.openid);
+				// 有分享者的openid
+				
+			}
+			
 			const that = this;
 			that.openid = that.openid ? that.openid : uni.getStorageSync('openid').openid;
-			if (that.openid) {
+			if(that.openid){
 				that.init();
+				
+				if(getApp().globalData.shareOpenid){
+					this.shareRecord();
+				}
 			}
 		},
+
 		/**
 		 * 用户点击右上角分享
 		 */
@@ -242,30 +280,63 @@
 				console.log(res.target);
 			}
 			return {
-				title: '青岛啤酒畅享山东',
+				title: '皇冠丹麦曲奇',
 				path: '/pages/index/index',
-				imageUrl: this.staticUrl + 'mall/shareImg.jpg?v=1'
+				imageUrl: this.staticUrl + 'fenxiangImg.png'
 			};
 		},
 
 		methods: {
+			async shareRecord(){ // 添加分享记录
+				var params = {
+					"openid": getApp().globalData.shareOpenid, // 分享人的openid
+					"clickOpenid":getApp().globalData.openid,
+				};
+				var jo = await requestPost('/taskShare/insertSharerecord',params);
+				console.log('分享'); // reply result replyTime
+				console.log(jo); // reply result replyTime
+				if(jo.result.code == 0){
+					if (jo.result.businessCode == 0) {
+						if(jo.reply){
+							var shareEarnVpoints = jo.reply.earnVpoints; //分享者赚取的积分
+							console.log(shareEarnVpoints);
+						}
+					} else {
+						uni.showModal({
+						  title: '提示',
+						  content: jo.result.msg,   
+						})
+					}
+				} else {
+					uni.showModal({
+					  title: '提示',
+					  content: jo.result.msg,            
+					})
+				}
+			},
+			async getOpenid() {  // 获取小程序openid
+				let xcxOpenid = await this.$store.dispatch('getXcxOpenid')
+				uni.setStorage({
+					key: 'xcxOpenid',
+					data: xcxOpenid  
+				})
+				return xcxOpenid
+			},
+			
 			init() {
 				const that = this;
 				//商品展示类型：1首页商品大图，2首页商品小图，3积分好礼
-				getShopGoodsRequst('1', 1, 100).then((res) => {
+				getShopGoodsRequst('1', 1, 3).then((res) => {
 					console.log('getShopGoodsRequst');
 					console.log(res);
 					that.bigImgArr = res.reply;
 				}); // 商品展示类型  当前页数 数量 
-				// 获取 小图推荐 数据
-				getShopGoodsRequst('2', 1, 100).then((res) => {
+
+				getShopGoodsRequst('2', 1, 4).then((res) => {
 					console.log('getShopGoodsRequst2');
 					console.log(res);
+					// that.samllImgArr = res.reply ;
 					const samllImgArr = res.reply;
-					samllImgArr.forEach((item) => {
-						// goodsUrl 返回多个 图片地址 用第一个
-						item.showImgUrl = item.goodsUrl.split(',')[0];
-					})
 					if (samllImgArr.length % 2 == 0) {
 						this.samllImgArr = samllImgArr;
 					} else {
@@ -288,15 +359,16 @@
 							})
 							swiperList.push(curItem)
 						})
+
 						this.swiperList = swiperList
 					});
-				getUserInfoRequst().then((res) => {
-					console.log('getUserInfoRequst');
-					console.log(res);
-					this.totalVpoints = Number(res.accountInfo.surplusVpoints) > 0 ? res.accountInfo.surplusVpoints : 0; //账户剩余积分
-				});
+					getUserBasics().then((res)=>{
+						console.log('getUserBasics');
+						console.log(res);
+						this.totalVpoints = Number(res.totalVpoints) > 0 ? res.totalVpoints : 0; //账户剩余积分
+					});
 			},
-
+			
 			cardSwiper(e) {
 				this.cardCur = e.detail.current
 			},
@@ -312,40 +384,9 @@
 					const that = this;
 					that.userInfo.avatarUrl = res.userInfo.avatarUrl;
 					that.userInfo.nickName = res.userInfo.nickName;
-					that.isHasUserInfo = true;
+					that.isHasUserInfo = true ;
 				});
 			},
-			//to商品详情
-			toGoodsDetail(goodsId) {
-				console.log('goodsId');
-				console.log(goodsId);
-				uni.navigateTo({
-					url: '/pages/goodsDetail/goodsDetail?id=' + goodsId + '&type='
-				})
-			},
-			//to商品详情
-			toGoodsDetailLeft(index) {
-				console.log('index');
-				console.log(index);
-				const goodsId = this.samllImgArr[index].goodsId;
-				uni.navigateTo({
-					url: '/pages/goodsDetail/goodsDetail?id=' + goodsId + '&type='
-				})
-			},
-			// 跳转商城 定义参数
-			toMall() {
-				getApp().globalData.from = 'jfhw'; // 跳转到 指定 tab
-				uni.switchTab({
-					url: '/pages/mall/mall'
-				})
-			},
-			// 跳转 积分 好礼 
-			toScore() {
-				uni.switchTab({
-					url: '/pages/score/score'
-				})
-			},
-
 		},
 
 	};
@@ -374,7 +415,7 @@
 
 	.banner-swiper {
 		width: 100%;
-		height: 740rpx;
+		height: 622rpx;
 
 		image {
 			width: 100%;
@@ -391,21 +432,17 @@
 			border-radius: 20px;
 			position: absolute;
 			left: 4%;
-			bottom: -26rpx;
-			// bottom: -80rpx;
+			bottom: -80rpx;
 
 			.wrap-header-usermes-left {
 				margin-left: 44rpx;
-
 				.wrap-header-usermes-img {
-					width: 125rpx;
-					height: 125rpx;
-					border: 3rpx solid #C9EBD1;
+					width: 128rpx;
+					height: 128rpx;
 					border-radius: 128rpx;
 					margin-right: 30rpx;
 					background: #f1f1f1;
-
-					// padding: 2rpx;
+					padding: 2rpx;
 					button,
 					image {
 						width: 100%;
@@ -413,7 +450,6 @@
 						border-radius: 154rpx;
 					}
 				}
-
 				.nickName {
 					color: #999999;
 					font-size: 26rpx;
@@ -430,11 +466,6 @@
 					color: #F3AB00;
 					font-size: 46rpx;
 				}
-
-				>view {
-					color: #333333;
-					font-size: 32rpx;
-				}
 			}
 		}
 	}
@@ -442,8 +473,7 @@
 	.center-tabs {
 		height: 206rpx;
 		width: 92%;
-		// margin-top: 100rpx;
-		margin-top: 46rpx;
+		margin-top: 100rpx;
 		margin-left: 4%;
 
 		>view {
@@ -509,42 +539,33 @@
 			.center-bigImg-list-datu {
 				width: 100%;
 				height: 316rpx;
-				display: block;
 			}
 
 			.center-bigImg-list-center {
-				padding: 32rpx 12rpx 30rpx 30rpx;
+				padding: 28rpx 30rpx 30rpx 30rpx;
 
 				.goodsName {
-					font-size: 30rpx;
+					font-size: 32rpx;
 					color: #000000;
 					font-weight: bolder;
 				}
 
 				.goodsMoney {
 					font-size: 24rpx;
-					color: #999999;
-					margin: 12rpx 0;
+					color: #656565;
+					margin: 16rpx 0;
 				}
 
 				.value {
-					font-size: 26rpx;
+					font-size: 34rpx;
 					color: #ED0000;
 					font-weight: bold;
-
-					>text {
-						font-size: 34rpx;
-					}
 				}
 
 				.valueOn {
-					font-size: 26rpx;
+					font-size: 34rpx;
 					color: #999999;
 					font-weight: bold;
-
-					>text {
-						font-size: 34rpx;
-					}
 				}
 
 				.center-bigImg-list-center-left {
@@ -605,7 +626,7 @@
 
 			.goodsMoney {
 				font-size: 22rpx;
-				color: #888888;
+				color: #878787;
 				margin: 16rpx 0;
 			}
 
@@ -613,56 +634,31 @@
 				font-size: 24rpx;
 				color: #ED0000;
 				font-weight: bold;
-
-				>text {
-					font-size: 30rpx;
-				}
 			}
 
 			.valueOn {
 				font-size: 24rpx;
 				color: #999999;
 				font-weight: bold;
-
-				>text {
-					font-size: 30rpx;
-				}
 			}
 
 			.bot-box {
 				margin: 34rpx 26rpx;
 			}
 		}
-
-		// 小图推荐
-		.top-box {
-			width: 100%;
-			height: 288rpx;
-			position: relative;
-
-			image {
-				width: 100%;
-				height: 100%;
-			}
-		}
-
-		.center-samllImg-lists-mask {
-			width: 210rpx;
-			height: 210rpx;
-			text-align: center;
-			line-height: 210rpx;
-			position: absolute;
-			left: 50%;
-			top: 50%;
-			transform: translate(-50%, -50%);
-			background: url($saoDianDe+'index/wukucunbeijing01.png') no-repeat;
-			background-size: 100% 100%;
-			color: #fff;
-			font-size: 32rpx;
-		}
 	}
 
-	.set {
+	// 小图推荐 
+	.top-box {
+		width: 100%;
+		height: 288rpx;
+
+		image {
+			width: 100%;
+			height: 100%;
+		}
+	}
+	.set{
 		color: #999999;
 		font-size: 24rpx;
 		text-align: center;

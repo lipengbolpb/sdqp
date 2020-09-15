@@ -6,14 +6,14 @@
 					<text class="icon">*</text>
 					<text class="subject">昵称</text>
 				</view>
-				<input type="text" v-model="nickName"  placeholder="昵称" class=""/>
+				<input type="text" v-model="nickName" disabled="true"  placeholder="昵称" class=""/>
 			</button>
 			<button class="item"  open-type='getUserInfo'  @getuserinfo="getUserInfo">
 				<view class="txt">
 					<text class="icon">*</text>
 					<text class="subject">性别</text>
 				</view>
-				<input type="text"  v-model="sex"  placeholder="性别" class=""/>
+				<input type="text"  v-model="sex" disabled="true"  placeholder="性别" class=""/>
 			</button>
 			<view class="item">
 				<view class="txt">
@@ -265,6 +265,7 @@
 					vertical-align: middle;
 					height: 100rpx;
 					line-height: 100rpx;
+					width: 60%;
 					image{
 						width: 15rpx;
 					}

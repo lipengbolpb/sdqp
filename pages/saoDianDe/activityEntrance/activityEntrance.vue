@@ -67,35 +67,35 @@
 			console.log('页面参数 options 176');
 			console.log(options);
 			
-			// const sweepstrUrl = options.q;
-			// this.sweepstr = sweepstrUrl;
+			const sweepstrUrl = options.q;
+			this.sweepstr = sweepstrUrl;
 			
-			const sweepstrUrl = decodeURIComponent(options.q);
+			// const sweepstrUrl = decodeURIComponent(options.q);
 			
 			getApp().globalData.sweepstr = sweepstrUrl; //目前用到 黑名单 填写信息 之后 回调本页 
 			
-			if (sweepstrUrl.indexOf('x.vjifen.com') != -1) {
-				//测试二维码
-				that.sweepstr = sweepstrUrl.split('VSD/')[1];
-			} else if (sweepstrUrl.indexOf('VJ1.TV/') != -1) {
-				that.sweepstr = sweepstrUrl.split('VSD/')[1];
-			} else if (sweepstrUrl.indexOf('vj1.tv/') != -1) {
-				that.sweepstr = sweepstrUrl.split('VSD/')[1];
-			} else {
-				that.sweepstr = '';
-				return uni.showModal({
-					title: '温馨提示',
-					content: '请扫描正确的活动二维码~',
-					showCancel: false,
-					success(res) {
-						if (res.confirm) {
-							uni.reLaunch({
-								url: '/pages/index/index'
-							});
-						}
-					}
-				});
-			}
+			// if (sweepstrUrl.indexOf('x.vjifen.com') != -1) {
+			// 	//测试二维码
+			// 	that.sweepstr = sweepstrUrl.split('VSD/')[1];
+			// } else if (sweepstrUrl.indexOf('VJ1.TV/') != -1) {
+			// 	that.sweepstr = sweepstrUrl.split('VSD/')[1];
+			// } else if (sweepstrUrl.indexOf('vj1.tv/') != -1) {
+			// 	that.sweepstr = sweepstrUrl.split('VSD/')[1];
+			// } else {
+			// 	that.sweepstr = '';
+			// 	return uni.showModal({
+			// 		title: '温馨提示',
+			// 		content: '请扫描正确的活动二维码~',
+			// 		showCancel: false,
+			// 		success(res) {
+			// 			if (res.confirm) {
+			// 				uni.reLaunch({
+			// 					url: '/pages/index/index'
+			// 				});
+			// 			}
+			// 		}
+			// 	});
+			// }
 			this.getOpenidSD();
 		},
 		onReady() {
@@ -134,7 +134,7 @@
 				// 来自页面内分享按钮
 			}
 			return {
-				title: '青岛啤酒畅享山东',
+				title: '青岛啤酒',
 				path: '/pages/index/index',
 				imageUrl: this.staticUrl + 'fenxiangImg.png'
 			};
@@ -323,6 +323,8 @@
 				that.wxOpenSettingIsShow = false;
 				// 关闭了 也要继续往下走
 				// 继续调用 接口
+				// that.getSweepQrcode('', '', that.sweepstr);
+
 				that.sweepTypeFun();
 			},
 			// 获取手机号
@@ -352,8 +354,11 @@
 				console.log('getSweepQrcodegetSweepQrcodegetSweepQrcodegetSweepQrcode');
 				const that = this;
 				var sendParams = {
+					// openid: that.openid,
 					openid: that.openid,
 					vjifenOpenid: that.vjifenOpenid,
+					// "openid": "oIwlotxQp-oond0xy_4zPENd4A_g",
+					// "vjifenOpenid": "oJMqvt7MsD4Dk9ZVEQDgFVyl2qNs",
 					sweepstr: sweepstr,
 					longitude: longitude, //"经度"
 					latitude: latitude, //"纬度"
@@ -402,8 +407,13 @@
 				// 			}
 				const that = this;
 				var sendParams = {
-					openid: that.openid,
-					vjifenOpenid: that.vjifenOpenid,
+					// openid: that.openid,
+					// "openid": "oIwlotxQp-oond0xy_4zPENd4A_g",
+					// "vjifenOpenid": "oJMqvt7MsD4Dk9ZVEQDgFVyl2qNs",
+
+					"openid": "oIwlotxQp-oond0xy_4zPENd4A_g",
+					"vjifenOpenid": "oJMqvt7MsD4Dk9ZVEQDgFVyl2qNs",
+
 					sweepstr: sweepstr,
 					longitude: longitude, //"经度"
 					latitude: latitude, //"纬度"

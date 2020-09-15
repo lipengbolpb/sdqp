@@ -2,7 +2,7 @@
 	<!-- 通用版本 提现成功 -->
 	<custom-template ctheight='1334' :ctbackground='ctbackground'>
 		<view class="codeScanned flex-xn-ys">
-			<!-- <uni-nav-bar :style="{ 'margin-top': safeAreaTop*2 + 'rpx' }" left-icon="back" @click-left="back" title="青岛啤酒畅享山东"></uni-nav-bar> -->
+			<!-- <uni-nav-bar :style="{ 'margin-top': safeAreaTop*2 + 'rpx' }" left-icon="back" @click-left="back" title="皇冠丹麦曲奇"></uni-nav-bar> -->
 			<view class="cs-center">
 				<view class="cs-center-title">
 					亲，您已将账户余额中的<text> {{ totalMoney }}元 </text>进行了提现看到消息后72小时之内要记得收钱哦～

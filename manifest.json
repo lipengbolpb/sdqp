@@ -59,7 +59,7 @@
         "setting" : {
             "urlCheck" : false,
             "minified" : true,
-            "es6" : true
+            "es6" : false
         },
         "permission" : {
             "scope.userLocation" : {
@@ -67,6 +67,6 @@
             }
         },
         "usingComponents" : true,
-        "navigateToMiniProgramAppIdList" : [ "wx1d5e0ffc015303ab", "wx1e63bbf67dddd854" ]
+		"navigateToMiniProgramAppIdList": ["wx1d5e0ffc015303ab","wx1e63bbf67dddd854"]
     }
 }
